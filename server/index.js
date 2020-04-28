@@ -49,7 +49,7 @@ const sessionOption = {
 	resave: true,
 	saveUninitialized: true,
 	cookie: {
-		path: '/', secure: false, httpOnly: true,
+		httpOnly: false,
 		expires: new Date(Date.now() + 86400000)
 	},
 	// store:store
@@ -116,7 +116,7 @@ router.get('/api/logout', function(req, res){
 
 
 router.get('/.*/', function(req, res) {
-	res.sendFile(path.join(__dirname, '/../dist/index.html'));
+	res.sendFile(path.join(__dirname + "/../dist/index.html"));
 });
 
 const port = process.env.API_PORT || 8081;
