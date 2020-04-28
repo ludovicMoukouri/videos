@@ -1,4 +1,4 @@
-const UsersConnect = require('../models/UsersConnect.js');
+const UsersConnect = require('../models/Usersconnect.js');
 
 module.exports.controller = (app) => {
 	app.post('/users/usersConnect', (req, res) => {
