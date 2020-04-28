@@ -63,6 +63,16 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 //connect to mongodb
+
+// const MongoClient = require('mongodb').MongoClient;
+// const uri = "mongodb+srv://ludovic:<password>@cluster0-tpowy.mongodb.net/test?retryWrites=true&w=majority";
+// const client = new MongoClient(uri, { useNewUrlParser: true });
+// client.connect(err => {
+//   const collection = client.db("test").collection("devices");
+//   // perform actions on the collection object
+//   client.close();
+// });
+
 mongoose.connect(config.DB, { useNewUrlParser: true, useUnifiedTopology: true }, function() {
 	console.log('Connection has been made');
 })
