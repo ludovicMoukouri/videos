@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const path = require('path');
 const morgan = require('morgan');
 const fs = require('fs');
 const session = require('express-session');
@@ -114,8 +115,8 @@ router.get('/api/logout', function(req, res){
 });
 
 
-router.get('/', function(req, res) {
-	res.json({ message: 'API Initialized!'});
+router.get('/.*/', function(req, res) {
+	res.sendFile(path.join(__dirname, '/dist/index.html'));
 });
 
 const port = process.env.API_PORT || 8081;
