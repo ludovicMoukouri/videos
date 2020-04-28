@@ -3,13 +3,13 @@ const bcryptjs = require('bcryptjs');
 
 const Schema = mongoose.Schema;
 
-const UsersConnectSchema = new Schema({
+const UsersconnectSchema = new Schema({
 	fullname: String,
 	email:String
 });
 
-const UsersConnect = mongoose.model('Userconnect', UsersConnectSchema);
-module.exports = UsersConnect;
+const Usersconnect = mongoose.model('Usersconnect', UsersconnectSchema);
+module.exports = Usersconnect;
 
 module.exports.createUserConnect = (newUserconnect, callback) => {
 			// store the hashed password
@@ -18,5 +18,5 @@ module.exports.createUserConnect = (newUserconnect, callback) => {
 
 module.exports.getUserConnectByEmail = (email, callback) => {
 	const query = { email };
-	UsersConnect.findOne(query, callback);
+	Usersconnect.findOne(query, callback);
 };
