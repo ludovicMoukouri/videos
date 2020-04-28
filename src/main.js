@@ -18,7 +18,7 @@ Vue.use(VueSwal);
 
 Vue.component('btn', Button);
 
-Vue.config.productionTip = false;
+Vue.config.productionTip = true;
 
 /* eslint-disable no-new */
 new Vue({
