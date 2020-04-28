@@ -91,7 +91,7 @@ fs.readdirSync("controllers").forEach(function (file) {
 });
 
 app.use(history());
-app.use(serveStatic(__dirname + "/../dist"));
+app.use('/', serveStatic(__dirname + "/../dist"));
 
 router.get('/api/current_user', isLoggedIn, function(req, res) {
 	if(req.user) {
@@ -116,7 +116,7 @@ router.get('/api/logout', function(req, res){
 
 
 router.get('/.*/', function(req, res) {
-	res.sendFile(path.join(__dirname, '/dist/index.html'));
+	res.sendFile(path.join(__dirname, '/../dist/index.html'));
 });
 
 const port = process.env.API_PORT || 8081;
