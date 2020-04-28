@@ -19,7 +19,9 @@
 import axios from 'axios';
 import { mapGetters } from 'vuex'
 import bus from './../bus';
-const ws = new WebSocket(`ws://localhost:8081`);
+const HOST = location.origin.replace(/^http/, 'ws')
+const ws = new WebSocket(HOST);
+// const ws = new WebSocket(`ws://localhost:8081`);
 
 export default {
   name: 'HelloWorld',
