@@ -88,8 +88,8 @@ export default {
     async login() {
       if (this.$refs.form.validate()) {
         try {
-          const email: this.email
-          const password: this.password
+          const email =  this.email
+          const password =  this.password
           const dataToSend = {
             email,
             password
