@@ -19,7 +19,7 @@
 import axios from 'axios';
 import { mapGetters } from 'vuex'
 import bus from './../bus';
-const HOST = location.origin.replace(/^https/, 'wss')
+const HOST = location.origin.replace(/^http/, 'ws')
 const ws = new WebSocket(HOST);
 // const ws = new WebSocket(`ws://v-video.herokuapp.com:21279`);
 
@@ -33,9 +33,8 @@ export default {
     this.fetchUser()
   },
   created() {
-    console.log(ws, 'wwwwwwsssssssssssssssssssssssss')
     const _this = this;
-    this.$store.dispatch('ws', ws)
+    this.$store.dispatch('wsAction', ws)
     ws.onopen = function () {
       console.log("Connected");
     };
@@ -80,7 +79,7 @@ export default {
       // Setup ice handling
       this.yourConnection.onicecandidate = function (event) {
         if (event.candidate) {
-          this.$store.dispatch("send", { type: 'candidate', candidate: event.candidate });
+          this.$store.dispatch("sendAction", { type: 'candidate', candidate: event.candidate });
         }
       };
     },
@@ -97,7 +96,7 @@ export default {
 
       this.yourConnection.createAnswer(function (answer) {
         this.yourConnection.setLocalDescription(answer);
-        _this.$store.dispatch("send", { type: 'answer', answer: answer });
+        _this.$store.dispatch("sendAction", { type: 'answer', answer: answer });
       }, function (error) {
         alert("An error has occurred");
       });
@@ -154,7 +153,7 @@ export default {
       _this.$store.dispatch("connectedUser", this.theirusername)
       // Begin the offer
       _this.yourConnection.createOffer(function (offer) {
-        _this.$store.dispatch("send", { type: 'offer', offer: offer });
+        _this.$store.dispatch("sendAction", { type: 'offer', offer: offer });
         _this.yourConnection.setLocalDescription(offer);
       }, function (error) {
         alert("An error has occurred.");
@@ -186,7 +185,7 @@ export default {
           email: email,
         }
         this.fetchUsersConnect(dataval)
-        this.$store.dispatch("send", { type: 'login', name: nameval });
+        this.$store.dispatch("sendAction", { type: 'login', name: nameval });
       })
       .catch(() => {
       });

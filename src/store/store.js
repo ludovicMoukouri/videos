@@ -41,7 +41,7 @@ const mutations = {
       payload.name = state.connectedUser;
     }
     state.send = state.ws.send(JSON.stringify(payload));
-    // return state.send;
+    return state.send;
   },
 };
 
@@ -58,10 +58,10 @@ const actions = {
   connectedUser: (context, payload) => {
     context.commit('ConnectedUser', payload);
   },
-  send: (context, payload) => {
+  sendAction: (context, payload) => {
     context.commit('Send', payload);
   },
-  ws: (context, payload) => {
+  wsAction: (context, payload) => {
     context.commit('Ws', payload);
   },
 };
