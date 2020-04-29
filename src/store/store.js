@@ -60,8 +60,6 @@ const actions = {
     context.commit('SendMutation', payload);
     return await state.ws.send(JSON.stringify(payload));
   },
-    context.commit('SendMutation', payload);
-  },
   wsAction: (context, payload) => {
     context.commit('Ws', payload);
   },
