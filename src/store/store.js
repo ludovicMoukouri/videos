@@ -38,6 +38,7 @@ const mutations = {
   },
 	SendMutation: function (state, payload) {
     state.sendState = payload;
+  }
 };
 
 const actions = {
