@@ -54,7 +54,7 @@ const actions = {
   connectedUser: (context, payload) => {
     context.commit('ConnectedUser', payload);
   },
-  async sendAction: (context, payload) => {
+  sendAction: (context, payload) => {
     if (state.connectedUser) {
       payload.name = state.connectedUser;
     }
