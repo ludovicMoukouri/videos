@@ -37,12 +37,7 @@ const mutations = {
     state.connectedUser = payload;
   },
 	SendMutation: function (state, payload) {
-    if (state.connectedUser) {
-      payload.name = state.connectedUser;
-    }
-    state.sendState = state.ws.send(JSON.stringify(payload));
-    return state.sendState;
-  },
+    state.sendState = payload;
 };
 
 const actions = {
@@ -58,7 +53,13 @@ const actions = {
   connectedUser: (context, payload) => {
     context.commit('ConnectedUser', payload);
   },
-  sendAction: (context, payload) => {
+  async sendAction: (context, payload) => {
+    if (state.connectedUser) {
+      payload.name = state.connectedUser;
+    }
+    context.commit('SendMutation', payload);
+    return await state.ws.send(JSON.stringify(payload));
+  },
     context.commit('SendMutation', payload);
   },
   wsAction: (context, payload) => {
