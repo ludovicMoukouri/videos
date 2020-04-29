@@ -19,9 +19,9 @@
 import axios from 'axios';
 import { mapGetters } from 'vuex'
 import bus from './../bus';
-// const HOST = location.origin.replace(/^http/, 'ws')
-// const ws = new WebSocket(HOST);
-const ws = new WebSocket(`wss://v-video.herokuapp.com`);
+const HOST = location.origin.replace(/^https/, 'wss')
+const ws = new WebSocket(HOST);
+// const ws = new WebSocket(`ws://v-video.herokuapp.com:21279`);
 
 export default {
   name: 'HelloWorld',
@@ -33,6 +33,7 @@ export default {
     this.fetchUser()
   },
   created() {
+    console.log(ws, 'wwwwwwsssssssssssssssssssssssss')
     const _this = this;
     this.$store.dispatch('ws', ws)
     ws.onopen = function () {
