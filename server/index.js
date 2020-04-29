@@ -73,8 +73,7 @@ app.use(passport.session());
 //   // perform actions on the collection object
 //   client.close();
 // });
-
-mongoose.connect(config.DB, { useNewUrlParser: true, useUnifiedTopology: true }, function() {
+mongoose.connect(process.env.DATABASE_URL || config.DB, { useNewUrlParser: true, useUnifiedTopology: true }, function() {
 	console.log('Connection has been made');
 })
 .catch(err => {

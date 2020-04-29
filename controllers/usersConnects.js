@@ -19,7 +19,7 @@ module.exports.controller = (app) => {
 	});
 
 	app.get('/users/usersConnect/:email', (req, res) => {
-			const email = 'ludovicmoukouri@yahoo.fr'
+			const email = req.params.email
 			UsersConnect.getUserConnectByEmail(email, (err, userConnect) =>{
 				if(!userConnect) {
 					return res.send({ userConnect: 'no user' })
