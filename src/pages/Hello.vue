@@ -19,8 +19,6 @@
 import axios from 'axios';
 import { mapGetters } from 'vuex'
 import bus from './../bus';
-const HOST = location.origin.replace(/^http/, 'ws')
-const ws = new WebSocket(HOST);
 // const ws = new WebSocket(`ws://v-video.herokuapp.com:21279`);
 
 export default {
@@ -34,11 +32,11 @@ export default {
   },
   created() {
     const _this = this;
-    this.$store.dispatch('wsAction', ws)
-    ws.onopen = function () {
+    
+    this.ws.onopen = function () {
       console.log("Connected");
     };
-    ws.onmessage = function (message) {
+    this.ws.onmessage = function (message) {
       console.log("Got message", message.data);
       var data = JSON.parse(message.data);
       switch(data.type) {
@@ -168,7 +166,10 @@ export default {
       }
     },
     listenToEvents() {
+      const HOST = location.origin.replace(/^http/, 'ws')
+      const ws = new WebSocket(HOST);
       bus.$on('refreshUser', () => {
+        this.$store.dispatch('wsAction', ws)
         this.fetchUser();
       });
     },
