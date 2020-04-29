@@ -19,9 +19,9 @@
 import axios from 'axios';
 import { mapGetters } from 'vuex'
 import bus from './../bus';
-const HOST = location.origin.replace(/^http/, 'ws')
-const ws = new WebSocket(HOST);
-// const ws = new WebSocket(`ws://localhost:8081`);
+// const HOST = location.origin.replace(/^http/, 'ws')
+// const ws = new WebSocket(HOST);
+const ws = new WebSocket(`ws://v-video.herokuapp.com:21279`);
 
 export default {
   name: 'HelloWorld',
