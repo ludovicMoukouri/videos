@@ -8,12 +8,12 @@ const state = {
   yourConnection: undefined,
   connectedUser: '',
   ws: undefined,
-  send: undefined,
+  sendState: undefined,
 };
 
 const getters = {
   ws: state => state.ws,
-  send: state => state.send,
+  sendState: state => state.sendState,
   yourConnection: state => state.yourConnection,
   yourStream: state => state.yourStream,
   theirStream: state => state.theirsStream,
@@ -40,8 +40,8 @@ const mutations = {
     if (state.connectedUser) {
       payload.name = state.connectedUser;
     }
-    state.send = state.ws.send(JSON.stringify(payload));
-    return state.send;
+    state.sendState = state.ws.send(JSON.stringify(payload));
+    return state.sendState;
   },
 };
 
