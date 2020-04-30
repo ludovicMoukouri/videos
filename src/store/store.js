@@ -40,8 +40,9 @@ const mutations = {
     if (state.connectedUser) {
       payload.name = state.connectedUser;
     }
-    state.sendState = state.ws.send(JSON.stringify(payload));
-    return state.sendState;
+    state.sendState = payload
+    state.ws.send(JSON.stringify(payload));
+    
   },
 };
 
@@ -92,5 +93,4 @@ export const store = new Vuex.Store({
   getters,
   mutations,
   actions,
-  strict: process.env.NODE_ENV === 'production'
 });
