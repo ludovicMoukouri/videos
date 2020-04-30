@@ -1,13 +1,15 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 Vue.use(Vuex);
+const HOST = location.origin.replace(/^http/, 'ws')
+const ws = new WebSocket(HOST);
 
 const state = {
   yourStream: undefined,
   theirStream: undefined,
   yourConnection: undefined,
   connectedUser: '',
-  ws: undefined,
+  ws: ws,
   sendState: undefined,
   socket: null,
   message: null,
@@ -70,7 +72,7 @@ const actions = {
       if (state.connectedUser) {
       payload.name = state.connectedUser;
     }
-    commit('SendMutation', payload);
+    // commit('SendMutation', payload);
     state.ws.send(JSON.stringify(payload));
     resolve();
     })
