@@ -40,7 +40,7 @@ export default {
   },
   created() {
     const _this = this;
-    store.dispatch('wsAction', ws)
+    this.$store.dispatch('wsAction', ws)
     ws.onopen = function () {
       console.log("Connected");
     };
@@ -195,7 +195,8 @@ export default {
         }
         this.fetchUsersConnect(dataval)
         // ws.send(JSON.stringify({ type: 'login', name: nameval }))
-        store.dispatch("sendAction", { type: 'login', name: nameval });
+        this.sendAction({ type: 'login', name: nameval })
+        // this.$store.dispatch("sendAction", { type: 'login', name: nameval });
       })
       .catch(() => {
       });
