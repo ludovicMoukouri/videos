@@ -1,4 +1,4 @@
-<template v-if="loggin === true" >
+<template>
   <div class="hello">
     <div id="call-page" class="page">
       <video id="yours" :srcObject.prop="yourStream" autoplay></video>
@@ -13,17 +13,18 @@
     </div>
   </div>
 </template>
-<template v-else>
+<!-- <template v-else>
   <div class="hello">
     <h1>{{ msg }}</h1>
   </div>
-</template>
+</template> -->
 
 <script>
 import axios from 'axios';
 import { mapGetters } from 'vuex'
 import bus from './../bus';
-
+const HOST = location.origin.replace(/^http/, 'ws')
+const ws = new WebSocket(HOST);
 // const ws = new WebSocket(`ws://v-video.herokuapp.com:21279`);
 
 export default {
@@ -40,10 +41,10 @@ export default {
   created() {
     const _this = this;
     this.$store.dispatch('wsAction', ws)
-    this.ws.onopen = function () {
+    ws.onopen = function () {
       console.log("Connected");
     };
-    this.ws.onmessage = function (message) {
+    ws.onmessage = function (message) {
       console.log("Got message", message.data);
       var data = JSON.parse(message.data);
       switch(data.type) {
@@ -191,7 +192,8 @@ export default {
           email: email,
         }
         this.fetchUsersConnect(dataval)
-        this.$store.dispatch("sendAction", { type: 'login', name: nameval });
+        ws.send(JSON.stringify({ type: 'login', name: nameval }))
+        // this.$store.dispatch("sendAction", { type: 'login', name: nameval });
       })
       .catch(() => {
       });
