@@ -27,7 +27,7 @@ app.post('/users/register', (req, res) => {
 				message: `Le pseudo ${pseudo} existe deja`,
 			});
 		}
-		res.send({user: {pseudo: user.pseudo} });
+		res.send({user: {pseudo: user.pseudo, fullname: user.fullname} });
 	});
 });
 

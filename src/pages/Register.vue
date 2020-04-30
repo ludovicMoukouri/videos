@@ -103,7 +103,7 @@ export default {
           };
           const response = await services.signup(dataToSend);
           this.$swal(
-            `Great! ${response.user}`,
+            `Great! ${response.user.fullname}`,
             'Your account are created successfully!',
             'success',
           );

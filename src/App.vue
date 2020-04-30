@@ -104,7 +104,7 @@ export default {
       })
         .then(() => {
           bus.$emit('refreshUser');
-          this.$router.push({ name: 'Home' });
+          this.$router.push({ name: 'Hello' });
         })
         .catch(() => {
         });

@@ -101,7 +101,7 @@ export default {
           } else {
             await services.login(dataToSend);
             bus.$emit('refreshUser');
-            this.$router.push({ name: 'Hello' });
+            this.$router.push({ name: 'Video' });
           }
           
         } catch (error) {

@@ -9,6 +9,8 @@ const state = {
   connectedUser: '',
   ws: undefined,
   sendState: undefined,
+  socket: null,
+  message: null,
 };
 
 const getters = {
@@ -18,6 +20,8 @@ const getters = {
   yourStream: state => state.yourStream,
   theirStream: state => state.theirsStream,
   connectedUser: state => state.connectedUser,
+  socket: state => state.socket,
+  message: state => state.message,
 };
 
 const mutations = {
@@ -38,6 +42,12 @@ const mutations = {
   },
 	SendMutation: function (state, payload) {
     state.sendState = payload;
+  },
+  SET_SOCKET: function (state, socket) {
+    state.socket = socket;
+  },
+  SET_MESSAGE: function (state, message) {
+    state.message = message;
   }
 };
 
@@ -59,11 +69,32 @@ const actions = {
       payload.name = state.connectedUser;
     }
     context.commit('SendMutation', payload);
-    return await state.ws.send(JSON.stringify(payload));
+    state.ws.send(JSON.stringify(payload));
   },
   wsAction: (context, payload) => {
     context.commit('Ws', payload);
   },
+  // Socket: ({commit, dispatch}, url) => {
+  //   const ws = new Websocket('ws://localhost:8081')
+  //   ws.onopen = () => dispatch('ONOPEN')
+  //   ws.onmessage = e => dispatch('ONMESSAGE', e.data)
+  //   ws.onclose = () => dispatch('ONCLOSE')
+  //   commit('SET_SOCKET', ws)
+  // },
+  // ONOPEN (state) {
+  //   console.log('ws connected')
+  // },
+  // ONMESSAGE ({commit}, message) {
+  //   try {
+  //     message = JSON.parse(message)
+  //   } catch (e) {
+  //     //
+  //   }
+  //   commit('SET_MESSAGE', message)
+  // },
+  // ONCLOSE (state) {
+  //   console.log('ws disconnected')
+  // }
 };
 
 export const store = new Vuex.Store({
