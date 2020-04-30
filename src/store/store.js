@@ -1,18 +1,14 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 Vue.use(Vuex);
-const HOST = location.origin.replace(/^http/, 'ws')
-const ws = new WebSocket(HOST);
 
 const state = {
   yourStream: undefined,
   theirStream: undefined,
   yourConnection: undefined,
   connectedUser: '',
-  ws: ws,
+  ws: undefined,
   sendState: undefined,
-  socket: null,
-  message: null,
 };
 
 const getters = {
@@ -22,8 +18,6 @@ const getters = {
   yourStream: state => state.yourStream,
   theirStream: state => state.theirsStream,
   connectedUser: state => state.connectedUser,
-  socket: state => state.socket,
-  message: state => state.message,
 };
 
 const mutations = {
@@ -43,14 +37,12 @@ const mutations = {
     state.connectedUser = payload;
   },
 	SendMutation: function (state, payload) {
-    state.sendState = payload;
+    if (state.connectedUser) {
+      payload.name = state.connectedUser;
+    }
+    state.sendState = state.ws.send(JSON.stringify(payload));
+    return state.sendState;
   },
-  SET_SOCKET: function (state, socket) {
-    state.socket = socket;
-  },
-  SET_MESSAGE: function (state, message) {
-    state.message = message;
-  }
 };
 
 const actions = {
@@ -66,21 +58,13 @@ const actions = {
   connectedUser: (context, payload) => {
     context.commit('ConnectedUser', payload);
   },
-  sendAction ({commit}, payload) {
-    return new Promise((resolve, reject) =>{
-
-      if (state.connectedUser) {
-      payload.name = state.connectedUser;
-    }
-    // commit('SendMutation', payload);
-    state.ws.send(JSON.stringify(payload));
-    resolve();
-    })
+  sendAction: (context, payload) => {
+    context.commit('SendMutation', payload);
   },
   wsAction: (context, payload) => {
     context.commit('Ws', payload);
   },
-  // Socket: ({commit, dispatch}, url) => {
+    // Socket: ({commit, dispatch}, url) => {
   //   const ws = new Websocket('ws://localhost:8081')
   //   ws.onopen = () => dispatch('ONOPEN')
   //   ws.onmessage = e => dispatch('ONMESSAGE', e.data)
@@ -108,5 +92,5 @@ export const store = new Vuex.Store({
   getters,
   mutations,
   actions,
-  strict: process.env.NODE_ENV !== 'production'
+  strict: process.env.NODE_ENV === 'production'
 });
