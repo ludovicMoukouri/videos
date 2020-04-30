@@ -64,12 +64,16 @@ const actions = {
   connectedUser: (context, payload) => {
     context.commit('ConnectedUser', payload);
   },
-  sendAction: (context, payload) => {
-    if (state.connectedUser) {
+  sendAction ({commit}, payload) {
+    return new Promise((resolve, reject) =>{
+
+      if (state.connectedUser) {
       payload.name = state.connectedUser;
     }
-    context.commit('SendMutation', payload);
+    commit('SendMutation', payload);
     state.ws.send(JSON.stringify(payload));
+    resolve();
+    })
   },
   wsAction: (context, payload) => {
     context.commit('Ws', payload);
