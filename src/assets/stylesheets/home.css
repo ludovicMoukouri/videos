@@ -21,6 +21,15 @@ a.side_bar_link {
 	text-decoration: none;
 }
 
+.aside_left {
+	background-color: #ffffff45;
+}
+
+@media only screen and (max-width: 765px) {
+	.nav_head{ margin:0 0 0 18%;
+	width: 60%; }
+}
+
 .btn.facebook {
 background-color: #3b5998 !important;
 border-color: #2196f3;
@@ -41,7 +50,6 @@ background-color: #4875B4 !important;
 border-color: #4875B4;
 color: #fff !important;
 }
-
 /*body {
 	background-color: #3D6DF2;
 	margin-top: 15px;

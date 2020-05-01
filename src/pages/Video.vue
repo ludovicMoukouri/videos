@@ -85,7 +85,12 @@ export default {
       // Setup ice handling
       this.yourConnection.onicecandidate = function (event) {
         if (event.candidate) {
-          this.$store.dispatch("sendAction", { type: 'candidate', candidate: event.candidate });
+          if (this.connectedUser) {
+      ws.send(JSON.stringify({ type: 'candidate', candidate: event.candidate, 
+        name: this.connectedUser }));
+    } else {ws.send(JSON.stringify({ type: 'candidate', candidate: event.candidate }));}
+    
+          // this.$store.dispatch("sendAction", { type: 'candidate', candidate: event.candidate });
         }
       };
     },
@@ -194,8 +199,8 @@ export default {
           email: email,
         }
         this.fetchUsersConnect(dataval)
-        // ws.send(JSON.stringify({ type: 'login', name: nameval }))
-        this.sendAction({ type: 'login', name: nameval })
+        ws.send(JSON.stringify({ type: 'login', name: nameval }))
+        // this.sendAction({ type: 'login', name: nameval })
         // this.$store.dispatch("sendAction", { type: 'login', name: nameval });
       })
       .catch(() => {
