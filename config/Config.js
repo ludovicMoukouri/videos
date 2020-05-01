@@ -1,5 +1,5 @@
 module.exports = {
-DB: 'mongodb://localhost/video',
+DB: 'mongodb+srv://ludovic:MludMongodb16@cluster0-tpowy.mongodb.net/test?retryWrites=true&w=majority',
 SECRET: 'movieratingapplicationsecretkey',
 // FACEBOOK_APP_ID: '665542867611115', for moiledoux@yahoo.fr
 // FACEBOOK_APP_SECRET: '4589a8da15955a11d18d0dcf35f3d597', for moiledoux@yahoo.fr
