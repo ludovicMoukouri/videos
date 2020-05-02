@@ -59,7 +59,7 @@ app.post('/users/register', (req, res) => {
 
 app.post('/users/login', passport.authenticate('local', { failureRedirect: '/users/login' }),
  (req, res) => {
- 	res.redirect('/');
+ 	res.redirect('/video');
 });
 
 passport.serializeUser(function(user, done) {

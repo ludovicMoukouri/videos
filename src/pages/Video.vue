@@ -69,7 +69,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['yourStream', 'theirStream', 'yourConnection', 'connectedUser', 'ws', 'sendMessage']),
+    ...mapGetters(['yourStream', 'theirStream', 'yourConnection', 'connectedUser', 'ws', 'sendState']),
     onLogin: function (success) {
       if (success === false) {
         alert("Login unsuccessful, please try a different name.");

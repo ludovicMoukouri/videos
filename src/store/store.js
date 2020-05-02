@@ -41,7 +41,7 @@ const mutations = {
       payload.name = state.connectedUser;
     }
     state.sendState = payload
-    state.ws.send(JSON.stringify(payload));
+    return state.ws.send(JSON.stringify(payload));
     
   },
 };
