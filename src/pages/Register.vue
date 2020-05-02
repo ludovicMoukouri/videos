@@ -21,7 +21,6 @@
             <Input
             label="Full Name*"
             :vmodel="fullname"
-            :rules="emailRules"
             />
             <Input
             label="Email*"
@@ -32,14 +31,15 @@
             type="password"
             label="Password*"
             :vmodel="password"
+            ref="password"
             />
             <Input
             type="password"
             name="input-7-1"
             label="Confirm Password"
             :vmodel="confirm_password"
+            validate="'required|confirmed:password'"
             />
-            ></v-text-field>
             <btn
             label="Sign Up"
             :disabled="!valid"

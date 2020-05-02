@@ -3,6 +3,7 @@
 		<v-text-field
 		outlined
 		dense
+		:type="type"
 		:label="label"
 		v-model="vmodel"
 		:rules="rules"
@@ -24,6 +25,10 @@ export default {
 			required: true
 		},
 		rules: {
+			type: String,
+			required: false
+		},
+		type: {
 			type: String,
 			required: false
 		},

@@ -15,16 +15,24 @@
         <v-card-text>
             <v-layout class="login" row wrap>
             <v-flex xs12 sm12 md6>
+              <v-card
+              flat
+              style="margin: 0 0 0 7%">
               <a class="btn facebook" href="/login/facebook"> 
                 <img :src="images.facebookIcon" class="imgLogin"> 
                  Login with facebook
              </a>
+           </v-card>
           </v-flex>
           <v-flex xs12 sm12 md6>
+            <v-card
+            flat
+              style="margin: 0 7% 0 0">
               <a class="btn google" href="/login/google"> 
               <img :src="images.googleIcon" class="imgLogin"> 
             Login with google
            </a>
+         </v-card>
           </v-flex>
         </v-layout>
           <v-form v-model="valid" ref="form" lazy-validation>
