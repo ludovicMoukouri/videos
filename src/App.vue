@@ -1,6 +1,6 @@
 <template>
   <v-app id="inspire">
-    <Navbar />
+    <Navbar :currentuser="current_user" />
 <v-content>
   <v-container fluid>
     <div id="app">
