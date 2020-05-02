@@ -37,7 +37,7 @@ module.exports.controller = (app) => {
 app.get('/login/google/return',
 	passport.authenticate('google', { failureRedirect: '/login' }),
 	(req, res) => {
-		res.redirect('/');
+		res.redirect('/video');
 	});
 
 	passport.serializeUser(function(user, done) {
