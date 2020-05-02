@@ -172,8 +172,8 @@ export default {
     },
   },
   methods: {
-    ...mapActions (['wsAction', 'sendAction', 'connectedUser', 'yourConnectionAction', 
-      'addTheirStream', 'addYourStream']),
+    // ...mapActions (['wsAction', 'sendAction', 'connectedUser', 'yourConnectionAction', 
+    //   'addTheirStream', 'addYourStream']),
     callButton() {
       const theirusernameInput = this.theirusername;
       if (theirusernameInput.length > 0) {
