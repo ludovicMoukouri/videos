@@ -3,10 +3,10 @@
 		<v-text-field
 		outlined
 		dense
-		:type="type"
+		:type="typeprops"
 		:label="label"
-		v-model="vmodel"
-		:rules="rules"
+		:v-model="vmodel"
+		:rules="rulespros"
 		required
 		>
 	</v-text-field>
@@ -15,6 +15,16 @@
 
 <script>
 export default {
+	data: () => ({
+    fullnameRules: [
+    v => !!v || 'Name is required',
+    v => (v && v.length <= 10) || 'Name must be less than 10 characters',
+    ],
+    emailRules: [
+    v => !!v || 'E-mail is required',
+    v => /\S+@\S+\.\S+/.test(v) || 'E-mail must be valid',
+    ],
+  }),
 	props: {
 		label: {
 			type: String,
@@ -24,11 +34,11 @@ export default {
 			type: String,
 			required: true
 		},
-		rules: {
+		rulespros: {
 			type: String,
 			required: false
 		},
-		type: {
+		typeprops: {
 			type: String,
 			required: false
 		},

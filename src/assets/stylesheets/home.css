@@ -27,7 +27,22 @@ a.side_bar_link {
 
 @media only screen and (max-width: 765px) {
 	.nav_head{ margin:0 0 0 18%;
-	width: 60%; }
+	width: 60%; 
+}
+.btn_sign {
+	margin: 0 0 0 0
+}
+.btn_sign_mobil {
+	margin: 0 0 0 15%
+}
+}
+@media only screen and (min-width: 765px) {
+.btn_sign_mobil {
+	margin: 0 0 0 0
+}
+.btn_sign {
+	margin: 0 0 0 15%
+}
 }
 
 .btn.facebook {

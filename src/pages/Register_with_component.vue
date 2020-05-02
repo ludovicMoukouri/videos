@@ -14,51 +14,37 @@
         <h6 class="card-title" v-if="current_user" @click="rate">Rate this movie</h6>
         <v-card-text>
           <v-form v-model="valid" ref="form" lazy-validation>
-            <v-text-field
-            outlined
-            dense
-            label="Pseudo*"
-            v-model="pseudo"
-            required
-            ></v-text-field>
-            <v-text-field
-            outlined
-            dense
+            <Input
+            label="Pseudo"
+            :vmodel="pseudo"
+            />
+            <Input
             label="Full Name*"
-            v-model="fullname"
-            required
-            ></v-text-field>
-            <v-text-field
-            outlined
-            dense
+            :vmodel="fullname"
+            rulespros="fullnameRules"
+            />
+            <Input
             label="Email*"
-            v-model="email"
-            :rules="emailRules"
-            required
-            ></v-text-field>
-            <v-text-field
-            outlined
-            dense
-            type="password"
+            :vmodel="email"
+            rulespros="emailRules"
+            />
+            <Input
+            typeprops="password"
             label="Password*"
-            v-model="password"
-            required
-            ></v-text-field>
-            <v-text-field
-            outlined
-            dense
-            type="password"
+            :vmodel="password"
+            />
+            <Input
+            typeprops="password"
             name="input-7-1"
             label="Confirm Password"
-            v-model="confirm_password"
-            required
-            ></v-text-field>
+            :vmodel="confirm_password"
+            />
             <v-checkbox
-          v-model="checkbox"
-          :rules="[v => !!v || 'You must agree to continue!']"
-          label="Do you agree?"
-          required
-        ></v-checkbox>
+            v-model="checkbox"
+            rulespros="[v => !!v || 'You must agree to continue!']"
+            label="Do you agree?"
+            required
+            ></v-checkbox>
             <btn
             label="Sign Up"
             :disabled="!valid"
@@ -92,9 +78,13 @@ export default {
     password: '',
     erreur: '',
     confirm_password: '',
+    fullnameRules: [
+    v => !!v || 'Name is required',
+    v => (v && v.length <= 10) || 'Name must be less than 10 characters',
+    ],
     emailRules: [
-      v => !!v || 'E-mail is required',
-      v => /\S+@\S+\.\S+/.test(v) || 'E-mail must be valid',
+    v => !!v || 'E-mail is required',
+    v => /\S+@\S+\.\S+/.test(v) || 'E-mail must be valid',
     ],
   }),
   methods: {
@@ -112,7 +102,7 @@ export default {
             `Great! ${response.user.fullname}`,
             'Your account are created successfully!',
             'success',
-          );
+            );
           this.$router.push({ name: 'Login' });
         } catch (error) {
           const message = error.response.data.message;
