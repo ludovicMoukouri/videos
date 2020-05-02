@@ -13,7 +13,7 @@
         </v-card-title>
         <!-- <h6 class="card-title" v-if="current_user" @click="rate">Rate this movie</h6> -->
         <v-card-text>
-          <div class="login">
+            <v-layout class="login" row wrap>
             <v-flex xs12 sm12 md6>
               <a class="btn facebook" href="/login/facebook"> 
                 <img :src="images.facebookIcon" class="imgLogin"> 
@@ -26,7 +26,7 @@
             Login with google
            </a>
           </v-flex>
-          </div>
+        </v-layout>
           <v-form v-model="valid" ref="form" lazy-validation>
             <Input
             label="Email"
