@@ -68,6 +68,9 @@
 </template>
 
 <script>
+import axios from 'axios';
+import bus from './../bus';
+
 export default {
 	data() {
 		return {
@@ -79,6 +82,28 @@ export default {
 			type: String,
 			require: true,
 		},
+	},
+	mounted() {
+		this.normalizedSize()
+	},
+	computed: {
+		normalizedSize: function () {
+    return this.currentuser.trim().toLowerCase()
+  }
+	},
+	methods: {
+		async logout() {
+      return axios({
+        method: 'get',
+        url: '/api/logout',
+      })
+        .then(() => {
+          bus.$emit('refreshUser');
+          this.$router.push({ name: 'Hello' });
+        })
+        .catch(() => {
+        });
+    },
 	}
 };
 </script>

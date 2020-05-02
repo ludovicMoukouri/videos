@@ -1,6 +1,7 @@
 <template>
   <v-app id="inspire">
-    <Navbar :currentuser="current_user" />
+    <Navbar 
+    :currentuser="current_user" />
 <v-content>
   <v-container fluid>
     <div id="app">
@@ -46,18 +47,6 @@ export default {
       })
         .then((response) => {
           this.current_user = response.data.current_user;
-        })
-        .catch(() => {
-        });
-    },
-    logout() {
-      return axios({
-        method: 'get',
-        url: '/api/logout',
-      })
-        .then(() => {
-          bus.$emit('refreshUser');
-          this.$router.push({ name: 'Hello' });
         })
         .catch(() => {
         });
