@@ -14,31 +14,30 @@
         <!-- <h6 class="card-title" v-if="current_user" @click="rate">Rate this movie</h6> -->
         <v-card-text>
           <div class="login">
-            <a class="btn facebook" href="/login/facebook"> 
-              <img :src="images.facebookIcon" class="imgLogin"> 
-            Login with facebook</a>
-            <a class="btn google" href="/login/google"> 
+            <v-flex xs12 sm12 md6>
+              <a class="btn facebook" href="/login/facebook"> 
+                <img :src="images.facebookIcon" class="imgLogin"> 
+                 Login with facebook
+             </a>
+          </v-flex>
+          <v-flex xs12 sm12 md6>
+              <a class="btn google" href="/login/google"> 
               <img :src="images.googleIcon" class="imgLogin"> 
             Login with google
            </a>
+          </v-flex>
           </div>
           <v-form v-model="valid" ref="form" lazy-validation>
-            <v-text-field
-            outlined
-            dense
+            <Input
             label="Email"
-            v-model="email"
+            :vmodel="email"
             :rules="emailRules"
-            required
-            ></v-text-field>
-            <v-text-field
-            outlined
-            dense
+            />
+            <Input
             label="Password"
-            v-model="password"
+            :vmodel="password"
             :rules="passwordRules"
-            required
-            ></v-text-field>
+            />
             <btn
             label="Sign In"
             :disabled="!valid"

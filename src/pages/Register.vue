@@ -14,44 +14,31 @@
         <h6 class="card-title" v-if="current_user" @click="rate">Rate this movie</h6>
         <v-card-text>
           <v-form v-model="valid" ref="form" lazy-validation>
-            <v-text-field
-            outlined
-            dense
-            label="Pseudo*"
-            v-model="pseudo"
-            required
-            ></v-text-field>
-            <v-text-field
-            outlined
-            dense
+            <Input
+            label="Pseudo"
+            :vmodel="pseudo"
+            />
+            <Input
             label="Full Name*"
-            v-model="fullname"
-            required
-            ></v-text-field>
-            <v-text-field
-            outlined
-            dense
-            label="Email*"
-            v-model="email"
+            :vmodel="fullname"
             :rules="emailRules"
-            required
-            ></v-text-field>
-            <v-text-field
-            outlined
-            dense
+            />
+            <Input
+            label="Email*"
+            :vmodel="email"
+            :rules="emailRules"
+            />
+            <Input
             type="password"
             label="Password*"
-            v-model="password"
-            required
-            ></v-text-field>
-            <v-text-field
-            outlined
-            dense
+            :vmodel="password"
+            />
+            <Input
             type="password"
             name="input-7-1"
             label="Confirm Password"
-            v-model="confirm_password"
-            required
+            :vmodel="confirm_password"
+            />
             ></v-text-field>
             <btn
             label="Sign Up"

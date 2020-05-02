@@ -80,7 +80,7 @@ export default {
 	props: {
 		currentuser: {
 			type: String,
-			require: true,
+			required: true,
 		},
 	},
 	mounted() {
@@ -88,7 +88,7 @@ export default {
 	},
 	computed: {
 		normalizedSize: function () {
-    return this.currentuser.trim().toLowerCase()
+    return this.currentuser.fullname.trim().toLowerCase()
   }
 	},
 	methods: {

@@ -9,24 +9,18 @@ import Vuetify from 'vuetify';
 import VueSwal from 'vue-swal';
 import Button from '@/components/Button';
 import Navbar from '@/components/Navbar';
+import InputComponent from '@/components/InputComponent';
 import App from '@/App';
 import { store } from './store/store';
 import router from '@/router';
 
 Vue.use(BootstrapVue);
-Vue.use(Vuetify, {
-	inconfont: 'md',
-	theme: {
-		primary: 'ffffff',
-		success: '#3cd1c2',
-		info: '#ffaa2c',
-		error: '#f83e70',
-	}
-});
+Vue.use(Vuetify);
 Vue.use(VueSwal);
 
 Vue.component('btn', Button);
 Vue.component('Navbar', Navbar);
+Vue.component('Input', InputComponent);
 
 Vue.config.productionTip = false;
 
