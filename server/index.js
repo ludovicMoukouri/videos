@@ -64,15 +64,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 //connect to mongodb
-
-// // const MongoClient = require('mongodb').MongoClient;
-// const uri = "mongodb+srv://ludovic:<password>@cluster0-tpowy.mongodb.net/test?retryWrites=true&w=majority";
-// const client = mongoose(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-// client.connect(err => {
-//   const collection = client.db("test").collection("devices");
-//   // perform actions on the collection object
-//   client.close();
-// });
 mongoose.connect(process.env.DATABASE_URL || config.DB, { useNewUrlParser: true, useUnifiedTopology: true }, function() {
 	console.log('Connection has been made');
 })
@@ -89,7 +80,7 @@ fs.readdirSync("controllers").forEach(function (file) {
 	}
 });
 
-app.use(history());
+// app.use(history());
 app.use('/', serveStatic(__dirname + "/../dist"));
 
 router.get('/api/current_user', isLoggedIn, function(req, res) {
