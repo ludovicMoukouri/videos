@@ -24,85 +24,101 @@ a.side_bar_link {
 .aside_left {
 	background-color: #dedeff75;
 }
+.btn_sign {
+	display:none!important
+}
 
-@media only screen and (max-width: 765px) {
-	.nav_head{ margin:0 0 0 18%;
-	width: 60%; 
-}
-.btn_sign {
-	margin: 0 0 0 0
-}
-.btn_sign_mobil {
-	margin: 0 0 0 15%
-}
-}
-@media only screen and (min-width: 765px) {
-.btn_sign_mobil {
-	margin: 0 0 0 0
-}
-.btn_sign {
-	margin: 0 0 0 15%
-}
+@media only screen and (max-width: 600px) {
+	.btn_sign {
+		display:block!important
+	}
+	.page {
+		position: relative;
+		display: block;
+		margin: 0 auto;
+		width: 100%!important;
+		height: 100%!important;
+	}
+	#yours {
+		width: 40%!important;
+		height: 35%!important;
+		position: absolute;
+		top: 2%!important;
+		right: 15px;
+	}
+	#theirs {
+		width: 95%!important;
+		height: 310%!important;
+	}
 }
 
 .btn.facebook {
-background-color: #3b5998 !important;
-border-color: #2196f3;
-color: #fff !important;
+	background-color: #3b5998 !important;
+	border-color: #2196f3;
+	color: #fff !important;
 }
 .btn.twitter {
-background-color: #2196f3 !important;
-border-color: #2196f3;
-color: #fff !important;
+	background-color: #2196f3 !important;
+	border-color: #2196f3;
+	color: #fff !important;
 }
 .btn.google {
-background-color: #dd4b39 !important;
-border-color: #dd4b39;
-color: #fff !important;
+	background-color: #dd4b39 !important;
+	border-color: #dd4b39;
+	color: #fff !important;
 }
 .btn.linkedin {
-background-color: #4875B4 !important;
-border-color: #4875B4;
-color: #fff !important;
+	background-color: #4875B4 !important;
+	border-color: #4875B4;
+	color: #fff !important;
 }
 /*body {
 	background-color: #3D6DF2;
 	margin-top: 15px;
 	font-family: sans-serif;
 	color: white;
-}*/
-video {
-	background: black;
-	border: 1px solid gray;
-}
-.page {
-	position: relative;
-	display: block;
-	margin: 0 auto;
-	width: 500px;
-	height: 500px;
-}
-#yours {
-	width: 150px;
-	height: 150px;
-	position: absolute;
-	top: 15px;
-	right: 15px;
-}
-#theirs {
-	width: 500px;
-	height: 500px;
-}
+	}*/
+	video {
+		background: black;
+		border: 1px solid gray;
+	}
+	.page {
+		position: relative;
+		display: block;
+		margin: 0 auto;
+		width: 500px;
+		height: 500px;
+	}
+	#yours {
+		width: 150px;
+		height: 150px;
+		position: absolute;
+		top: 15px;
+		right: 15px;
+	}
+	#theirs {
+		width: 500px;
+		height: 500px;
+	}
 
-.imgLogin {
+	.imgLogin {
   /*border: 1px solid #ddd;
   border-radius: 4px;
   padding: 5px;*/
   width: 30px;
 }
 
-.v-text-field {
+.v-textfield {
 	width: 80% !important;
+	margin: 0px 0px 0px 10% !important;
+}
+
+.v-input__icon--prepend-inner .fas {
+	font-size:18px;
+}
+
+.v-textcall {
+	width: 100% !important;
 	margin: 0px 0px 0px 10% !important;
 }
 

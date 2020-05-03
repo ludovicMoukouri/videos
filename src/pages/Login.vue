@@ -25,7 +25,9 @@
           <v-form v-model="valid" ref="form" lazy-validation>
             <v-text-field
             outlined
+            class="v-textfield"
             dense
+            prepend-inner-icon="mdi-email"
             label="Email"
             v-model="email"
             :rules="emailRules"
@@ -33,10 +35,18 @@
             ></v-text-field>
             <v-text-field
             outlined
+            class="v-textfield"
             dense
+            prepend-inner-icon="mdi-lock"
             label="Password"
             v-model="password"
+            :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
             :rules="passwordRules"
+            :type="show1 ? 'text' : 'password'"
+            name="pass-10-1"
+            hint="At least 8 characters"
+            counter
+            @click:append="show1 = !show1"
             required
             ></v-text-field>
             <btn
@@ -69,11 +79,14 @@ export default {
       facebookIcon: require('./../assets/static/images/facebook1.png'),
       googleIcon: require('./../assets/static/images/google.png'),
     },
+    show1: false,
     valid: true,
     loading: false,
     email: '',
     password: '',
-    passwordRules: [v => !!v || 'Password is required'],
+    passwordRules: [
+      v => !!v || 'Password is required',
+      v => v.length >= 8 || 'Min 8 characters',],
     emailRules: [
       v => !!v || 'E-mail is required',
       v => /\S+@\S+\.\S+/.test(v) || 'E-mail must be valid',

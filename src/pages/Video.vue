@@ -3,15 +3,28 @@
     <div id="call-page" class="page">
       <video id="yours" :srcObject.prop="yourStream" autoplay></video>
       <video :srcObject.prop="theirStream" id="theirs" autoplay></video>
-      <input v-model="theirusername" />
-      {{ streamStore }}
-      <btn 
-      label="Call"
-      style="background-color:#0000ff21;margin:0 0 0 2%" 
-      @click="callButton" />
-      <btn id="hang-up">Hang Up</btn>
-    </div>
-  </div>
+      <v-layout row wrap>
+        <v-flex md1 xs1></v-flex>
+        <v-flex md6 xs6>
+         <v-text-field
+         class="v-textcall"
+         outlined
+         dense
+         label="Remote user"
+         v-model="theirusername"
+         required
+         ></v-text-field>
+       </v-flex>
+       <v-flex md4 xs4>
+         <btn 
+         label="Call"
+         style="background-color:#0000ff21;margin:0 0 0 2%" 
+         @click="callButton" />
+         <btn id="hang-up">Hang Up</btn>
+       </v-flex>
+     </v-layout>
+   </div>
+ </div>
 </template>
 <!-- <template v-else>
   <div class="hello">
@@ -110,9 +123,9 @@ export default {
     this.yourConnection.createAnswer(function (answer) {
       this.yourConnection.setLocalDescription(answer);
       if (this.connectedUser) {
-            ws.send(JSON.stringify({ type: 'answer', answer: answer, 
-              name: this.connectedUser }));
-          } else {ws.send(JSON.stringify({ type: 'answer', answer: answer }));}
+        ws.send(JSON.stringify({ type: 'answer', answer: answer, 
+          name: this.connectedUser }));
+      } else {ws.send(JSON.stringify({ type: 'answer', answer: answer }));}
 
       // _this.$store.dispatch("sendAction", { type: 'answer', answer: answer });
     }, function (error) {
@@ -172,9 +185,9 @@ export default {
       // Begin the offer
       _this.yourConnection.createOffer(function (offer) {
         if (this.connectedUser) {
-            ws.send(JSON.stringify({ type: 'offer', offer: offer, 
-              name: this.connectedUser }));
-          } else {ws.send(JSON.stringify({ type: 'offer', offer: offer }));}
+          ws.send(JSON.stringify({ type: 'offer', offer: offer, 
+            name: this.connectedUser }));
+        } else {ws.send(JSON.stringify({ type: 'offer', offer: offer }));}
 
         // _this.$store.dispatch("sendAction", { type: 'offer', offer: offer });
         _this.yourConnection.setLocalDescription(offer);
@@ -186,54 +199,80 @@ export default {
   methods: {
     // ...mapActions (['wsAction', 'sendAction', 'connectedUser', 'yourConnectionAction', 
     //   'addTheirStream', 'addYourStream']),
-    callButton() {
-      const theirusernameInput = this.theirusername;
-      if (theirusernameInput.length > 0) {
-        this.startPeerConnection();
+
+  //   checkAgent(){
+  //     const mobile = {
+  //     video: {
+  //       mandatory: {
+  //         maxWidth: 640,
+  //         maxHeight: 360
+  //       }
+  //     },
+  //     audio: false
+  //   };
+  //   const desktop = {
+  //     video: {
+  //       mandatory: {
+  //         minWidth: 1280,
+  //         minHeight: 720
+  //       }
+  //     },
+  //     audio: false
+  //   };
+  //   if(/Android|webOS|iPhone||iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+  //     this.$store.dispatch("userAgent", desktop);
+  // } else {
+  //   this.$store.dispatch("userAgent", mobile);
+  // }
+  //   },
+  callButton() {
+    const theirusernameInput = this.theirusername;
+    if (theirusernameInput.length > 0) {
+      this.startPeerConnection();
+    }
+  },
+  listenToEvents() {
+    bus.$on('refreshUser', () => {
+      this.fetchUser();
+    });
+  },
+  async fetchUser() {
+    return axios({
+      method: 'get',
+      url: '/api/current_user',
+    })
+    .then((response) => {
+      const nameval = response.data.current_user.fullname;
+      const email = response.data.current_user.email;
+      var dataval = {
+        fullname: nameval,
+        email: email,
       }
-    },
-    listenToEvents() {
-      bus.$on('refreshUser', () => {
-        this.fetchUser();
-      });
-    },
-    async fetchUser() {
-      return axios({
-        method: 'get',
-        url: '/api/current_user',
-      })
-      .then((response) => {
-        const nameval = response.data.current_user.fullname;
-        const email = response.data.current_user.email;
-        var dataval = {
-          fullname: nameval,
-          email: email,
-        }
-        this.fetchUsersConnect(dataval)
-        ws.send(JSON.stringify({ type: 'login', name: nameval }))
+      this.fetchUsersConnect(dataval)
+      ws.send(JSON.stringify({ type: 'login', name: nameval }))
         // this.sendAction({ type: 'login', name: nameval })
         // this.$store.dispatch("sendAction", { type: 'login', name: nameval });
       })
-      .catch(() => {
-      });
-    },
-    async fetchUsersConnect(dataval) {
-      return axios({
-        method: 'post',
-        url: '/users/usersConnect',
-        data: dataval,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-      .then((response) => {
-        this.msg = response.data.message;
-      })
-      .catch((error) => {
-        console.log(error.response.data.message);
-      });
-    },
+    .catch(() => {
+    });
   },
+  async fetchUsersConnect(dataval) {
+    return axios({
+      method: 'post',
+      url: '/users/usersConnect',
+      data: dataval,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    .then((response) => {
+      this.msg = response.data.message;
+    })
+    .catch((error) => {
+      console.log(error.response.data.message);
+    });
+  },
+},
 };
 </script>
 

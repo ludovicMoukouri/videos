@@ -9,6 +9,7 @@ const state = {
   connectedUser: '',
   ws: undefined,
   sendState: undefined,
+  userAgent: undefined,
 };
 
 const getters = {
@@ -18,6 +19,7 @@ const getters = {
   yourStream: state => state.yourStream,
   theirStream: state => state.theirsStream,
   connectedUser: state => state.connectedUser,
+  userAgent: state => state.userAgent,
 };
 
 const mutations = {
@@ -44,6 +46,9 @@ const mutations = {
     return state.ws.send(JSON.stringify(payload));
     
   },
+  UserAgent: function (state, payload) {
+    state.userAgent = payload;
+  },
 };
 
 const actions = {
@@ -64,6 +69,9 @@ const actions = {
   },
   wsAction: (context, payload) => {
     context.commit('Ws', payload);
+  },
+  userAgent: (context, payload) => {
+    context.commit('UserAgent', payload);
   },
     // Socket: ({commit, dispatch}, url) => {
   //   const ws = new Websocket('ws://localhost:8081')

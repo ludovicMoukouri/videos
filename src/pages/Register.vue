@@ -24,6 +24,7 @@
             <v-text-field
             outlined
             dense
+            prepend-inner-icon="mdi-account-circle"
             label="Full Name*"
             v-model="fullname"
             required
@@ -31,6 +32,7 @@
             <v-text-field
             outlined
             dense
+            prepend-inner-icon="mdi-email"
             label="Email*"
             v-model="email"
             :rules="emailRules"
@@ -39,18 +41,28 @@
             <v-text-field
             outlined
             dense
-            type="password"
+            prepend-inner-icon="mdi-lock"
             label="Password*"
             v-model="password"
+            :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+            :rules="passwordRules"
+            :type="show1 ? 'text' : 'password'"
+            name="pass-10-1"
+            hint="At least 8 characters"
+            counter
+            @click:append="show1 = !show1"
             required
             ></v-text-field>
             <v-text-field
             outlined
             dense
-            type="password"
+            prepend-inner-icon="mdi-lock"
+            :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
+            :type="show2 ? 'text' : 'password'"
             name="input-7-1"
             label="Confirm Password"
             v-model="confirm_password"
+            @click:append="show2 = !show2"
             required
             ></v-text-field>
             <v-checkbox
@@ -85,6 +97,8 @@ import services from '@services';
 export default {
   data: () => ({
     valid: true,
+    show1: false,
+    show2: false,
     loading: false,
     pseudo: '',
     fullname: '',
@@ -92,6 +106,9 @@ export default {
     password: '',
     erreur: '',
     confirm_password: '',
+    passwordRules: [
+      v => !!v || 'Password is required',
+      v => v.length >= 8 || 'Min 8 characters',],
     emailRules: [
       v => !!v || 'E-mail is required',
       v => /\S+@\S+\.\S+/.test(v) || 'E-mail must be valid',
