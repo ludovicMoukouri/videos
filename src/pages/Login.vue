@@ -19,8 +19,8 @@
             Login with facebook</a>
             <a class="btn google" href="/login/google"> 
               <img :src="images.googleIcon" class="imgLogin"> 
-            Login with google
-           </a>
+              Login with google
+            </a>
           </div>
           <v-form v-model="valid" ref="form" lazy-validation>
             <v-text-field
@@ -61,11 +61,28 @@
             style="background-color:#0000ff21;margin:0 0 0 2%"
             @click="clear"
             />
-          </v-form>
-        </v-card-text>
-      </v-card>
-    </v-flex>
-  </v-layout>
+            <v-layout row wrap>
+              <v-flex md5 xs5>
+               <v-checkbox
+               v-model="checkbox"
+               label="Remember me"
+               required
+               ></v-checkbox>
+               <span>
+                Sign up
+              </span>
+            </v-flex>
+            <v-flex md5 xs5>
+              <span>
+                forgot password?
+              </span>
+            </v-flex>
+          </v-layout>
+        </v-form>
+      </v-card-text>
+    </v-card>
+  </v-flex>
+</v-layout>
 </div>
 </template>
 
@@ -85,11 +102,11 @@ export default {
     email: '',
     password: '',
     passwordRules: [
-      v => !!v || 'Password is required',
-      v => v.length >= 8 || 'Min 8 characters',],
+    v => !!v || 'Password is required',
+    v => v.length >= 8 || 'Min 8 characters',],
     emailRules: [
-      v => !!v || 'E-mail is required',
-      v => /\S+@\S+\.\S+/.test(v) || 'E-mail must be valid',
+    v => !!v || 'E-mail is required',
+    v => /\S+@\S+\.\S+/.test(v) || 'E-mail must be valid',
     ],
     ws_var: '',
   }),
@@ -124,11 +141,11 @@ export default {
       }
       return true;
     },
-clear() {
-  this.$refs.form.reset();
-  this.loading = false;
-},
-},
+    clear() {
+      this.$refs.form.reset();
+      this.loading = false;
+    },
+  },
 };
 
 </script>

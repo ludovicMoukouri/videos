@@ -4,8 +4,8 @@
       <video id="yours" :srcObject.prop="yourStream" autoplay></video>
       <video :srcObject.prop="theirStream" id="theirs" autoplay></video>
       <v-layout row wrap>
-        <v-flex md1 xs1></v-flex>
-        <v-flex md6 xs6>
+        <v-flex md1 xs12></v-flex>
+        <v-flex md6 xs12>
          <v-text-field
          class="v-textcall"
          outlined
@@ -15,7 +15,7 @@
          required
          ></v-text-field>
        </v-flex>
-       <v-flex md4 xs4>
+       <v-flex md4 xs12>
          <btn 
          label="Call"
          style="background-color:#0000ff21;margin:0 0 0 2%" 
@@ -49,13 +49,13 @@ export default {
   }),
   mounted() {
     this.fetchUser()
+    this.$store.dispatch('wsAction', ws)
   },
   beforecreate() {
     this.listenToEvents()
   },
   created() {
     const _this = this;
-    this.$store.dispatch('wsAction', ws)
     ws.onopen = function () {
       console.log("Connected");
     };
@@ -197,9 +197,8 @@ export default {
     },
   },
   methods: {
-    // ...mapActions (['wsAction', 'sendAction', 'connectedUser', 'yourConnectionAction', 
-    //   'addTheirStream', 'addYourStream']),
-
+...mapActions (['wsAction', 'sendAction', 'connectedUser', 'yourConnectionAction', 
+      'addTheirStream', 'addYourStream']),
   //   checkAgent(){
   //     const mobile = {
   //     video: {
@@ -249,9 +248,10 @@ export default {
         email: email,
       }
       this.fetchUsersConnect(dataval)
-      ws.send(JSON.stringify({ type: 'login', name: nameval }))
-        // this.sendAction({ type: 'login', name: nameval })
-        // this.$store.dispatch("sendAction", { type: 'login', name: nameval });
+      // ws.send(JSON.stringify({ type: 'login', name: nameval }))
+      //   this.sendAction({ type: 'login', name: nameval })
+        this.$store.dispatch("sendAction", { type: 'login', name: nameval });
+        console.log(this.ws, 'wssssssssssssssssssssss')
       })
     .catch(() => {
     });

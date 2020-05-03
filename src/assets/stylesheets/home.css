@@ -48,7 +48,7 @@ a.side_bar_link {
 	}
 	#theirs {
 		width: 95%!important;
-		height: 310%!important;
+		height: 310px!important;
 	}
 }
 
@@ -118,7 +118,7 @@ a.side_bar_link {
 }
 
 .v-textcall {
-	width: 100% !important;
+	width: 95% !important;
 	margin: 0px 0px 0px 10% !important;
 }
 
