@@ -80,19 +80,19 @@ export default {
       }
     },
     setupPeerConnection: function (stream) {
-      this.yourConnection.addStream(stream);
+      this.yourConnection.addStream(this.yourStream);
       this.yourConnection.onaddstream = function (e) {
         this.$store.dispatch("addTheirStream", e.stream);
       };
       // Setup ice handling
       this.yourConnection.onicecandidate = function (event) {
         if (event.candidate) {
-    //       if (this.connectedUser) {
-    //   ws.send(JSON.stringify({ type: 'candidate', candidate: event.candidate, 
-    //     name: this.connectedUser }));
-    // } else {ws.send(JSON.stringify({ type: 'candidate', candidate: event.candidate }));}
-    
-          this.$store.dispatch("sendAction", { type: 'candidate', candidate: event.candidate });
+          if (this.connectedUser) {
+            ws.send(JSON.stringify({ type: 'candidate', candidate: event.candidate, 
+              name: this.connectedUser }));
+          } else {ws.send(JSON.stringify({ type: 'candidate', candidate: event.candidate }));}
+
+          // this.$store.dispatch("sendAction", { type: 'candidate', candidate: event.candidate });
         }
       };
     },
@@ -107,66 +107,76 @@ export default {
     //     alert("An error has occurred");
     //   });
 
-      this.yourConnection.createAnswer(function (answer) {
-        this.yourConnection.setLocalDescription(answer);
-        _this.$store.dispatch("sendAction", { type: 'answer', answer: answer });
-      }, function (error) {
-        alert("An error has occurred");
-      });
-    },
-    onAnswer: function (answer) {
-      this.yourConnection.setRemoteDescription(new
-        RTCSessionDescription(answer));
-    },
-    onCandidate: function (candidate) {
-      this.yourConnection.addIceCandidate(new RTCIceCandidate(candidate));
-    },
-    hasUserMedia () {
-      navigator.getUserMedia = navigator.getUserMedia ||
-      navigator.webkitGetUserMedia || navigator.mozGetUserMedia ||
-      navigator.msGetUserMedia;
-      return !!navigator.getUserMedia;
-    },
-    hasRTCPeerConnection () {
-      window.RTCPeerConnection = window.RTCPeerConnection ||
-      window.webkitRTCPeerConnection || window.mozRTCPeerConnection;
-      window.RTCSessionDescription = window.RTCSessionDescription ||
-      window.webkitRTCSessionDescription ||
-      window.mozRTCSessionDescription;
-      window.RTCIceCandidate = window.RTCIceCandidate ||
-      window.webkitRTCIceCandidate || window.mozRTCIceCandidate;
-      return !!window.RTCPeerConnection;
-    },
-    startConnection () {
-      var val = this
-      if (val.hasUserMedia) {
-        navigator.getUserMedia({ video: true, audio: false }, function
-          (myStream) {
-            val.$store.dispatch("addYourStream", myStream);
-            if (val.hasRTCPeerConnection) {
-              val.setupPeerConnection(myStream);
-            } else {
-              alert("Sorry, your browser does not support WebRTC.");
-            }
-          }, function (error) {
-            console.log(error);
-          });
-      } else {
-        alert("Sorry, your browser does not support WebRTC.");
-      }
-      var configuration = {
-        "iceServers": [{ "url": "stun:stun.1.google.com:19302" }]
-      };
-      val.$store.dispatch("yourConnectionAction", configuration);
-    },
+    this.yourConnection.createAnswer(function (answer) {
+      this.yourConnection.setLocalDescription(answer);
+      if (this.connectedUser) {
+            ws.send(JSON.stringify({ type: 'answer', answer: answer, 
+              name: this.connectedUser }));
+          } else {ws.send(JSON.stringify({ type: 'answer', answer: answer }));}
 
-    startPeerConnection: function (user) {
-      const _this = this;
-      console.log(this.theirusername,'startPeerConnection LLLLLLLLLLLLLLLLLLLLLLLL')
-      _this.$store.dispatch("connectedUser", this.theirusername)
+      // _this.$store.dispatch("sendAction", { type: 'answer', answer: answer });
+    }, function (error) {
+      alert("An error has occurred");
+    });
+  },
+  onAnswer: function (answer) {
+    this.yourConnection.setRemoteDescription(new
+      RTCSessionDescription(answer));
+  },
+  onCandidate: function (candidate) {
+    this.yourConnection.addIceCandidate(new RTCIceCandidate(candidate));
+  },
+  hasUserMedia () {
+    navigator.getUserMedia = navigator.getUserMedia ||
+    navigator.webkitGetUserMedia || navigator.mozGetUserMedia ||
+    navigator.msGetUserMedia;
+    return !!navigator.getUserMedia;
+  },
+  hasRTCPeerConnection () {
+    window.RTCPeerConnection = window.RTCPeerConnection ||
+    window.webkitRTCPeerConnection || window.mozRTCPeerConnection;
+    window.RTCSessionDescription = window.RTCSessionDescription ||
+    window.webkitRTCSessionDescription ||
+    window.mozRTCSessionDescription;
+    window.RTCIceCandidate = window.RTCIceCandidate ||
+    window.webkitRTCIceCandidate || window.mozRTCIceCandidate;
+    return !!window.RTCPeerConnection;
+  },
+  startConnection () {
+    var val = this
+    if (val.hasUserMedia) {
+      navigator.getUserMedia({ video: true, audio: false }, function
+        (myStream) {
+          val.$store.dispatch("addYourStream", myStream);
+          if (val.hasRTCPeerConnection) {
+            val.setupPeerConnection(myStream);
+          } else {
+            alert("Sorry, your browser does not support WebRTC.");
+          }
+        }, function (error) {
+          console.log(error);
+        });
+    } else {
+      alert("Sorry, your browser does not support WebRTC.");
+    }
+    var configuration = {
+      "iceServers": [{ "url": "stun:stun.1.google.com:19302" }]
+    };
+    val.$store.dispatch("yourConnectionAction", configuration);
+  },
+
+  startPeerConnection: function (user) {
+    const _this = this;
+    console.log(this.theirusername,'startPeerConnection LLLLLLLLLLLLLLLLLLLLLLLL')
+    _this.$store.dispatch("connectedUser", this.theirusername)
       // Begin the offer
       _this.yourConnection.createOffer(function (offer) {
-        _this.$store.dispatch("sendAction", { type: 'offer', offer: offer });
+        if (this.connectedUser) {
+            ws.send(JSON.stringify({ type: 'offer', offer: offer, 
+              name: this.connectedUser }));
+          } else {ws.send(JSON.stringify({ type: 'offer', offer: offer }));}
+
+        // _this.$store.dispatch("sendAction", { type: 'offer', offer: offer });
         _this.yourConnection.setLocalDescription(offer);
       }, function (error) {
         alert("An error has occurred.");
