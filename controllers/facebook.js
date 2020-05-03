@@ -39,7 +39,7 @@ app.get('/login/facebook',
 app.get('/login/facebook/return',
 	passport.authenticate('facebook', { failureRedirect: '/login' }),
 	(req, res) => {
-		res.redirect('/');
+		res.redirect('/video');
 	});
 
 	passport.serializeUser(function(user, done) {

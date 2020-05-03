@@ -35,8 +35,10 @@ export default {
     msg: 'Sorry but you should loggin first'
   }),
   mounted() {
-    this.listenToEvents()
     this.fetchUser()
+  },
+  beforecreate() {
+    this.listenToEvents()
   },
   created() {
     const _this = this;
@@ -183,7 +185,6 @@ export default {
     listenToEvents() {
       bus.$on('refreshUser', () => {
         this.fetchUser();
-        this.loggin = 'true'
       });
     },
     async fetchUser() {

@@ -1,6 +1,6 @@
 <template>
 	<nav>
-		<v-toolbar flat app>
+		<v-toolbar text app>
 			<v-app-bar-nav-icon class="grey--text" 
 			@click="drawer = !drawer"></v-app-bar-nav-icon>
 			<v-toolbar-title>
@@ -10,7 +10,7 @@
 			</v-toolbar-title>
 			<v-spacer></v-spacer>
 			<v-toolbar-items class="hidden-sm-and-down">
-				<v-btn id="user_email" flat v-if="currentuser" class="side_bar_link">{{
+				<v-btn id="user_email" text v-if="currentuser" class="side_bar_link">{{
 				currentuser.fullname }}</v-btn>
 
 				<router-link v-bind:to="{ name: 'Register' }" v-if="!currentuser"
@@ -27,14 +27,14 @@
 			</v-btn>
 			Sign in
 		</router-link>
-		<v-btn id="logout_btn" flat v-if="currentuser" class="side_bar_link"
+		<v-btn id="logout_btn" text v-if="currentuser" class="side_bar_link"
 		@click="logout">Logout</v-btn>
 	</v-toolbar-items>
 </v-toolbar>
 
-<v-navigation-drawer flat app v-model="drawer" class="aside_left">
+<v-navigation-drawer text app v-model="drawer" class="aside_left">
 	<p>
-		<v-btn id="user_email" flat v-if="currentuser" class="side_bar_link">{{
+		<v-btn id="user_email" text v-if="currentuser" class="side_bar_link">{{
 		currentuser.fullname }}</v-btn>
 	</p>
 	<p>
@@ -58,7 +58,7 @@
 </p>
 
 <p>
-	<v-btn id="logout_btn" flat v-if="currentuser" class="side_bar_link"
+	<v-btn id="logout_btn" text v-if="currentuser" class="side_bar_link"
 	@click="logout" color="blue darken-2">Logout</v-btn>
 </p>
 
