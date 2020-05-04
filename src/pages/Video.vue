@@ -34,9 +34,9 @@
 
 <script>
 import axios from 'axios';
-import { mapGetters, mapActions  } from 'vuex'
+import { mapGetters  } from 'vuex'
 import bus from './../bus';
-const HOST = location.origin.replace(/^https/, 'wss')
+const HOST = location.origin.replace(/^http/, 'ws')
 const ws = new WebSocket(HOST);
 // const ws = new WebSocket(`ws://v-video.herokuapp.com:21279`);
 
@@ -52,6 +52,7 @@ export default {
   },
   created() {
     const _this = this;
+    this.$store.dispatch('wsAction', ws)
     ws.onopen = function () {
       console.log("Connected");
     };
@@ -80,11 +81,11 @@ export default {
     };
   },
   beforeMount() {
-    this.$store.dispatch('wsAction', ws)
+    
   },
   mounted() {
     this.fetchUser()
-    this.listenToEvents()
+    // this.listenToEvents()
   },
   computed: {
     ...mapGetters(['yourStream', 'theirStream', 'yourConnection', 'connectedUser', 'ws', 'sendState']),
@@ -209,8 +210,6 @@ export default {
     },
   },
   methods: {
-...mapActions (['wsAction', 'sendAction', 'connectedUser', 'yourConnectionAction', 
-      'addTheirStream', 'addYourStream']),
   //   checkAgent(){
   //     const mobile = {
   //     video: {
@@ -242,11 +241,11 @@ export default {
       this.startPeerConnection();
     }
   },
-  listenToEvents() {
-    bus.$on('refreshUser', () => {
-      this.fetchUser();
-    });
-  },
+  // listenToEvents() {
+  //   bus.$on('refreshUser', () => {
+  //     this.fetchUser();
+  //   });
+  // },
   async fetchUser() {
     return axios({
       method: 'get',
