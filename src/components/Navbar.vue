@@ -35,7 +35,7 @@
 <v-navigation-drawer text app v-model="drawer" class="aside_left">
 	<p>
 		<v-btn id="user_email" text v-if="currentuser" class="side_bar_link">{{
-		currentuser }}</v-btn>
+		currentuser.fullname }}</v-btn>
 	</p>
 	<p>
 		<router-link v-bind:to="{ name: 'Register' }" v-if="!currentuser"
@@ -88,7 +88,7 @@ export default {
 	},
 	computed: {
 		normalizedSize: function () {
-    return this.currentuser.trim().toLowerCase()
+    return this.currentuser.fullname.trim().toLowerCase()
   }
 	},
 	methods: {

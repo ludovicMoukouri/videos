@@ -46,9 +46,9 @@ export default {
         url: '/api/current_user',
       })
         .then((response) => {
-          const cu = response.data.current_user;
-          cu.fullname.split(" ")
-          this.current_user = cu[0]
+          this.current_user = response.data.current_user;
+          // cu.fullname.split(" ")
+          // this.current_user = cu[0]
         })
         .catch(() => {
         });

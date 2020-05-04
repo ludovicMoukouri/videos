@@ -47,10 +47,6 @@ export default {
     loggin: false,
     msg: 'Sorry but you should loggin first'
   }),
-  mounted() {
-    this.fetchUser()
-    this.$store.dispatch('wsAction', ws)
-  },
   beforecreate() {
     this.listenToEvents()
   },
@@ -82,6 +78,10 @@ export default {
         break;
       }
     };
+  },
+  mounted() {
+    this.fetchUser()
+    this.$store.dispatch('wsAction', ws)
   },
   computed: {
     ...mapGetters(['yourStream', 'theirStream', 'yourConnection', 'connectedUser', 'ws', 'sendState']),
