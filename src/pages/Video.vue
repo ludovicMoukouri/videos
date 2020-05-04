@@ -53,8 +53,8 @@ export default {
   created() {
     const _this = this;
     ws.onopen = function () {
-      console.log("Connected");
-    };
+      setInterval(_this.ping, 30000);
+          };
     ws.onmessage = function (message) {
       console.log("Got message", message.data);
       var data = JSON.parse(message.data);
@@ -88,6 +88,15 @@ export default {
   },
   computed: {
     ...mapGetters(['yourStream', 'theirStream', 'yourConnection', 'connectedUser', 'ws', 'sendState']),
+    ping: function () {
+        ws.send('__ping__');
+        tm = setTimeout(function () {
+
+           /// ---connection closed ///
+
+
+    }, 5000);
+},
     onLogin: function (success) {
       if (success === false) {
         alert("Login unsuccessful, please try a different name.");
