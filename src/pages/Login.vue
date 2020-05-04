@@ -62,12 +62,8 @@
             @click="clear"
             />
             <v-layout row wrap>
+              <v-flex md2 xs2></v-flex>
               <v-flex md5 xs5>
-               <v-checkbox
-               v-model="checkbox"
-               label="Remember me"
-               required
-               ></v-checkbox>
                <span>
                 Sign up
               </span>
