@@ -55,7 +55,7 @@ a.side_bar_link {
 		margin: 0px 0px 0px 10% !important;
 	}
 	.oauthItems {
-		margin: 0px 0px 2% 0px
+		margin: 0px 0px 2% 0px!important;
 	}
 }
 
@@ -138,5 +138,5 @@ a.side_bar_link {
 }
 
 .oauthItems {
-	margin: 0px 0px 0% 0px
+	margin: 0px 0px 0% 0px;
 }

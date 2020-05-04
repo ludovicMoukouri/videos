@@ -52,7 +52,6 @@ export default {
   },
   created() {
     const _this = this;
-    _this.listenToEvents()
     ws.onopen = function () {
       console.log("Connected");
     };
@@ -85,7 +84,7 @@ export default {
   },
   mounted() {
     this.fetchUser()
-    // this.listenToEvents()
+    this.listenToEvents()
   },
   computed: {
     ...mapGetters(['yourStream', 'theirStream', 'yourConnection', 'connectedUser', 'ws', 'sendState']),
