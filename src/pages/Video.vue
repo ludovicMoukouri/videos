@@ -48,9 +48,10 @@ export default {
     msg: 'Sorry but you should loggin first'
   }),
   beforeCreate() {
-    this.listenToEvents()
+    
   },
   created() {
+    this.listenToEvents()
     const _this = this;
     ws.onopen = function () {
       console.log("Connected");
@@ -253,7 +254,7 @@ export default {
       ws.send(JSON.stringify({ type: 'login', name: nameval }))
       //   this.sendAction({ type: 'login', name: nameval })
         // this.$store.dispatch("sendAction", { type: 'login', name: nameval });
-        // console.log(this.ws, 'wssssssssssssssssssssss')
+        console.log(this.ws, 'wssssssssssssssssssssss')
       })
     .catch(() => {
     });
