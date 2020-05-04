@@ -7,7 +7,7 @@
         <v-flex md1 xs12></v-flex>
         <v-flex md6 xs12>
          <v-text-field
-         class="v-textcall"
+         class="v-textcall-video"
          outlined
          dense
          label="Remote user"
@@ -47,8 +47,9 @@ export default {
     loggin: false,
     msg: 'Sorry but you should loggin first'
   }),
-  beforecreate() {
+  beforeCreate() {
     this.listenToEvents()
+    this.$store.dispatch('wsAction', ws)
   },
   created() {
     const _this = this;
@@ -79,9 +80,11 @@ export default {
       }
     };
   },
+  beforemount() {
+
+  },
   mounted() {
     this.fetchUser()
-    this.$store.dispatch('wsAction', ws)
   },
   computed: {
     ...mapGetters(['yourStream', 'theirStream', 'yourConnection', 'connectedUser', 'ws', 'sendState']),

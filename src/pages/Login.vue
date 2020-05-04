@@ -63,23 +63,26 @@
             />
             <v-layout style="margin:4% 0px 0px 0px" row wrap>
               <v-flex md5 xs5>
-               <span>
-                Sign up
-              </span>
-            </v-flex>
+                <router-link v-bind:to="{ name: 'Register' }" class="side_bar_link">
+                  <span>
+                    Sign up
+                  </span>
+                </router-link>
+                
+              </v-flex>
               <v-flex md1 xs1></v-flex>
-            <v-flex md5 xs5>
-              <span>
-                forgot password?
-              </span>
-            </v-flex>
-            <v-flex md1 xs1></v-flex>
-          </v-layout>
-        </v-form>
-      </v-card-text>
-    </v-card>
-  </v-flex>
-</v-layout>
+              <v-flex md5 xs5>
+                <span>
+                  forgot password?
+                </span>
+              </v-flex>
+              <v-flex md1 xs1></v-flex>
+            </v-layout>
+          </v-form>
+        </v-card-text>
+      </v-card>
+    </v-flex>
+  </v-layout>
 </div>
 </template>
 

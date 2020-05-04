@@ -121,6 +121,10 @@ a.side_bar_link {
 	width: 95% !important;
 	margin: 0px 0px 0px 10% !important;
 }
+.v-textcall-video {
+	width: 80% !important;
+	margin: 0px 0px 0px 10% !important;
+}
 
 .login {
 	margin: 0px 0px 5% 0px;
