@@ -250,10 +250,10 @@ export default {
         email: email,
       }
       this.fetchUsersConnect(dataval)
-      // ws.send(JSON.stringify({ type: 'login', name: nameval }))
+      ws.send(JSON.stringify({ type: 'login', name: nameval }))
       //   this.sendAction({ type: 'login', name: nameval })
-        this.$store.dispatch("sendAction", { type: 'login', name: nameval });
-        console.log(this.ws, 'wssssssssssssssssssssss')
+        // this.$store.dispatch("sendAction", { type: 'login', name: nameval });
+        // console.log(this.ws, 'wssssssssssssssssssssss')
       })
     .catch(() => {
     });
