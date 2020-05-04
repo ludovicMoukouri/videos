@@ -39,6 +39,7 @@ const mutations = {
     state.connectedUser = payload;
   },
 	SendMutation: function (state, payload) {
+    if (!state.ws || state.ws.readyState !== 1) return;
     if (state.connectedUser) {
       payload.name = state.connectedUser;
     }
