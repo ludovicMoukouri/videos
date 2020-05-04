@@ -49,7 +49,6 @@ export default {
   }),
   beforeCreate() {
     this.listenToEvents()
-    this.$store.dispatch('wsAction', ws)
   },
   created() {
     const _this = this;
@@ -80,8 +79,8 @@ export default {
       }
     };
   },
-  beforemount() {
-
+  beforeMount() {
+    this.$store.dispatch('wsAction', ws)
   },
   mounted() {
     this.fetchUser()

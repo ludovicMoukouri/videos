@@ -14,7 +14,7 @@
         <!-- <h6 class="card-title" v-if="current_user" @click="rate">Rate this movie</h6> -->
         <v-card-text>
           <div class="login">
-            <a class="btn facebook" style="margin: 0px 0px 2% 0px" href="/login/facebook"> 
+            <a class="btn facebook oauthItems" href="/login/facebook"> 
               <img :src="images.facebookIcon" class="imgLogin"> 
             Login with facebook</a>
             <a class="btn google" href="/login/google"> 
@@ -68,7 +68,7 @@
                     Sign up
                   </span>
                 </router-link>
-                
+
               </v-flex>
               <v-flex md1 xs1></v-flex>
               <v-flex md5 xs5>

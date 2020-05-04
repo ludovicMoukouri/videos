@@ -50,6 +50,13 @@ a.side_bar_link {
 		width: 95%!important;
 		height: 310px!important;
 	}
+	.v-textcall-video {
+		width: 80% !important;
+		margin: 0px 0px 0px 10% !important;
+	}
+	.oauthItems {
+		margin: 0px 0px 2% 0px
+	}
 }
 
 .btn.facebook {
@@ -122,10 +129,14 @@ a.side_bar_link {
 	margin: 0px 0px 0px 10% !important;
 }
 .v-textcall-video {
-	width: 80% !important;
+	width: 95% !important;
 	margin: 0px 0px 0px 10% !important;
 }
 
 .login {
 	margin: 0px 0px 5% 0px;
+}
+
+.oauthItems {
+	margin: 0px 0px 0% 0px
 }
