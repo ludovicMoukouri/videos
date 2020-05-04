@@ -34,7 +34,7 @@
 
 <script>
 import axios from 'axios';
-import { mapGetters  } from 'vuex'
+import { mapGetters, mapActions  } from 'vuex'
 import bus from './../bus';
 const HOST = location.origin.replace(/^http/, 'ws')
 const ws = new WebSocket(HOST);
@@ -48,11 +48,10 @@ export default {
     msg: 'Sorry but you should loggin first'
   }),
   beforeCreate() {
-    
+    this.$store.dispatch('wsAction', ws)
   },
   created() {
     const _this = this;
-    this.$store.dispatch('wsAction', ws)
     ws.onopen = function () {
       console.log("Connected");
     };
@@ -85,7 +84,7 @@ export default {
   },
   mounted() {
     this.fetchUser()
-    // this.listenToEvents()
+    this.listenToEvents()
   },
   computed: {
     ...mapGetters(['yourStream', 'theirStream', 'yourConnection', 'connectedUser', 'ws', 'sendState']),
@@ -210,6 +209,8 @@ export default {
     },
   },
   methods: {
+...mapActions (['wsAction', 'sendAction', 'connectedUser', 'yourConnectionAction', 
+      'addTheirStream', 'addYourStream']),
   //   checkAgent(){
   //     const mobile = {
   //     video: {
@@ -241,11 +242,11 @@ export default {
       this.startPeerConnection();
     }
   },
-  // listenToEvents() {
-  //   bus.$on('refreshUser', () => {
-  //     this.fetchUser();
-  //   });
-  // },
+  listenToEvents() {
+    bus.$on('refreshUser', () => {
+      this.fetchUser();
+    });
+  },
   async fetchUser() {
     return axios({
       method: 'get',

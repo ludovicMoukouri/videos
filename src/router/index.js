@@ -26,10 +26,7 @@ export default new Router({
       component: Register,
     },
     {
-      path: '/videoret',
-      redirect: to => {
-        return '/video'
-      },
+      path: '/video',
       name: 'Video',
       component: Video,
     },
