@@ -53,6 +53,8 @@ export default {
   },
   beforecreate() {
     this.listenToEvents()
+  },
+  created() {
     const _this = this;
     ws.onopen = function () {
       console.log("Connected");

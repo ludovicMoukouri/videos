@@ -14,7 +14,7 @@
         <!-- <h6 class="card-title" v-if="current_user" @click="rate">Rate this movie</h6> -->
         <v-card-text>
           <div class="login">
-            <a class="btn facebook" href="/login/facebook"> 
+            <a class="btn facebook" style="margin: 0px 0px 2% 0px" href="/login/facebook"> 
               <img :src="images.facebookIcon" class="imgLogin"> 
             Login with facebook</a>
             <a class="btn google" href="/login/google"> 
@@ -52,27 +52,28 @@
             <btn
             label="Sign In"
             :disabled="!valid"
-            style="background-color:#0000ff21;margin:0 2% 0 0"
+            style="background-color:#0000ff21;margin:0px 2% 0px 0px"
             :loading="loading"
             @click="login"
             />
             <btn
             label="clear"
-            style="background-color:#0000ff21;margin:0 0 0 2%"
+            style="background-color:#0000ff21;margin:0px 0px 0px 2%"
             @click="clear"
             />
-            <v-layout row wrap>
-              <v-flex md2 xs2></v-flex>
+            <v-layout style="margin:4% 0px 0px 0px" row wrap>
               <v-flex md5 xs5>
                <span>
                 Sign up
               </span>
             </v-flex>
+              <v-flex md1 xs1></v-flex>
             <v-flex md5 xs5>
               <span>
                 forgot password?
               </span>
             </v-flex>
+            <v-flex md1 xs1></v-flex>
           </v-layout>
         </v-form>
       </v-card-text>
