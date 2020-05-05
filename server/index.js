@@ -49,8 +49,7 @@ const sessionOption = {
 	resave: true,
 	saveUninitialized: true,
 	cookie: {
-		httpOnly: true, path: '/',
-		expires: new Date(Date.now() + 86400000)
+		httpOnly: false
 	},
 	// store:store
 };
