@@ -252,6 +252,11 @@ export default {
       this.startPeerConnection();
     }
   },
+  listenToLogout() {
+    bus.$on('refreshLogout', () => {
+      this.$store.dispatch("sendAction", { type: 'leave' });
+    });
+  },
   listenToEvents() {
     bus.$on('refreshUser', () => {
       this.fetchUser();

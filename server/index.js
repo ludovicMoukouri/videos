@@ -80,14 +80,11 @@ fs.readdirSync("controllers").forEach(function (file) {
 	}
 });
 
-// app.use(history());
+app.use(history());
 app.use('/', serveStatic(__dirname + "/../dist"));
 
 router.get('/api/current_user', isLoggedIn, function(req, res) {
 	if(req.user) {
-		// console.log('SSSSSSSSSSSSSSSSSS ', req);
-		// req.session.working = req.user
-		// req.session.save();
 		res.send({ current_user: req.user })
 	} else {
 		res.status(403).send({ success: false, msg: 'Unauthorized.' });
