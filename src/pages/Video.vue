@@ -91,6 +91,7 @@ export default {
   mounted() {
     this.fetchUser()
     this.listenToEvents()
+    this.listenToLogout()
   },
   computed: {
     ...mapGetters(['yourStream', 'theirStream', 'yourConnection', 'connectedUser', 'ws', 'sendState']),
@@ -162,13 +163,13 @@ export default {
   onCandidate: function (candidate) {
     this.yourConnection.addIceCandidate(new RTCIceCandidate(candidate));
   },
-  hasUserMedia () {
+  hasUserMedia: function () {
     navigator.getUserMedia = navigator.getUserMedia ||
     navigator.webkitGetUserMedia || navigator.mozGetUserMedia ||
     navigator.msGetUserMedia;
     return !!navigator.getUserMedia;
   },
-  hasRTCPeerConnection () {
+  hasRTCPeerConnection: function () {
     window.RTCPeerConnection = window.RTCPeerConnection ||
     window.webkitRTCPeerConnection || window.mozRTCPeerConnection;
     window.RTCSessionDescription = window.RTCSessionDescription ||
@@ -178,7 +179,7 @@ export default {
     window.webkitRTCIceCandidate || window.mozRTCIceCandidate;
     return !!window.RTCPeerConnection;
   },
-  startConnection () {
+  startConnection: function () {
     var val = this
     if (val.hasUserMedia) {
       navigator.getUserMedia({ video: true, audio: false }, function
@@ -257,9 +258,15 @@ export default {
     bus.$on('refreshLogout', () => {
       this.$store.dispatch("sendAction", { type: 'leave' });
     });
+    bus.$off('refreshLogout', () => {
+      this.$store.dispatch("sendAction", { type: 'leave' });
+    });
   },
   listenToEvents() {
     bus.$on('refreshUser', () => {
+      this.fetchUser();
+    });
+    bus.$off('refreshUser', () => {
       this.fetchUser();
     });
   },

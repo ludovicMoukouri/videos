@@ -120,7 +120,7 @@ var wss = new WebSocketServer({ server });
 
 let users = {};
 
-wss.on('connection', function(connection, req, client) {
+wss.on('connection', function(connection, req) {
 	console.log('WebSocket client connected...');
 	sess(req, {}, () => {
 		console.log('Session is parsed! ', req.session.passport);
