@@ -103,6 +103,7 @@ export default {
   self.yourConnection.onicecandidate = null;  
   self.yourConnection.onaddstream = null;  
   self.setupPeerConnection(self.yourStream); 
+  console.log(self.connectedUser, ' Leave Connection')
 },
     ping: function () {
         ws.send('__ping__');
