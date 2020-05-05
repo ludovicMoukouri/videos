@@ -49,7 +49,7 @@ const sessionOption = {
 	resave: true,
 	saveUninitialized: true,
 	cookie: {
-		httpOnly: false,
+		httpOnly: true, path: '/',
 		expires: new Date(Date.now() + 86400000)
 	},
 	// store:store
@@ -80,7 +80,7 @@ fs.readdirSync("controllers").forEach(function (file) {
 	}
 });
 
-app.use(history());
+// app.use(history());
 app.use('/', serveStatic(__dirname + "/../dist"));
 
 router.get('/api/current_user', isLoggedIn, function(req, res) {
@@ -123,7 +123,7 @@ var wss = new WebSocketServer({ server });
 
 let users = {};
 
-wss.on('connection', function(connection, req) {
+wss.on('connection', function(connection, req, client) {
 	console.log('WebSocket client connected...');
 	sess(req, {}, () => {
 		console.log('Session is parsed! ', req.session.passport);

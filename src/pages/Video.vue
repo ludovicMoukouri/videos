@@ -93,13 +93,18 @@ export default {
   },
   computed: {
     ...mapGetters(['yourStream', 'theirStream', 'yourConnection', 'connectedUser', 'ws', 'sendState']),
+    onLeave: function () { 
+    const self = this 
+  self.connectedUser = null;  
+  self.theirStream.src = null;  
+  self.yourConnection.close();  
+  self.yourConnection.onicecandidate = null;  
+  self.yourConnection.onaddstream = null;  
+  self.setupPeerConnection(self.yourStream); 
+};
     ping: function () {
         ws.send('__ping__');
-        tm = setTimeout(function () {
-
-           /// ---connection closed ///
-
-
+        tm = setTimeout(function (){
     }, 5000);
 },
     onLogin: function (success) {
