@@ -101,7 +101,7 @@ export default {
   self.yourConnection.onicecandidate = null;  
   self.yourConnection.onaddstream = null;  
   self.setupPeerConnection(self.yourStream); 
-};
+},
     ping: function () {
         ws.send('__ping__');
         tm = setTimeout(function (){
