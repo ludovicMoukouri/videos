@@ -54,9 +54,9 @@ export default {
   },
   created() {
     const _this = this;
-    // ws.onopen = function () {
-    //   console.log("Connected");
-    // };
+    ws.onopen = function () {
+      console.log("Connected");
+    };
     ws.onmessage = function (message) {
       console.log("Got message", message.data);
       var data = JSON.parse(message.data);
@@ -79,6 +79,9 @@ export default {
         default:
         break;
       }
+    };
+    ws.onclose = function () {
+      console.log("deconnection");
     };
   },
   beforeMount() {
