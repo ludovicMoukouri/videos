@@ -54,10 +54,10 @@ export default {
   },
   created() {
     const _this = this;
-    ws.onopen = function () {
+    _this.ws.onopen = function () {
       console.log("Connected");
     };
-    ws.onmessage = function (message) {
+    _this.ws.onmessage = function (message) {
       console.log("Got message", message.data);
       var data = JSON.parse(message.data);
       switch(data.type) {
@@ -80,9 +80,10 @@ export default {
         break;
       }
     };
-    ws.onclose = function () {
+    _this.ws.onclose = function () {
       console.log("deconnection");
     };
+    console.log(_this.ws, 'wssssssssssssssssssssss')
   },
   beforeMount() {
     
@@ -278,7 +279,6 @@ export default {
       // ws.send(JSON.stringify({ type: 'login', name: nameval }))
       //   this.sendAction({ type: 'login', name: nameval })
         this.$store.dispatch("sendAction", { type: 'login', name: nameval });
-        console.log(this.ws, 'wssssssssssssssssssssss')
       })
     .catch(() => {
     });
