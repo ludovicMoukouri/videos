@@ -49,12 +49,14 @@ export default {
   }),
   beforeCreate() {
     this.$store.dispatch('wsAction', ws)
+    const oblog = this.$store.state.objectL
+    console.log('gfd3333333333', oblog)
   },
   created() {
     const _this = this;
-    ws.onopen = function () {
-      console.log("Connected");
-    };
+    // ws.onopen = function () {
+    //   console.log("Connected");
+    // };
     ws.onmessage = function (message) {
       console.log("Got message", message.data);
       var data = JSON.parse(message.data);

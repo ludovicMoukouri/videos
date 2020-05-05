@@ -47,7 +47,6 @@
             :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
             :rules="passwordRules"
             :type="show1 ? 'text' : 'password'"
-            name="pass-10-1"
             hint="At least 8 characters"
             counter
             @click:append="show1 = !show1"
@@ -59,7 +58,6 @@
             prepend-inner-icon="mdi-lock"
             :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
             :type="show2 ? 'text' : 'password'"
-            name="input-7-1"
             label="Confirm Password"
             v-model="confirm_password"
             @click:append="show2 = !show2"

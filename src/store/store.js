@@ -10,6 +10,7 @@ const state = {
   ws: undefined,
   sendState: undefined,
   userAgent: undefined,
+  objectL: undefined,
 };
 
 const getters = {
@@ -19,7 +20,7 @@ const getters = {
   yourStream: state => state.yourStream,
   theirStream: state => state.theirsStream,
   connectedUser: state => state.connectedUser,
-  userAgent: state => state.userAgent,
+  objectL: state => state.objectL,
 };
 
 const mutations = {
@@ -50,6 +51,9 @@ const mutations = {
   UserAgent: function (state, payload) {
     state.userAgent = payload;
   },
+  LoginObject: function (state, payload) {
+    state.objectL = payload;
+  },
 };
 
 const actions = {
@@ -73,6 +77,9 @@ const actions = {
   },
   userAgent: (context, payload) => {
     context.commit('UserAgent', payload);
+  },
+  loginObject: (context, payload) => {
+    context.commit('LoginObject', payload);
   },
     // Socket: ({commit, dispatch}, url) => {
   //   const ws = new Websocket('ws://localhost:8081')

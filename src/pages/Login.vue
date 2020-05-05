@@ -22,7 +22,7 @@
               Login with google
             </a>
           </div>
-          <v-form v-model="validate" ref="form" lazy-validation>
+          <v-form v-model="valid" ref="form" lazy-validation>
             <v-text-field
             outlined
             class="v-textfield"
@@ -51,7 +51,7 @@
             ></v-text-field>
             <btn
             label="Sign In"
-            :disabled="!validate"
+            :disabled="!valid"
             style="background-color:#0000ff21;margin:0px 2% 0px 0px"
             :loading="loading"
             @click="login"
@@ -97,7 +97,7 @@ export default {
       googleIcon: require('./../assets/static/images/google.png'),
     },
     show1: false,
-    validate: true,
+    valid: true,
     loading: false,
     email: '',
     password: '',
