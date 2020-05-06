@@ -255,6 +255,7 @@ export default {
   },
   listenToLogout() {
     bus.$on('refreshLogout', () => {
+      window.location.reload()
       this.$store.dispatch("sendAction", { type: 'leave' });
     });
   },
