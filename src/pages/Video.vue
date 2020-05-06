@@ -46,7 +46,8 @@ export default {
     theirusername: '',
     loggin: false,
     msg: 'Sorry but you should loggin first',
-    loadr: undefined
+    loadr: undefined,
+    loadhref: undefined,
   }),
   beforeCreate() {
     this.$store.dispatch('wsAction', ws)
@@ -96,7 +97,8 @@ export default {
   computed: {
     ...mapGetters(['yourStream', 'theirStream', 'yourConnection', 'connectedUser', 'ws', 'sendState']),
     loadr() {
-      this.loadr = this.location.reload()
+      this.loadr = location.reload()
+      this.loadhref = location.href
       return this.loadr
     },
     onLeave: function () { 
