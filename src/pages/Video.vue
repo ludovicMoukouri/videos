@@ -57,10 +57,10 @@ export default {
   },
   created() {
     const _this = this;
-    _this.ws.onopen = function () {
+    ws.onopen = function () {
       console.log("Connected");
     };
-    _this.ws.onmessage = function (message) {
+    ws.onmessage = function (message) {
       console.log("Got message", message.data);
       var data = JSON.parse(message.data);
       switch(data.type) {
@@ -83,7 +83,7 @@ export default {
         break;
       }
     };
-    _this.ws.onclose = function () {
+    ws.onclose = function () {
       console.log("deconnection");
     };
     console.log(_this.ws, 'wssssssssssssssssssssss')
