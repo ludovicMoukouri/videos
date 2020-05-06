@@ -86,7 +86,7 @@ export default {
     ws.onclose = function () {
       console.log("deconnection");
     };
-    console.log(_this.ws, 'wssssssssssssssssssssss')
+    console.log(ws, 'wssssssssssssssssssssss')
   },
   mounted() {
     this.listenToEvents()
@@ -255,13 +255,13 @@ export default {
   },
   listenToLogout() {
     bus.$on('refreshLogout', () => {
-      window.location.reload()
       this.$store.dispatch("sendAction", { type: 'leave' });
     });
   },
   listenToEvents() {
     bus.$on('refreshUser', () => {
       this.fetchUser();
+      window.location.reload()
     });  
   },
   async fetchUser() {
