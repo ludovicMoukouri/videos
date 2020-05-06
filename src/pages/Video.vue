@@ -49,11 +49,15 @@ export default {
   }),
   beforeCreate() {
     this.$store.dispatch('wsAction', ws)
-    const oblog = this.$store.state.objectL
-    console.log('gfd3333333333', oblog)
+    _this.listenToLogout()
+  },
+  beforeUpdate() {
+    const _this = this;
+    _this.fetchUser()
   },
   created() {
     const _this = this;
+    _this.listenToEvents()
     _this.ws.onopen = function () {
       console.log("Connected");
     };
@@ -85,13 +89,8 @@ export default {
     };
     console.log(_this.ws, 'wssssssssssssssssssssss')
   },
-  beforeMount() {
-    
-  },
   mounted() {
-    this.fetchUser()
-    this.listenToEvents()
-    this.listenToLogout()
+    
   },
   computed: {
     ...mapGetters(['yourStream', 'theirStream', 'yourConnection', 'connectedUser', 'ws', 'sendState']),

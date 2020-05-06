@@ -10,7 +10,7 @@ const state = {
   ws: undefined,
   sendState: undefined,
   userAgent: undefined,
-  objectL: undefined,
+  objectL: null,
 };
 
 const getters = {
@@ -20,7 +20,7 @@ const getters = {
   yourStream: state => state.yourStream,
   theirStream: state => state.theirsStream,
   connectedUser: state => state.connectedUser,
-  objectL: state => state.objectL,
+  objectTodo: state => state.objectL,
 };
 
 const mutations = {
@@ -39,7 +39,7 @@ const mutations = {
 	ConnectedUser: function (state, payload) {
     state.connectedUser = payload;
   },
-	SendMutation: function (state, payload) {
+	Send_Mutation: function (state, payload) {
     if (!state.ws || state.ws.readyState !== 1) return;
     if (state.connectedUser) {
       payload.name = state.connectedUser;
@@ -51,8 +51,9 @@ const mutations = {
   UserAgent: function (state, payload) {
     state.userAgent = payload;
   },
-  LoginObject: function (state, payload) {
+  Login_Object: function (state, payload) {
     state.objectL = payload;
+    console.log('jkjkjjkj', payload)
   },
 };
 
@@ -69,8 +70,8 @@ const actions = {
   connectedUser: (context, payload) => {
     context.commit('ConnectedUser', payload);
   },
-  sendAction: (context, payload) => {
-    context.commit('SendMutation', payload);
+  sendAction: ({commit}, oblog) => {
+    commit('Send_Mutation', oblog);
   },
   wsAction: (context, payload) => {
     context.commit('Ws', payload);
@@ -78,8 +79,8 @@ const actions = {
   userAgent: (context, payload) => {
     context.commit('UserAgent', payload);
   },
-  loginObject: (context, payload) => {
-    context.commit('LoginObject', payload);
+  loginA: ({commit}, sendA) => {
+    commit('Login_Object', sendA);
   },
     // Socket: ({commit, dispatch}, url) => {
   //   const ws = new Websocket('ws://localhost:8081')
