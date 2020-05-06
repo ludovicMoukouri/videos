@@ -96,7 +96,8 @@ export default {
   computed: {
     ...mapGetters(['yourStream', 'theirStream', 'yourConnection', 'connectedUser', 'ws', 'sendState']),
     loadr() {
-      return location.reload(true)
+      this.loadr = this.location.reload()
+      return this.loadr
     },
     onLeave: function () { 
     const self = this 
