@@ -57,7 +57,6 @@ export default {
   },
   created() {
     const _this = this;
-    _this.listenToEvents()
     _this.ws.onopen = function () {
       console.log("Connected");
     };
@@ -90,7 +89,7 @@ export default {
     console.log(_this.ws, 'wssssssssssssssssssssss')
   },
   mounted() {
-    
+    this.listenToEvents()
   },
   computed: {
     ...mapGetters(['yourStream', 'theirStream', 'yourConnection', 'connectedUser', 'ws', 'sendState']),
@@ -258,17 +257,11 @@ export default {
     bus.$on('refreshLogout', () => {
       this.$store.dispatch("sendAction", { type: 'leave' });
     });
-    bus.$off('refreshLogout', () => {
-      this.$store.dispatch("sendAction", { type: 'leave' });
-    });
   },
   listenToEvents() {
     bus.$on('refreshUser', () => {
       this.fetchUser();
-    });
-    bus.$off('refreshUser', () => {
-      this.fetchUser();
-    });
+    });  
   },
   async fetchUser() {
     return axios({
