@@ -260,8 +260,8 @@ export default {
   },
   listenToEvents() {
     bus.$on('refreshUser', () => {
-      this.fetchUser();
       window.location.reload()
+      this.fetchUser();
     });  
   },
   async fetchUser() {
