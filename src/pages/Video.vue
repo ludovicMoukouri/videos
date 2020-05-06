@@ -45,7 +45,8 @@ export default {
   data: () => ({
     theirusername: '',
     loggin: false,
-    msg: 'Sorry but you should loggin first'
+    msg: 'Sorry but you should loggin first',
+    loadr: undefined
   }),
   beforeCreate() {
     this.$store.dispatch('wsAction', ws)
@@ -94,6 +95,10 @@ export default {
   },
   computed: {
     ...mapGetters(['yourStream', 'theirStream', 'yourConnection', 'connectedUser', 'ws', 'sendState']),
+    loadr() {
+      this.loadr = window.location.reload()
+      return this.loadr
+    },
     onLeave: function () { 
     const self = this 
   self.connectedUser = null;  
@@ -262,7 +267,7 @@ export default {
   listenToEvents() {
     bus.$on('refreshUser', () => {
       this.fetchUser();
-      window.location.reload()
+      this.loadr();
     });  
   },
   async fetchUser() {
