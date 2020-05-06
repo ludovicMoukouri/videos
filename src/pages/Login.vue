@@ -110,10 +110,6 @@ export default {
     ],
     ws_var: '',
   }),
-  created() {
-    // Fetch initial data.
-    this.login();
-  },
   methods: {
     async login() {
       if (this.$refs.form.validate()) {
