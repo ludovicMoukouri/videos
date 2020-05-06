@@ -60,7 +60,6 @@ export default {
     ws.onopen = function () {
       console.log("Connected");
     };
-    _this.listenToEvents()
     ws.onmessage = function (message) {
       console.log("Got message", message.data);
       var data = JSON.parse(message.data);
@@ -90,6 +89,7 @@ export default {
     console.log(ws, 'wssssssssssssssssssssss')
   },
   mounted() {
+    this.listenToEvents()
     this.fetchUser();
   },
   computed: {
