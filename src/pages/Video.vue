@@ -46,8 +46,7 @@ export default {
     theirusername: '',
     loggin: false,
     msg: 'Sorry but you should loggin first',
-    loadr: undefined,
-    loadhref: undefined,
+    loadr: undefined
   }),
   beforeCreate() {
     this.$store.dispatch('wsAction', ws)
@@ -98,8 +97,7 @@ export default {
     ...mapGetters(['yourStream', 'theirStream', 'yourConnection', 'connectedUser', 'ws', 'sendState']),
     loadr() {
       const self = this
-      self.$router.go('/video')
-      this.loadr = self.$router.reload()
+      this.loadr = this.$router.go()
       return this.loadr
     },
     onLeave: function () { 
