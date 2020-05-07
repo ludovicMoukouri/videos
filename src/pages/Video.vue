@@ -97,7 +97,7 @@ export default {
     ...mapGetters(['yourStream', 'theirStream', 'yourConnection', 'connectedUser', 'ws', 'sendState']),
     loadr() {
       const self = this
-      this.loadr = this.$router.go()
+      this.loadr = this.$route.router.reload()
       return this.loadr
     },
     onLeave: function () { 
