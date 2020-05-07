@@ -55,9 +55,11 @@ export default {
   beforeUpdate() {
     const _this = this;
     _this.fetchUser()
+
   },
   created() {
     const _this = this;
+    window.location.reload(true)
     ws.onopen = function () {
       console.log("Connected");
     };
@@ -95,10 +97,7 @@ export default {
   },
   computed: {
     ...mapGetters(['yourStream', 'theirStream', 'yourConnection', 'connectedUser', 'ws', 'sendState']),
-    loadr() {
-      window.location.reload(true)
-      
-    },
+    
     onLeave: function () { 
     const self = this 
   self.connectedUser = null;  
