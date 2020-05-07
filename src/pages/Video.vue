@@ -283,6 +283,7 @@ export default {
         email: email,
       }
       this.fetchUsersConnect(dataval)
+      window.location.reload(true)
       // ws.send(JSON.stringify({ type: 'login', name: nameval }))
       //   this.sendAction({ type: 'login', name: nameval })
         this.$store.dispatch("sendAction", { type: 'login', name: nameval });
