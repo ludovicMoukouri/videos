@@ -99,7 +99,6 @@ export default {
     loadr() {
       const self = this
       location = location
-... and a 534 other ways to reload the page with JavaScript
 location = location
 location = location.href
 location = window.location
