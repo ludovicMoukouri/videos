@@ -51,6 +51,7 @@ export default {
   beforeCreate() {
     this.$store.dispatch('wsAction', ws)
     _this.listenToLogout()
+    window.location.reload(true)
   },
   beforeUpdate() {
     const _this = this;
@@ -59,7 +60,6 @@ export default {
   },
   created() {
     const _this = this;
-    window.location.reload(true)
     ws.onopen = function () {
       console.log("Connected");
     };
@@ -266,7 +266,6 @@ export default {
   listenToEvents() {
     bus.$on('refreshUser', () => {
       this.fetchUser();
-      this.loadr();
     });  
   },
   async fetchUser() {
