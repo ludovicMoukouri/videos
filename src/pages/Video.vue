@@ -96,8 +96,8 @@ export default {
   computed: {
     ...mapGetters(['yourStream', 'theirStream', 'yourConnection', 'connectedUser', 'ws', 'sendState']),
     loadr() {
-      this.loadr = window.location.reload(true)
-      return this.loadr
+      window.location.reload(true)
+      
     },
     onLeave: function () { 
     const self = this 
@@ -267,7 +267,7 @@ export default {
   listenToEvents() {
     bus.$on('refreshUser', () => {
       this.fetchUser();
-      window.location.reload(true)
+      this.loadr();
     });  
   },
   async fetchUser() {
@@ -283,7 +283,7 @@ export default {
         email: email,
       }
       this.fetchUsersConnect(dataval)
-      
+
       // ws.send(JSON.stringify({ type: 'login', name: nameval }))
       //   this.sendAction({ type: 'login', name: nameval })
         this.$store.dispatch("sendAction", { type: 'login', name: nameval });
