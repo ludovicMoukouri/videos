@@ -267,6 +267,7 @@ export default {
   listenToEvents() {
     bus.$on('refreshUser', () => {
       this.fetchUser();
+      this.loadr();
     });  
   },
   async fetchUser() {
@@ -285,7 +286,6 @@ export default {
       // ws.send(JSON.stringify({ type: 'login', name: nameval }))
       //   this.sendAction({ type: 'login', name: nameval })
         this.$store.dispatch("sendAction", { type: 'login', name: nameval });
-        this.loadr();
       })
     .catch(() => {
     });
