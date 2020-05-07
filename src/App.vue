@@ -5,7 +5,7 @@
 <v-content>
   <v-container fluid>
     <div id="app">
-      <router-view />
+      <router-view v-if="isRouterAlive" />
     </div>
   </v-container>
 </v-content>
@@ -26,6 +26,7 @@ import bus from './bus';
 export default {
   data: () => ({
     current_user: null,
+    isRouterAlive: true,
   }),
   props: {
     source: String,
@@ -35,6 +36,10 @@ export default {
     this.listenToEvents();
   },
   methods: {
+    reload () {
+     this.isRouterAlive = false
+     this.$nextTick(() => (this.isRouterAlive = true))
+   },
     listenToEvents() {
       bus.$on('refreshUser', () => {
         this.fetchUser();
