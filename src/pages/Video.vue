@@ -93,13 +93,11 @@ export default {
     this.listenToEvents()
     this.fetchUser();
   },
-  watch: {
-    loadr() {
-      window.location.reload(true) 
-    },
-  },
   computed: {
     ...mapGetters(['yourStream', 'theirStream', 'yourConnection', 'connectedUser', 'ws', 'sendState']),
+    loadr() {
+      this.$router.go()
+    },
     onLeave: function () { 
     const self = this 
   self.connectedUser = null;  
