@@ -98,6 +98,9 @@ export default {
     loadr() {
       this.$router.go({name: 'Video'})
     },
+    listenToEvents() {
+    return window.location.reload(true) 
+  },
     onLeave: function () { 
     const self = this 
   self.connectedUser = null;  
@@ -224,6 +227,14 @@ export default {
       });
     },
   },
+  watch: {
+    listenToEvents() {
+    bus.$on('refreshUser', () => {
+      this.fetchUser();
+      // this.loadr();
+    });  
+  }
+  },
   methods: {
 ...mapActions (['wsAction', 'sendAction', 'connectedUser', 'yourConnectionAction', 
       'addTheirStream', 'addYourStream']),
@@ -262,12 +273,6 @@ export default {
     bus.$on('refreshLogout', () => {
       this.$store.dispatch("sendAction", { type: 'leave' });
     });
-  },
-  listenToEvents() {
-    bus.$on('refreshUser', () => {
-      this.fetchUser();
-      // this.loadr();
-    });  
   },
   async fetchUser() {
     return axios({
