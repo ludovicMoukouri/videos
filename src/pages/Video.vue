@@ -265,8 +265,7 @@ export default {
   },
   listenToEvents() {
     bus.$on('refreshUser', () => {
-      this.fetchUser();
-      this.loadr();
+      this.$router.go({name: 'Video'})
     });  
   },
   async fetchUser() {
