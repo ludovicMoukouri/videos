@@ -51,12 +51,10 @@ export default {
   beforeCreate() {
     this.$store.dispatch('wsAction', ws)
     _this.listenToLogout()
-    window.location.reload(true)
   },
   beforeUpdate() {
     const _this = this;
     _this.fetchUser()
-
   },
   created() {
     const _this = this;
@@ -97,7 +95,9 @@ export default {
   },
   computed: {
     ...mapGetters(['yourStream', 'theirStream', 'yourConnection', 'connectedUser', 'ws', 'sendState']),
-    
+    loadr() {
+      window.location.reload(true) 
+    },
     onLeave: function () { 
     const self = this 
   self.connectedUser = null;  
@@ -266,6 +266,7 @@ export default {
   listenToEvents() {
     bus.$on('refreshUser', () => {
       this.fetchUser();
+      this.loadr();
     });  
   },
   async fetchUser() {
