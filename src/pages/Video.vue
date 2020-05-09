@@ -89,16 +89,16 @@ export default {
     };
     console.log(ws, 'wssssssssssssssssssssss')
   },
-  mounted() {
+  beforeMount() {
     this.listenToEvents();
+  },
+  mounted() {
     this.fetchUser();
   },
   computed: {
     ...mapGetters(['yourStream', 'theirStream', 'yourConnection', 'connectedUser', 'ws', 'sendState']),
     loadresponsive() {
-      bus.$on('refreshUser', () => {
       return this.$router.go(-1)
-    });
     },
     loadwindow() {
       this.loadr = window.location.reload()
