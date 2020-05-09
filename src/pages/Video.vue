@@ -96,7 +96,9 @@ export default {
   computed: {
     ...mapGetters(['yourStream', 'theirStream', 'yourConnection', 'connectedUser', 'ws', 'sendState']),
     loadr() {
-      return this.$route.path
+      bus.$on('refreshUser', () => {
+        
+    }); 
     },
     onLeave: function () { 
     const self = this 
