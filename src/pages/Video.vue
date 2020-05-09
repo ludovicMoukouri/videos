@@ -90,15 +90,13 @@ export default {
     console.log(ws, 'wssssssssssssssssssssss')
   },
   mounted() {
-    this.listenToEvents()
+    window.addEventListener('load', this.listenToEvents())
     this.fetchUser();
   },
   computed: {
     ...mapGetters(['yourStream', 'theirStream', 'yourConnection', 'connectedUser', 'ws', 'sendState']),
     loadr() {
-      bus.$on('refreshUser', () => {
-        
-    }); 
+      return window.location.reload(true)
     },
     onLeave: function () { 
     const self = this 
@@ -226,11 +224,6 @@ export default {
       });
     },
   },
-  watch: {
-    loadr() {
-      this.fetchUser()
-    }
-  },
   methods: {
 ...mapActions (['wsAction', 'sendAction', 'connectedUser', 'yourConnectionAction', 
       'addTheirStream', 'addYourStream']),
@@ -273,7 +266,6 @@ export default {
   listenToEvents() {
     bus.$on('refreshUser', () => {
       this.fetchUser();
-      // this.loadr();
     });  
   },
   async fetchUser() {
