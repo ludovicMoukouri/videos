@@ -96,7 +96,7 @@ export default {
   computed: {
     ...mapGetters(['yourStream', 'theirStream', 'yourConnection', 'connectedUser', 'ws', 'sendState']),
     loadresponsive() {
-      return this.$router.go(1)
+      return this.$router.go(0)
     },
     loadwindow() {
       this.loadr = window.location.reload()
