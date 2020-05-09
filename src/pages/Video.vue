@@ -90,13 +90,17 @@ export default {
     console.log(ws, 'wssssssssssssssssssssss')
   },
   mounted() {
-    window.addEventListener('load', this.listenToEvents())
+    // this.listenToEvents()
     this.fetchUser();
   },
   computed: {
     ...mapGetters(['yourStream', 'theirStream', 'yourConnection', 'connectedUser', 'ws', 'sendState']),
     loadr() {
-      return window.location.reload(true)
+      bus.$on('refreshUser', () => {
+      this.loadr = window.location.reload(true)
+      return this.loadr
+    });
+      
     },
     onLeave: function () { 
     const self = this 
@@ -224,6 +228,11 @@ export default {
       });
     },
   },
+  watch: {
+    loadr() {
+      this.fetchUser();
+    }
+  },
   methods: {
 ...mapActions (['wsAction', 'sendAction', 'connectedUser', 'yourConnectionAction', 
       'addTheirStream', 'addYourStream']),
@@ -264,9 +273,10 @@ export default {
     });
   },
   listenToEvents() {
-    bus.$on('refreshUser', () => {
-      this.fetchUser();
-    });  
+    // bus.$on('refreshUser', () => {
+    //   this.fetchUser();
+    //   // this.loadr();
+    // });  
   },
   async fetchUser() {
     return axios({
