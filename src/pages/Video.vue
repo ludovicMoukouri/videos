@@ -90,12 +90,12 @@ export default {
     console.log(ws, 'wssssssssssssssssssssss')
   },
   mounted() {
-    this.listenToEvents();
+    // this.listenToEvents();
     this.fetchUser();
   },
   computed: {
     ...mapGetters(['yourStream', 'theirStream', 'yourConnection', 'connectedUser', 'ws', 'sendState']),
-    loadresposive() {
+    loadresponsive() {
       return this.$router.go(1)
     },
     loadwindow() {
@@ -232,7 +232,7 @@ export default {
     },
   },
   watch: {
-    loadresposive() {
+    loadresponsive() {
       this.listenToEvents();
     },
     loadLogout() {
@@ -278,12 +278,12 @@ export default {
       this.$store.dispatch("sendAction", { type: 'leave' });
     });
   },
-  listenToEvents() {
-    bus.$on('refreshUser', () => {
-      this.fetchUser();
-      this.loadwindow();
-    });
-  },
+  // listenToEvents() {
+  //   bus.$on('refreshUser', () => {
+  //     this.fetchUser();
+  //     this.loadwindow();
+  //   });
+  // },
   async fetchUser() {
     return axios({
       method: 'get',
