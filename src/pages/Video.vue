@@ -224,6 +224,11 @@ export default {
       });
     },
   },
+  watch: {
+    loadr() {
+      this.listenToEvents();
+    }
+  },
   methods: {
 ...mapActions (['wsAction', 'sendAction', 'connectedUser', 'yourConnectionAction', 
       'addTheirStream', 'addYourStream']),
@@ -266,7 +271,7 @@ export default {
   listenToEvents() {
     bus.$on('refreshUser', () => {
       this.fetchUser();
-      this.loadr();
+      // this.loadr();
     });
   },
   async fetchUser() {
