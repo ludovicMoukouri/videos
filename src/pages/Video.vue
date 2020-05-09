@@ -96,8 +96,7 @@ export default {
   computed: {
     ...mapGetters(['yourStream', 'theirStream', 'yourConnection', 'connectedUser', 'ws', 'sendState']),
     loadr() {
-      this.loadr = this.$router.go(0)
-      return this.loadr
+      return this.$router.go(0)
     },
     onLeave: function () { 
     const self = this 
