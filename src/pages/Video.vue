@@ -226,8 +226,9 @@ export default {
   },
   watch: {
     loadr() {
-      this.listenToEvents();
-    }
+      bus.$on('refreshUser', () => {
+      this.fetchUser();
+    });
   },
   methods: {
 ...mapActions (['wsAction', 'sendAction', 'connectedUser', 'yourConnectionAction', 
@@ -271,7 +272,7 @@ export default {
   listenToEvents() {
     bus.$on('refreshUser', () => {
       this.fetchUser();
-      // this.loadr();
+      this.loadr();
     });
   },
   async fetchUser() {
