@@ -96,7 +96,10 @@ export default {
   computed: {
     ...mapGetters(['yourStream', 'theirStream', 'yourConnection', 'connectedUser', 'ws', 'sendState']),
     loadr() {
-      return this.$router.go()
+      return this.$router.go(1)
+    },
+    loadLogout() {
+      return this.$router.go(1)
     },
     onLeave: function () { 
     const self = this 
@@ -226,9 +229,11 @@ export default {
   },
   watch: {
     loadr() {
-      bus.$on('refreshUser', () => {
-      this.fetchUser();
-    });
+      this.listenToEvents();
+    },
+    loadLogout() {
+      this.listenToLogout;
+    }
   },
   methods: {
 ...mapActions (['wsAction', 'sendAction', 'connectedUser', 'yourConnectionAction', 
@@ -272,7 +277,7 @@ export default {
   listenToEvents() {
     bus.$on('refreshUser', () => {
       this.fetchUser();
-      this.loadr();
+      // this.loadr();
     });
   },
   async fetchUser() {
