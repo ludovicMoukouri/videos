@@ -233,7 +233,7 @@ export default {
   },
   watch: {
     loadresponsive() {
-      this.listenToEvents();
+      this.fetchUser();
     },
     loadLogout() {
       this.listenToLogout();
