@@ -92,13 +92,11 @@ export default {
   mounted() {
     this.listenToEvents()
     this.fetchUser();
-    this.loadr()
   },
   computed: {
     ...mapGetters(['yourStream', 'theirStream', 'yourConnection', 'connectedUser', 'ws', 'sendState']),
     loadr() {
-      this.loadr = window.location.reload(true)
-    return this.loadr
+      return this.$route.path
     },
     onLeave: function () { 
     const self = this 
@@ -226,6 +224,11 @@ export default {
       });
     },
   },
+  watch: {
+    loadr() {
+      this.fetchUser()
+    }
+  },
   methods: {
 ...mapActions (['wsAction', 'sendAction', 'connectedUser', 'yourConnectionAction', 
       'addTheirStream', 'addYourStream']),
@@ -268,7 +271,7 @@ export default {
   listenToEvents() {
     bus.$on('refreshUser', () => {
       this.fetchUser();
-      this.loadr();
+      // this.loadr();
     });  
   },
   async fetchUser() {
