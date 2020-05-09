@@ -90,7 +90,7 @@ export default {
     console.log(ws, 'wssssssssssssssssssssss')
   },
   mounted() {
-    // this.listenToEvents()
+    this.listenToEvents()
     this.fetchUser();
   },
   computed: {
@@ -270,10 +270,10 @@ export default {
     });
   },
   listenToEvents() {
-    bus.$on('refreshUser', () => {
-      this.fetchUser();
-      // this.loadr();
-    });  
+    // bus.$on('refreshUser', () => {
+    //   this.fetchUser();
+    // });
+    this.loadr();
   },
   async fetchUser() {
     return axios({
