@@ -91,7 +91,6 @@ export default {
   },
   mounted() {
     this.listenToEvents();
-    this.listenToEventswindow();
     this.fetchUser();
   },
   computed: {
@@ -280,12 +279,6 @@ export default {
     });
   },
   listenToEvents() {
-    bus.$on('refreshUser', () => {
-      this.fetchUser();
-      // this.loadr();
-    });
-  },
-  listenToEventswindow() {
     bus.$on('refreshUser', () => {
       this.fetchUser();
       this.loadwindow();
