@@ -54,7 +54,7 @@ export default {
   },
   beforeUpdate() {
     const _this = this;
-    _this.fetchUser()
+    // _this.fetchUser()
   },
   created() {
     const _this = this;
@@ -228,7 +228,6 @@ export default {
   watch: {
     loadr() {
       this.fetchUser();
-    });
     }
   },
   methods: {
