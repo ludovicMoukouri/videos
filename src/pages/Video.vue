@@ -96,7 +96,7 @@ export default {
   computed: {
     ...mapGetters(['yourStream', 'theirStream', 'yourConnection', 'connectedUser', 'ws', 'sendState']),
     loadr() {
-      this.loadr = window.location.reload(true)
+      this.loadr = this.$router.go(0)
       return this.loadr
     },
     onLeave: function () { 
@@ -267,8 +267,8 @@ export default {
   listenToEvents() {
     bus.$on('refreshUser', () => {
       this.fetchUser();
+      this.loadr();
     });
-    this.loadr();
   },
   async fetchUser() {
     return axios({
