@@ -95,8 +95,12 @@ export default {
   },
   computed: {
     ...mapGetters(['yourStream', 'theirStream', 'yourConnection', 'connectedUser', 'ws', 'sendState']),
-    loadr() {
+    loadwindow() {
       return this.$router.go(1)
+    },
+    loadresposive() {
+      this.loadr = window.location.reload()
+      return this.loadr
     },
     loadLogout() {
       return this.$router.go(1)
@@ -231,8 +235,14 @@ export default {
     loadr() {
       this.listenToEvents();
     },
+    loadwindow() {
+      this.listenToEvents();
+    },
+    loadresposive() {
+      this.listenToEvents();
+    },
     loadLogout() {
-      this.listenToLogout;
+      this.listenToLogout();
     }
   },
   methods: {
