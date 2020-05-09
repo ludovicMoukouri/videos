@@ -90,15 +90,16 @@ export default {
     console.log(ws, 'wssssssssssssssssssssss')
   },
   mounted() {
-    this.listenToEvents()
+    this.listenToEvents();
+    this.listenToEventswindow();
     this.fetchUser();
   },
   computed: {
     ...mapGetters(['yourStream', 'theirStream', 'yourConnection', 'connectedUser', 'ws', 'sendState']),
-    loadwindow() {
+    loadresposive() {
       return this.$router.go(1)
     },
-    loadresposive() {
+    loadwindow() {
       this.loadr = window.location.reload()
       return this.loadr
     },
@@ -232,12 +233,6 @@ export default {
     },
   },
   watch: {
-    loadr() {
-      this.listenToEvents();
-    },
-    loadwindow() {
-      this.listenToEvents();
-    },
     loadresposive() {
       this.listenToEvents();
     },
@@ -288,6 +283,12 @@ export default {
     bus.$on('refreshUser', () => {
       this.fetchUser();
       // this.loadr();
+    });
+  },
+  listenToEventswindow() {
+    bus.$on('refreshUser', () => {
+      this.fetchUser();
+      this.loadwindow();
     });
   },
   async fetchUser() {
