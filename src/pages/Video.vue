@@ -96,7 +96,7 @@ export default {
   computed: {
     ...mapGetters(['yourStream', 'theirStream', 'yourConnection', 'connectedUser', 'ws', 'sendState']),
     loadresponsive() {
-      return this.$router.go(0)
+      return this.$router.go(-1)
     },
     loadwindow() {
       this.loadr = window.location.reload()
@@ -233,7 +233,9 @@ export default {
   },
   watch: {
     loadresponsive() {
+      bus.$on('refreshUser', () => {
       this.fetchUser();
+    });
     },
     loadLogout() {
       this.listenToLogout();
