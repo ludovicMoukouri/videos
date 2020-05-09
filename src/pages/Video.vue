@@ -90,7 +90,7 @@ export default {
     console.log(ws, 'wssssssssssssssssssssss')
   },
   mounted() {
-    // this.listenToEvents();
+    this.listenToEvents();
     this.fetchUser();
   },
   computed: {
@@ -278,12 +278,13 @@ export default {
       this.$store.dispatch("sendAction", { type: 'leave' });
     });
   },
-  // listenToEvents() {
-  //   bus.$on('refreshUser', () => {
-  //     this.fetchUser();
-  //     this.loadwindow();
-  //   });
-  // },
+  listenToEvents() {
+    bus.$on('refreshUser', () => {
+      this.fetchUser();
+      this.loadresponsive();
+      // this.loadwindow();
+    });
+  },
   async fetchUser() {
     return axios({
       method: 'get',
