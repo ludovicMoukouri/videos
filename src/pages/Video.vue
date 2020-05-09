@@ -90,7 +90,7 @@ export default {
     console.log(ws, 'wssssssssssssssssssssss')
   },
   mounted() {
-    this.listenToEvents()
+    // this.listenToEvents()
     this.fetchUser();
   },
   computed: {
@@ -99,7 +99,8 @@ export default {
       this.$router.go({name: 'Video'})
     },
     listenToEvents() {
-    return window.location.reload(true) 
+    this.loadr = window.location.reload(true)
+    return this.loadr
   },
     onLeave: function () { 
     const self = this 
