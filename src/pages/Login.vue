@@ -110,7 +110,7 @@ export default {
     ],
     ws_var: '',
   }),
-  beforeMount() {
+  mounted() {
     this.loadresponsive();
   },
   methods: {
