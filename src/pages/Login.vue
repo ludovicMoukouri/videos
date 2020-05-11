@@ -111,7 +111,7 @@ export default {
     ws_var: '',
   }),
   mounted() {
-    this.loaddesktop();
+    // this.loaddesktop();
     this.loadresponsive();
   },
   methods: {
@@ -144,9 +144,9 @@ export default {
     loadresponsive() {
       return this.$router.go(1)
     },
-    loaddesktop() {
-      return document.location.href = '/login'
-    },
+    // loaddesktop() {
+    //   return document.location.href = '/login'
+    // },
     clear() {
       this.$refs.form.reset();
       this.loading = false;

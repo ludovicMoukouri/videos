@@ -128,7 +128,8 @@ export default {
             'Your account are created successfully!',
             'success',
           );
-          this.$router.push({ name: 'Login' });
+          return document.location.href = '/login'
+          // this.$router.push({ name: 'Login' });
         } catch (error) {
           const message = error.response.data.message;
           this.$swal('Oh oo!', `${message}`, 'error');
