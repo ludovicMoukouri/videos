@@ -141,7 +141,7 @@ export default {
       return true;
     },
     loadresponsive() {
-      return this.$router.go()
+      return this.$router.go(1)
     },
     clear() {
       this.$refs.form.reset();
