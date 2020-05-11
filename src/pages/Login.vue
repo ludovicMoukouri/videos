@@ -110,10 +110,10 @@ export default {
     ],
     ws_var: '',
   }),
-  mounted() {
-    // this.loaddesktop();
-    this.loadresponsive();
-  },
+  // mounted() {
+  //   // this.loaddesktop();
+  //   this.loadresponsive();
+  // },
   methods: {
     async login() {
       if (this.$refs.form.validate()) {
@@ -130,8 +130,9 @@ export default {
             this.$router.push({ name: 'Login' });
           } else {
             await services.login(dataToSend);
-            bus.$emit('refreshUser');
-            this.$router.push({ name: 'Video' });
+            // bus.$emit('refreshUser');
+            return document.location.href = '/video'
+            // this.$router.push({ name: 'Video' });
           }
           
         } catch (error) {
@@ -141,9 +142,9 @@ export default {
       }
       return true;
     },
-    loadresponsive() {
-      return this.$router.go(1)
-    },
+    // loadresponsive() {
+    //   return this.$router.go(1)
+    // },
     // loaddesktop() {
     //   return document.location.href = '/login'
     // },

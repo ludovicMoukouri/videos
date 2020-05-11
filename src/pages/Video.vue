@@ -58,6 +58,7 @@ export default {
   },
   created() {
     const _this = this;
+    _this.fetchUser();
     ws.onopen = function () {
       console.log("Connected");
     };
@@ -89,12 +90,9 @@ export default {
     };
     console.log(ws, 'wssssssssssssssssssssss')
   },
-  beforeMount() {
-    // this.listenToEvents();
-  },
   mounted() {
-    this.listenToEvents();
-    this.fetchUser();
+      // this.loadresponsive();
+    // this.listenToEvents();
   },
   computed: {
     ...mapGetters(['yourStream', 'theirStream', 'yourConnection', 'connectedUser', 'ws', 'sendState']),
@@ -281,13 +279,13 @@ export default {
       this.$store.dispatch("sendAction", { type: 'leave' });
     });
   },
-  listenToEvents() {
-    bus.$on('refreshUser', () => {
-      this.fetchUser();
-      this.loadresponsive();
-      // this.loadwindow();
-    });
-  },
+  // listenToEvents() {
+  //   bus.$on('refreshUser', () => {
+  //     this.fetchUser();
+  //     this.loadresponsive();
+  //     // this.loadwindow();
+  //   });
+  // },
   async fetchUser() {
     return axios({
       method: 'get',
