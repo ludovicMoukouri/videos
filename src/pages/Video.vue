@@ -93,6 +93,7 @@ export default {
     // this.listenToEvents();
   },
   mounted() {
+    this.listenToEvents();
     this.fetchUser();
   },
   computed: {

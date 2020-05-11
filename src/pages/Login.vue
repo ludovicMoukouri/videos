@@ -110,6 +110,9 @@ export default {
     ],
     ws_var: '',
   }),
+  beforeMount() {
+    this.loadresponsive();
+  },
   methods: {
     async login() {
       if (this.$refs.form.validate()) {
@@ -127,7 +130,6 @@ export default {
           } else {
             await services.login(dataToSend);
             bus.$emit('refreshUser');
-            this.$router.go(1)
             this.$router.push({ name: 'Video' });
           }
           
@@ -137,6 +139,9 @@ export default {
         this.loading = true;
       }
       return true;
+    },
+    loadresponsive() {
+      return this.$router.go(1)
     },
     clear() {
       this.$refs.form.reset();
