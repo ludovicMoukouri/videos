@@ -99,8 +99,9 @@ export default {
       })
         .then(() => {
           bus.$emit('refreshUser');
-          bus.$on('refreshLogout');
-          this.$router.push({ name: 'Hello' });
+          // bus.$on('refreshLogout');
+          // this.$router.push({ name: 'Hello' });
+          return document.location.href = '/Hello' // is use for reloading Page
         })
         .catch(() => {
         });
