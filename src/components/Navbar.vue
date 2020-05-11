@@ -101,7 +101,7 @@ export default {
           bus.$emit('refreshUser');
           // bus.$on('refreshLogout');
           // this.$router.push({ name: 'Hello' });
-          return document.location.href = '/Hello' // is use for reloading Page
+          return document.location.href = '/' // is use for reloading Page
         })
         .catch(() => {
         });

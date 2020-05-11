@@ -129,16 +129,17 @@ export default {
       }
     },
     setupPeerConnection: function (stream) {
-      this.yourConnection.addStream(this.yourStream);
-      this.yourConnection.onaddstream = function (e) {
-        this.$store.dispatch("addTheirStream", e.stream);
+      const self = this;
+      self.yourConnection.addStream(this.yourStream);
+      self.yourConnection.onaddstream = function (e) {
+        self.$store.dispatch("addTheirStream", e.stream);
       };
       // Setup ice handling
-      this.yourConnection.onicecandidate = function (event) {
+      self.yourConnection.onicecandidate = function (event) {
         if (event.candidate) {
-          if (this.connectedUser) {
+          if (self.connectedUser) {
             ws.send(JSON.stringify({ type: 'candidate', candidate: event.candidate, 
-              name: this.connectedUser }));
+              name: self.connectedUser }));
           } else {ws.send(JSON.stringify({ type: 'candidate', candidate: event.candidate }));}
 
           // this.$store.dispatch("sendAction", { type: 'candidate', candidate: event.candidate });
@@ -216,16 +217,12 @@ export default {
 
   startPeerConnection: function (user) {
     const _this = this;
-    console.log(this.theirusername,'startPeerConnection LLLLLLLLLLLLLLLLLLLLLLLL')
-    _this.$store.dispatch("connectedUser", this.theirusername)
+    console.log(_this.theirusername,'startPeerConnection LLLLLLLLLLLLLLLLLLLLLLLL')
+    _this.$store.dispatch("connectedUser", _this.theirusername)
       // Begin the offer
       _this.yourConnection.createOffer(function (offer) {
-        if (this.connectedUser) {
-          ws.send(JSON.stringify({ type: 'offer', offer: offer, 
-            name: this.connectedUser }));
-        } else {ws.send(JSON.stringify({ type: 'offer', offer: offer }));}
 
-        // _this.$store.dispatch("sendAction", { type: 'offer', offer: offer });
+        _this.$store.dispatch("sendAction", { type: 'offer', offer: offer });
         _this.yourConnection.setLocalDescription(offer);
       }, function (error) {
         alert("An error has occurred.");
