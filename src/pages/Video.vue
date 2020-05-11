@@ -90,7 +90,7 @@ export default {
     console.log(ws, 'wssssssssssssssssssssss')
   },
   beforeMount() {
-    this.listenToEvents();
+    // this.listenToEvents();
   },
   mounted() {
     this.fetchUser();
