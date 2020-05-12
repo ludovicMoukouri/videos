@@ -11,7 +11,7 @@ import Button from '@/components/Button';
 import Navbar from '@/components/Navbar';
 import InputComponent from '@/components/InputComponent';
 import App from '@/App';
-import { store } from './store/store';
+import store from './store/store';
 import router from '@/router';
 
 Vue.use(BootstrapVue);
