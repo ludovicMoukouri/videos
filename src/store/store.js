@@ -36,7 +36,7 @@ const mutations = {
 	Your_Connection: function (state, configur) {
     state.yourConnection = new RTCPeerConnection(configur)
   },
-	ConnectedUser: function (state, payload) {
+	Connected_User: function (state, payload) {
     state.connectedUser = payload;
   },
 	Send_Mutation: function (state, payload) {
@@ -68,7 +68,7 @@ const actions = {
     commit('Your_Connection', configur);
   },
   connectedUser: (context, payload) => {
-    context.commit('ConnectedUser', payload);
+    context.commit('Connected_User', payload);
   },
   sendAction: ({commit}, oblog) => {
     commit('Send_Mutation', oblog);
@@ -104,8 +104,7 @@ const actions = {
   //   console.log('ws disconnected')
   // }
 };
-
-export const store = new Vuex.Store({
+export default new Vuex.Store({
   state,
   getters,
   mutations,

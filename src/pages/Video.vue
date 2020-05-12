@@ -125,6 +125,7 @@ export default {
     },
     setupPeerConnection: function (stream) {
       const self = this;
+      console.log('Your Connectionnnnnnnn', self.yourConnection)
       self.yourConnection.addStream(this.yourStream);
       self.yourConnection.onaddstream = function (e) {
         self.$store.dispatch("addTheirStream", e.stream);
@@ -136,7 +137,7 @@ export default {
         //     ws.send(JSON.stringify({ type: 'candidate', candidate: event.candidate, 
         //       name: self.connectedUser }));
         //   } else {ws.send(JSON.stringify({ type: 'candidate', candidate: event.candidate }));}
-
+          this.$store.dispatch("sendAction", { type: 'login', name: nameval });
           this.$store.dispatch("sendAction", { type: 'candidate', candidate: event.candidate });
         };
     },
