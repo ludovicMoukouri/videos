@@ -58,7 +58,6 @@ export default {
   },
   created() {
     const _this = this;
-    _this.fetchUser();
     ws.onopen = function () {
       console.log("Connected");
     };
@@ -92,16 +91,13 @@ export default {
   },
   mounted() {
       // this.loadresponsive();
-    // this.listenToEvents();
+    this.loadwindow();
+    this.fetchUser();
   },
   computed: {
     ...mapGetters(['yourStream', 'theirStream', 'yourConnection', 'connectedUser', 'ws', 'sendState']),
     loadresponsive() {
       return this.$router.go(1)
-    },
-    loadwindow() {
-      this.loadr = window.location.reload()
-      return this.loadr
     },
     loadLogout() {
       return this.$router.go(1)
@@ -276,6 +272,10 @@ export default {
       this.$store.dispatch("sendAction", { type: 'leave' });
     });
   },
+  loadwindow() {
+      this.loadr = window.location.reload()
+      return this.loadr
+    },
   // listenToEvents() {
   //   bus.$on('refreshUser', () => {
   //     this.fetchUser();
