@@ -88,7 +88,8 @@ export default {
 	},
 	computed: {
 		normalizedSize: function () {
-    return this.currentuser.fullname.trim().toLowerCase()
+			const self = this
+    return self.currentuser.fullname.trim().toLowerCase()
   }
 	},
 	methods: {

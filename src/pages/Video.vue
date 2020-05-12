@@ -50,7 +50,7 @@ export default {
   }),
   beforeCreate() {
     this.$store.dispatch('wsAction', ws)
-    _this.listenToLogout()
+    // _this.listenToLogout()
   },
   beforeUpdate() {
     const _this = this;
@@ -58,10 +58,10 @@ export default {
   },
   created() {
     const _this = this;
-    ws.onopen = function () {
+    _this.ws.onopen = function () {
       console.log("Connected");
     };
-    ws.onmessage = function (message) {
+    _this.ws.onmessage = function (message) {
       console.log("Got message", message.data);
       var data = JSON.parse(message.data);
       switch(data.type) {
@@ -84,10 +84,10 @@ export default {
         break;
       }
     };
-    ws.onclose = function () {
+    _this.ws.onclose = function () {
       console.log("deconnection");
     };
-    console.log(ws, 'wssssssssssssssssssssss')
+    console.log(_this.ws, 'wssssssssssssssssssssss')
   },
   mounted() {
       // this.loadresponsive();

@@ -53,9 +53,7 @@ const mutations = {
     if (state.connectedUser !== null) {
       payload.name = state.connectedUser;
     }
-    state.sendState = state.ws.send(JSON.stringify(payload))
-    console.log(payload, 'payload payload')
-    return state.sendState;
+    return state.ws.send(JSON.stringify(payload));
     
   },
   Send_Offer_Mutation: function (state, sendo) {
@@ -63,8 +61,6 @@ const mutations = {
     if (state.connectedUser !== null) {
       sendo.name = state.connectedUser;
     }
-    state.sendState = sendo
-    console.log(sendo, 'sendo sendo')
     return state.ws.send(JSON.stringify(sendo));
     
   },
