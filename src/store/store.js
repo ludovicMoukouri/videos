@@ -76,18 +76,18 @@ const actions = {
   sendAction: ({commit, state}, oblog) => {
     if (!state.ws || state.ws.readyState !== 1) return;
     if (state.connectedUser) {
-      payload.name = state.connectedUser;
+      oblog.name = state.connectedUser;
     }
     commit('Send_Mutation', oblog);
-    return state.ws.send(JSON.stringify(payload));
+    return state.ws.send(JSON.stringify(oblog));
   },
   sendActionLeave: ({commit, state}, oblog) => {
     if (!state.ws || state.ws.readyState !== 1) return;
     if (state.connectedUser !== null) {
-      payload.name = state.connectedUser;
+      oblog.name = state.connectedUser;
     }
     commit('Send_Mutation_leave', oblog);
-    return state.ws.send(JSON.stringify(payload));
+    return state.ws.send(JSON.stringify(oblog));
   },
   sofferAction: ({commit, state}, sendo) => {
     if (!state.ws || state.ws.readyState !== 1) return;
