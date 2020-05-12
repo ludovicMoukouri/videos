@@ -90,13 +90,18 @@ export default {
     console.log(ws, 'wssssssssssssssssssssss')
   },
   mounted() {
-    this.loadwindow();
+      // this.loadresponsive();
+    this.listenToEvents();
     this.fetchUser();
   },
   computed: {
     ...mapGetters(['yourStream', 'theirStream', 'yourConnection', 'connectedUser', 'ws', 'sendState']),
     loadresponsive() {
       return this.$router.go(1)
+    },
+    loadwindow() {
+      this.loadr = window.location.reload()
+      return this.loadr
     },
     loadLogout() {
       return this.$router.go(1)
@@ -110,11 +115,6 @@ export default {
   self.yourConnection.onaddstream = null;  
   self.setupPeerConnection(self.yourStream); 
   console.log(self.connectedUser, ' Leave Connection')
-},
-    ping: function () {
-        ws.send('__ping__');
-        tm = setTimeout(function (){
-    }, 5000);
 },
     onLogin: function (success) {
       if (success === false) {
@@ -271,17 +271,11 @@ export default {
       this.$store.dispatch("sendAction", { type: 'leave' });
     });
   },
-  loadwindow() {
-      this.loadr = window.location.reload()
-      return this.loadr
-    },
-  // listenToEvents() {
-  //   bus.$on('refreshUser', () => {
-  //     this.fetchUser();
-  //     this.loadresponsive();
-  //     // this.loadwindow();
-  //   });
-  // },
+  listenToEvents() {
+    bus.$on('refreshUser', () => {
+      this.loadwindow();
+    });
+  },
   async fetchUser() {
     return axios({
       method: 'get',

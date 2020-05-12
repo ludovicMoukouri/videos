@@ -130,7 +130,7 @@ export default {
             this.$router.push({ name: 'Login' });
           } else {
             await services.login(dataToSend);
-            // bus.$emit('refreshUser');
+            bus.$emit('refreshUser');
             // this.$router.push({ name: 'Video' });
             return document.location.href = '/video' // is use for reloading Page
           }
