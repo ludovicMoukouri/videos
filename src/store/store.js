@@ -11,6 +11,7 @@ const state = {
   sendState: undefined,
   userAgent: undefined,
   objectL: null,
+  config: null,
 };
 
 const getters = {
@@ -21,6 +22,7 @@ const getters = {
   theirStream: state => state.theirsStream,
   connectedUser: state => state.connectedUser,
   objectTodo: state => state.objectL,
+  config: state => state.config,
 };
 
 const mutations = {
@@ -34,35 +36,19 @@ const mutations = {
     state.theirStream = payload;
   },
   Your_Connection: function (state, configur, connection_peer) {
-    state.yourConnection = new RTCPeerConnection(configur, connection_peer)
+    state.config = new configur
   },
   Connected_User: function (state, payload) {
     state.connectedUser = payload;
   },
   Send_Mutation: function (state, payload) {
-    if (!state.ws || state.ws.readyState !== 1) return;
-    if (state.connectedUser) {
-      payload.name = state.connectedUser;
-    }
-    state.sendState = payload
-    return state.ws.send(JSON.stringify(payload));
-    
+    state.sendState = payload    
   },
   Send_Mutation_leave: function (state, payload) {
-    if (!state.ws || state.ws.readyState !== 1) return;
-    if (state.connectedUser !== null) {
-      payload.name = state.connectedUser;
-    }
-    return state.ws.send(JSON.stringify(payload));
-    
+    state.sendState = payload 
   },
   Send_Offer_Mutation: function (state, sendo) {
-    if (!state.ws || state.ws.readyState !== 1) return;
-    if (state.connectedUser !== null) {
-      sendo.name = state.connectedUser;
-    }
-    return state.ws.send(JSON.stringify(sendo));
-    
+    state.sendState = payload
   },
   UserAgent: function (state, payload) {
     state.userAgent = payload;
@@ -80,20 +66,36 @@ const actions = {
   addTheirStream: ({commit}, payload) => {
     commit('Add_Their_Stream', payload);
   },
-  yourConnectionAction: ({commit}, configur) => {
+  yourConnectionAction: ({commit, state}, configur) => {
+    state.yourConnection = new RTCPeerConnection(configur)
     commit('Your_Connection', configur);
   },
   connectedUser: (context, payload) => {
     context.commit('Connected_User', payload);
   },
-  sendAction: ({commit}, oblog) => {
+  sendAction: ({commit, state}, oblog) => {
+    if (!state.ws || state.ws.readyState !== 1) return;
+    if (state.connectedUser) {
+      payload.name = state.connectedUser;
+    }
     commit('Send_Mutation', oblog);
+    return state.ws.send(JSON.stringify(payload));
   },
-  sendActionLeave: ({commit}, oblog) => {
+  sendActionLeave: ({commit, state}, oblog) => {
+    if (!state.ws || state.ws.readyState !== 1) return;
+    if (state.connectedUser !== null) {
+      payload.name = state.connectedUser;
+    }
     commit('Send_Mutation_leave', oblog);
+    return state.ws.send(JSON.stringify(payload));
   },
-  sofferAction: ({commit}, sendo) => {
+  sofferAction: ({commit, state}, sendo) => {
+    if (!state.ws || state.ws.readyState !== 1) return;
+    if (state.connectedUser !== null) {
+      sendo.name = state.connectedUser;
+    }
     commit('Send_Offer_Mutation', sendo);
+    return state.ws.send(JSON.stringify(sendo));
   },
   wsAction: (context, payload) => {
     context.commit('Ws', payload);
