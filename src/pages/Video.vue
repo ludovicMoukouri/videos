@@ -117,10 +117,11 @@ export default {
   console.log(self.connectedUser, ' Leave Connection')
 },
     onLogin: function (success) {
+      const self = this
       if (success === false) {
         alert("Login unsuccessful, please try a different name.");
       } else {
-        this.startConnection;
+        self.startConnection;
       }
     },
     setupPeerConnection: function (stream) {
@@ -165,11 +166,13 @@ export default {
     });
   },
   onAnswer: function (answer) {
-    this.yourConnection.setRemoteDescription(new
+    const self = this
+    self.yourConnection.setRemoteDescription(new
       RTCSessionDescription(answer));
   },
   onCandidate: function (candidate) {
-    this.yourConnection.addIceCandidate(new RTCIceCandidate(candidate));
+    const self = this
+    self.yourConnection.addIceCandidate(new RTCIceCandidate(candidate));
   },
   hasUserMedia: function () {
     navigator.getUserMedia = navigator.getUserMedia ||
@@ -216,7 +219,7 @@ export default {
     val.$store.dispatch("yourConnectionAction", configuration);
   },
 
-  startPeerConnection: function (user) {
+  startPeerConnection: function () {
     const _this = this;
     _this.$store.dispatch("connectedUser", _this.theirusername)
       // Begin the offer
