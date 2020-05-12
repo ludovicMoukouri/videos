@@ -137,8 +137,8 @@ export default {
         //     ws.send(JSON.stringify({ type: 'candidate', candidate: event.candidate, 
         //       name: self.connectedUser }));
         //   } else {ws.send(JSON.stringify({ type: 'candidate', candidate: event.candidate }));}
-          this.$store.dispatch("sendAction", { type: 'login', name: nameval });
-          this.$store.dispatch("sendAction", { type: 'candidate', candidate: event.candidate });
+          // this.$store.dispatch("sendAction", { type: 'login', name: nameval });
+          self.$store.dispatch("sendAction", { type: 'candidate', candidate: event.candidate });
         };
     },
     onOffer: function (offer, name) {
@@ -204,10 +204,14 @@ export default {
     } else {
       alert("Sorry, your browser does not support WebRTC.");
     }
-    var configuration = {
-      "iceServers": [{ "url": "stun:stun.1.google.com:19302" }]
-    };
-    val.$store.dispatch("yourConnectionAction", configuration);
+  const webrtcDetectedBrowser;
+  const configuration = webrtcDetectedBrowser === 'firefox' ?  
+  {'iceServers':[{'url':'stun:23.21.150.121'},{ "url": "stun:127.0.0.1:8880" }]} : 
+  // IP address  
+  {'iceServers': [{'url': 'stun:stun.l.google.com:19302'},{ "url": "stun:127.0.0.1:8880" }]};
+  const connection_peer = {optional: []};
+
+    val.$store.dispatch("yourConnectionAction", configuration, connection_peer);
   },
 
   startPeerConnection: function (user) {
