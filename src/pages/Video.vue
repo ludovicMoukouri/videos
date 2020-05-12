@@ -225,7 +225,7 @@ export default {
       // Begin the offer
       _this.yourConnection.createOffer(function (offer) {
 
-        _this.$store.dispatch("sendAction", { type: 'offer', offer: offer });
+        _this.$store.dispatch("sofferAction", { type: 'offer', offer: offer });
         _this.yourConnection.setLocalDescription(offer);
       }, function (error) {
         alert("An error has occurred.");

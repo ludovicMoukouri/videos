@@ -27,19 +27,19 @@ const mutations = {
   Ws: function (state, payload) {
     state.ws = payload;
   },
-	AddYourStream: function (state, payload) {
+  AddYourStream: function (state, payload) {
     state.yourStream = payload;
   },
-	Add_Their_Stream: function (state, payload) {
+  Add_Their_Stream: function (state, payload) {
     state.theirStream = payload;
   },
-	Your_Connection: function (state, configur, connection_peer) {
+  Your_Connection: function (state, configur, connection_peer) {
     state.yourConnection = new RTCPeerConnection(configur, connection_peer)
   },
-	Connected_User: function (state, payload) {
+  Connected_User: function (state, payload) {
     state.connectedUser = payload;
   },
-	Send_Mutation: function (state, payload) {
+  Send_Mutation: function (state, payload) {
     if (!state.ws || state.ws.readyState !== 1) return;
     if (state.connectedUser) {
       payload.name = state.connectedUser;
@@ -54,7 +54,18 @@ const mutations = {
       payload.name = state.connectedUser;
     }
     state.sendState = payload
+    console.log(payload, 'payload payload')
     return state.ws.send(JSON.stringify(payload));
+    
+  },
+  Send_Offer_Mutation: function (state, sendo) {
+    if (!state.ws || state.ws.readyState !== 1) return;
+    if (state.connectedUser !== null) {
+      sendo.name = state.connectedUser;
+    }
+    state.sendState = sendo
+    console.log(sendo, 'sendo sendo')
+    return state.ws.send(JSON.stringify(sendo));
     
   },
   UserAgent: function (state, payload) {
@@ -84,6 +95,9 @@ const actions = {
   },
   sendActionLeave: ({commit}, oblog) => {
     commit('Send_Mutation_leave', oblog);
+  },
+  sofferAction: ({commit}, sendo) => {
+    commit('Send_Offer_Mutation', oblog);
   },
   wsAction: (context, payload) => {
     context.commit('Ws', payload);
@@ -116,7 +130,8 @@ const actions = {
   //   console.log('ws disconnected')
   // }
 };
-export default new Vuex.Store({
+// export default new Vuex.Store
+export const store = new Vuex.Store({
   state,
   getters,
   mutations,
