@@ -53,9 +53,9 @@ const mutations = {
     if (state.connectedUser !== null) {
       payload.name = state.connectedUser;
     }
-    state.sendState = payload
+    state.sendState = state.ws.send(JSON.stringify(payload))
     console.log(payload, 'payload payload')
-    return state.ws.send(JSON.stringify(payload));
+    return state.sendState;
     
   },
   Send_Offer_Mutation: function (state, sendo) {
@@ -97,7 +97,7 @@ const actions = {
     commit('Send_Mutation_leave', oblog);
   },
   sofferAction: ({commit}, sendo) => {
-    commit('Send_Offer_Mutation', oblog);
+    commit('Send_Offer_Mutation', sendo);
   },
   wsAction: (context, payload) => {
     context.commit('Ws', payload);
