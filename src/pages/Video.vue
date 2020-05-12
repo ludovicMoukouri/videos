@@ -138,8 +138,7 @@ export default {
         //   } else {ws.send(JSON.stringify({ type: 'candidate', candidate: event.candidate }));}
 
           this.$store.dispatch("sendAction", { type: 'candidate', candidate: event.candidate });
-        }
-      };
+        };
     },
     onOffer: function (offer, name) {
       const _this = this
