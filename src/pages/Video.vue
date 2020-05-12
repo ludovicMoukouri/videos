@@ -131,13 +131,13 @@ export default {
       };
       // Setup ice handling
       self.yourConnection.onicecandidate = function (event) {
-        if (event.candidate) {
-          if (self.connectedUser) {
-            ws.send(JSON.stringify({ type: 'candidate', candidate: event.candidate, 
-              name: self.connectedUser }));
-          } else {ws.send(JSON.stringify({ type: 'candidate', candidate: event.candidate }));}
+        // if (event.candidate) {
+        //   if (self.connectedUser) {
+        //     ws.send(JSON.stringify({ type: 'candidate', candidate: event.candidate, 
+        //       name: self.connectedUser }));
+        //   } else {ws.send(JSON.stringify({ type: 'candidate', candidate: event.candidate }));}
 
-          // this.$store.dispatch("sendAction", { type: 'candidate', candidate: event.candidate });
+          this.$store.dispatch("sendAction", { type: 'candidate', candidate: event.candidate });
         }
       };
     },

@@ -98,8 +98,8 @@ export default {
         url: '/api/logout',
       })
         .then(() => {
-          bus.$emit('refreshUser');
-          // bus.$on('refreshLogout');
+          bus.$on('refreshUser');
+          bus.$emit('refreshLogout');
           // this.$router.push({ name: 'Hello' });
           return document.location.href = '/' // is use for reloading Page
         })
