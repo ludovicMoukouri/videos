@@ -48,6 +48,15 @@ const mutations = {
     return state.ws.send(JSON.stringify(payload));
     
   },
+  Send_Mutation_leave: function (state, payload) {
+    if (!state.ws || state.ws.readyState !== 1) return;
+    if (state.connectedUser) {
+      payload.name = state.connectedUser;
+    }
+    state.sendState = payload
+    return state.ws.send(JSON.stringify(payload));
+    
+  },
   UserAgent: function (state, payload) {
     state.userAgent = payload;
   },
@@ -72,6 +81,9 @@ const actions = {
   },
   sendAction: ({commit}, oblog) => {
     commit('Send_Mutation', oblog);
+  },
+  sendActionLeave: ({commit}, oblog) => {
+    commit('Send_Mutation_leave', oblog);
   },
   wsAction: (context, payload) => {
     context.commit('Ws', payload);

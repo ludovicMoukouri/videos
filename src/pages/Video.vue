@@ -213,12 +213,11 @@ export default {
   {'iceServers': [{'url': 'stun:stun.l.google.com:19302'},{ "url": "stun:127.0.0.1:8880" }]}
   
 
-    val.$store.dispatch("yourConnectionAction", configuration, connection_peer);
+    val.$store.dispatch("yourConnectionAction", configuration);
   },
 
   startPeerConnection: function (user) {
     const _this = this;
-    console.log(_this.theirusername,'startPeerConnection LLLLLLLLLLLLLLLLLLLLLLLL')
     _this.$store.dispatch("connectedUser", _this.theirusername)
       // Begin the offer
       _this.yourConnection.createOffer(function (offer) {
@@ -274,7 +273,7 @@ export default {
   },
   listenToLogout() {
     bus.$on('refreshLogout', () => {
-      this.$store.dispatch("sendAction", { type: 'leave' });
+      this.$store.dispatch("sendActionLeave", { type: 'leave' });
     });
   },
   listenToEvents() {

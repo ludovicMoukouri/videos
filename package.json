@@ -13,7 +13,7 @@
     "lint": "eslint --ext .js,.vue src test/unit test/e2e/specs",
     "build": "node build/build.js",
     "mochaComponent": "mocha test/unit/specs/Login.spec.js",
-    "start": "nodemon server/index.js",
+    "start": "node server/index.js",
     "nodemon": "nodemon server/index.js",
     "heroku-postbuild": "npm install --only=dev --no-shrinkwrap && npm run build",
     "mochaControllers": "mocha test/unit/specs/controllers/users.spec.js"

@@ -144,7 +144,7 @@ wss.on('connection', function(connection, req) {
 			} else {
 				connection.name = data.name;
 				users[data.name] = connection;
-				console.log("connectedUser ", data.name)
+				console.log("connectedUser ", data)
 				sendTo(connection, {
 					type: "login",
 					success: true
@@ -152,7 +152,7 @@ wss.on('connection', function(connection, req) {
 			}
 			break;
 			case "offer":
-			console.log("Sending offer to", data.name);
+			console.log("Sending offer to", data);
 			var conn = users[data.name];
 			if (conn != null) {
 				connection.otherName = data.name;
@@ -164,7 +164,7 @@ wss.on('connection', function(connection, req) {
 			}
 			break;	
 			case "answer":
-			console.log("Sending answer to", data.name);
+			console.log("Sending answer to", data);
 			var conn = users[data.name];
 			if (conn != null) {
 				connection.otherName = data.name;
@@ -175,7 +175,7 @@ wss.on('connection', function(connection, req) {
 			}
 			break;
 			case "candidate":
-			console.log("Sending candidate to", data.name);
+			console.log("Sending candidate to", data);
 			var conn = users[data.name];
 			if (conn != null) {
 				sendTo(conn, {
@@ -185,7 +185,7 @@ wss.on('connection', function(connection, req) {
 			}
 			break;
 			case "leave":
-			console.log("Disconnecting user from", data.name);
+			console.log("Disconnecting user from", data);
 			var conn = users[data.name];
 			conn.otherName = null;
 			if (conn != null) {
