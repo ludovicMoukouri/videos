@@ -208,9 +208,9 @@ export default {
       alert("Sorry, your browser does not support WebRTC.");
     }
    configuration = webrtcDetectedBrowser === 'firefox' ?  
-  {'iceServers':[{'url':'stun:23.21.150.121'},{ "url": "stun:127.0.0.1:8880" }]} : 
+  {'iceServers':[{'url':'stun:23.21.150.121'},{ "url": "stun:127.0.0.1:8081" }]} : 
   // IP address  
-  {'iceServers': [{'url': 'stun:stun.l.google.com:19302'},{ "url": "stun:127.0.0.1:8880" }]}
+  {'iceServers': [{'url': 'stun:stun.l.google.com:19302'},{ "url": "stun:127.0.0.1:8081" }]}
   
 
     val.$store.dispatch("yourConnectionAction", configuration);
@@ -227,6 +227,7 @@ export default {
       }, function (error) {
         alert("An error has occurred.");
       });
+      console.log(_this.sendState, '_this.sendStateeeeeee')
     },
   },
   watch: {

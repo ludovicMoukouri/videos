@@ -6,7 +6,7 @@ const state = {
   yourStream: undefined,
   theirStream: undefined,
   yourConnection: undefined,
-  connectedUser: '',
+  connectedUser: null,
   ws: undefined,
   sendState: undefined,
   userAgent: undefined,
@@ -50,7 +50,7 @@ const mutations = {
   },
   Send_Mutation_leave: function (state, payload) {
     if (!state.ws || state.ws.readyState !== 1) return;
-    if (state.connectedUser) {
+    if (state.connectedUser !== null) {
       payload.name = state.connectedUser;
     }
     state.sendState = payload
