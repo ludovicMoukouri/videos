@@ -30,7 +30,7 @@ const mutations = {
 	AddYourStream: function (state, payload) {
     state.yourStream = payload;
   },
-	AddTheirStream: function (state, payload) {
+	Add_Their_Stream: function (state, payload) {
     state.theirStream = payload;
   },
 	Your_Connection: function (state, configur, connection_peer) {
@@ -70,11 +70,11 @@ const actions = {
   addYourStream: (context, payload) => {
     context.commit('AddYourStream', payload);
   },
-  addTheirStream: (context, payload) => {
-    context.commit('AddTheirStream', payload);
+  addTheirStream: ({commit}, payload) => {
+    commit('Add_Their_Stream', payload);
   },
-  yourConnectionAction: ({commit}, configur, connection_peer) => {
-    commit('Your_Connection', configur, connection_peer);
+  yourConnectionAction: ({commit}, configur) => {
+    commit('Your_Connection', configur);
   },
   connectedUser: (context, payload) => {
     context.commit('Connected_User', payload);

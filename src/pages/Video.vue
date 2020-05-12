@@ -126,7 +126,7 @@ export default {
     setupPeerConnection: function (stream) {
       const self = this;
       console.log('Your Connectionnnnnnnn', self.yourConnection)
-      self.yourConnection.addStream(this.yourStream);
+      self.yourConnection.addStream(self.yourStream);
       self.yourConnection.onaddstream = function (e) {
         self.$store.dispatch("addTheirStream", e.stream);
       };
@@ -143,8 +143,8 @@ export default {
     },
     onOffer: function (offer, name) {
       const _this = this
-      this.$store.dispatch("connectedUser", name);
-      this.yourConnection.setRemoteDescription(new RTCSessionDescription(offer));
+      _this.$store.dispatch("connectedUser", name);
+      _this.yourConnection.setRemoteDescription(new RTCSessionDescription(offer));
 
     //   this.yourConnection.createOffer(function(offer) {
     // this.yourConnection.setLocalDescription(new RTCSessionDescription(offer))
@@ -152,14 +152,14 @@ export default {
     //     alert("An error has occurred");
     //   });
 
-    this.yourConnection.createAnswer(function (answer) {
-      this.yourConnection.setLocalDescription(answer);
-      if (this.connectedUser) {
-        ws.send(JSON.stringify({ type: 'answer', answer: answer, 
-          name: this.connectedUser }));
-      } else {ws.send(JSON.stringify({ type: 'answer', answer: answer }));}
+    _this.yourConnection.createAnswer(function (answer) {
+      _this.yourConnection.setLocalDescription(answer);
+      // if (this.connectedUser) {
+      //   ws.send(JSON.stringify({ type: 'answer', answer: answer, 
+      //     name: this.connectedUser }));
+      // } else {ws.send(JSON.stringify({ type: 'answer', answer: answer }));}
 
-      // _this.$store.dispatch("sendAction", { type: 'answer', answer: answer });
+      _this.$store.dispatch("sendAction", { type: 'answer', answer: answer });
     }, function (error) {
       alert("An error has occurred");
     });
@@ -267,8 +267,9 @@ export default {
   //   },
   callButton() {
     const theirusernameInput = this.theirusername;
+    const self = this
     if (theirusernameInput.length > 0) {
-      this.startPeerConnection();
+      self.startPeerConnection();
     }
   },
   listenToLogout() {
