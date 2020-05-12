@@ -90,7 +90,6 @@ export default {
     console.log(ws, 'wssssssssssssssssssssss')
   },
   mounted() {
-      // this.loadresponsive();
     this.loadwindow();
     this.fetchUser();
   },
