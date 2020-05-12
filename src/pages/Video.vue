@@ -204,12 +204,12 @@ export default {
     } else {
       alert("Sorry, your browser does not support WebRTC.");
     }
-  const webrtcDetectedBrowser;
+  const webrtcDetectedBrowser
   const configuration = webrtcDetectedBrowser === 'firefox' ?  
   {'iceServers':[{'url':'stun:23.21.150.121'},{ "url": "stun:127.0.0.1:8880" }]} : 
   // IP address  
-  {'iceServers': [{'url': 'stun:stun.l.google.com:19302'},{ "url": "stun:127.0.0.1:8880" }]};
-  const connection_peer = {optional: []};
+  {'iceServers': [{'url': 'stun:stun.l.google.com:19302'},{ "url": "stun:127.0.0.1:8880" }]}
+  const connection_peer = {optional: []}
 
     val.$store.dispatch("yourConnectionAction", configuration, connection_peer);
   },
