@@ -136,26 +136,24 @@ wss.on('connection', function(connection, req) {
 		switch (data.type) {
 			case "login":
 			console.log("User logged in as", data);
-			if (data.users[data.name]) {
+			if (users[data.name]) {
 				sendTo(connection, {
 					type: "login",
 					success: false
 				});
 			} else {
 				connection.name = data.name;
-				data.users[data.name] = connection;
+				users[data.name] = connection;
 				console.log("connectedUser ", data)
 				sendTo(connection, {
 					type: "login",
 					success: true,
-					connection: connection,
-					name: data.name
 				});
 			}
 			break;
 			case "offer":
 			console.log("Sending offer to", data);
-			var conn = data.users[data.name];
+			var conn = users[data.name];
 			if (conn != null) {
 				connection.otherName = data.name;
 				sendTo(conn, {
@@ -167,7 +165,7 @@ wss.on('connection', function(connection, req) {
 			break;	
 			case "answer":
 			console.log("Sending answer to", data);
-			var conn = data.users[data.name];
+			var conn = users[data.name];
 			if (conn != null) {
 				connection.otherName = data.name;
 				sendTo(conn, {
