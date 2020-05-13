@@ -69,7 +69,7 @@ export default {
         _this.onLogin(data.success);
         break;
         case "offer":
-        _this.onOffer(data.offer, data.name);
+        _this.onOffer(data.offer,data.name);
         break;
         case "answer":
         _this.onAnswer(data.answer);
@@ -84,10 +84,10 @@ export default {
         break;
       }
     };
-    ws.onclose = function () {
-      console.log("deconnection");
-    };
-    console.log(ws, 'wssssssssssssssssssssss')
+    // ws.onclose = function () {
+    //   console.log("deconnection");
+    // };
+    // console.log(ws, 'wssssssssssssssssssssss')
   },
   mounted() {
       // this.loadresponsive();
@@ -142,7 +142,7 @@ export default {
           self.$store.dispatch("sendAction", { type: 'candidate', candidate: event.candidate });
         };
     },
-    onOffer: function (offer, name) {
+      onOffer (offer,name) {
       const _this = this
       console.log(name, 'Onoffer connection nameeeeee')
       _this.$store.dispatch("connectedUser", name);
