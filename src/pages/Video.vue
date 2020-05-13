@@ -148,9 +148,9 @@ export default {
     },
       onOffer (offer,name) {
       const _this = this
-      console.log(this.offName, 'Onoffer connection nameeeeee')
-      _this.$store.dispatch("connectedUser", this.offName);
-      _this.yourConnection.setRemoteDescription(new RTCSessionDescription(this.offValue));
+      console.log(_this.offName, 'Onoffer connection nameeeeee')
+      _this.$store.dispatch("connectedUser", _this.offName);
+      _this.yourConnection.setRemoteDescription(new RTCSessionDescription(_this.offValue));
 
     //   this.yourConnection.createOffer(function(offer) {
     // this.yourConnection.setLocalDescription(new RTCSessionDescription(offer))
@@ -173,11 +173,11 @@ export default {
   onAnswer: function (answer) {
     const self = this
     self.yourConnection.setRemoteDescription(new
-      RTCSessionDescription(this.ansValue));
+      RTCSessionDescription(self.ansValue));
   },
   onCandidate: function (candidate) {
     const self = this
-    self.yourConnection.addIceCandidate(new RTCIceCandidate(this.canValue));
+    self.yourConnection.addIceCandidate(new RTCIceCandidate(self.canValue));
   },
   hasUserMedia: function () {
     navigator.getUserMedia = navigator.getUserMedia ||
