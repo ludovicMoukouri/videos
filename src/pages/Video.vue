@@ -144,6 +144,7 @@ export default {
     },
     onOffer: function (offer, name) {
       const _this = this
+      console.log(name, 'Onoffer connection nameeeeee')
       _this.$store.dispatch("connectedUser", name);
       _this.yourConnection.setRemoteDescription(new RTCSessionDescription(offer));
 
@@ -160,7 +161,7 @@ export default {
       //     name: this.connectedUser }));
       // } else {ws.send(JSON.stringify({ type: 'answer', answer: answer }));}
 
-      // _this.$store.dispatch("sendAction", { type: 'answer', answer: answer });
+      _this.$store.dispatch("sendAction", { type: 'answer', answer: answer });
     }, function (error) {
       alert("An error has occurred");
     });
