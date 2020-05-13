@@ -155,10 +155,10 @@ export default {
 
     _this.yourConnection.createAnswer(function (answer) {
       _this.yourConnection.setLocalDescription(answer);
-      if (_this.connectedUser) {
-        ws.send(JSON.stringify({ type: 'answer', answer: answer, 
-          name: _this.connectedUser }));
-      } else {ws.send(JSON.stringify({ type: 'answer', answer: answer }));}
+      // if (this.connectedUser) {
+      //   ws.send(JSON.stringify({ type: 'answer', answer: answer, 
+      //     name: this.connectedUser }));
+      // } else {ws.send(JSON.stringify({ type: 'answer', answer: answer }));}
 
       // _this.$store.dispatch("sendAction", { type: 'answer', answer: answer });
     }, function (error) {
@@ -213,7 +213,7 @@ export default {
    configuration = webrtcDetectedBrowser === 'firefox' ?  
   {'iceServers':[{'url':'stun:23.21.150.121'},{ "url": "stun:127.0.0.1:8081" }]} : 
   // IP address  
-  {'iceServers': [{'url': 'stun:stun.l.google.com:19302'},{ "url": "stun:127.0.0.1:8081" }]}
+  {'iceServers': [{'urls': 'stun:stun.1.google.com:19302'},{ "url": "stun:127.0.0.1:8081" }]}
   
 
     val.$store.dispatch("yourConnectionAction", configuration);
