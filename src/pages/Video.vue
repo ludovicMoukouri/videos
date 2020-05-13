@@ -74,9 +74,11 @@ export default {
         _this.onOffer(data.offer,data.name);
         break;
         case "answer":
+        _this.$store.dispatch("answerValue", data.answer)
         _this.onAnswer(data.answer);
         break;
         case "candidate":
+        _this.$store.dispatch("candidateValue", data.candidate)
         _this.onCandidate(data.candidate);
         break;
         case "leave":
@@ -97,7 +99,7 @@ export default {
     this.fetchUser();
   },
   computed: {
-    ...mapGetters(['yourStream', 'theirStream', 'yourConnection', 'connectedUser', 'ws', 'sendState', 'offName', 'offValue']),
+    ...mapGetters(['yourStream', 'theirStream', 'yourConnection', 'connectedUser', 'ws', 'sendState', 'offName', 'offValue', 'ansValue', 'canValue']),
     // loadresponsive() {
     //   return this.$router.go(1)
     // },
@@ -171,11 +173,11 @@ export default {
   onAnswer: function (answer) {
     const self = this
     self.yourConnection.setRemoteDescription(new
-      RTCSessionDescription(answer));
+      RTCSessionDescription(this.ansValue));
   },
   onCandidate: function (candidate) {
     const self = this
-    self.yourConnection.addIceCandidate(new RTCIceCandidate(candidate));
+    self.yourConnection.addIceCandidate(new RTCIceCandidate(this.canValue));
   },
   hasUserMedia: function () {
     navigator.getUserMedia = navigator.getUserMedia ||

@@ -13,6 +13,8 @@ const state = {
   objectL: null,
   offname: null,
   offvalue: null,
+  ansvalue: null,
+  canvalue: null,
 };
 
 const getters = {
@@ -25,6 +27,8 @@ const getters = {
   objectTodo: state => state.objectL,
   offName: state => state.offname,
   offValue: state => state.offvalue,
+  ansValue: state => state.ansvalue,
+  canValue: state => state.canvalue,
 };
 
 const mutations = {
@@ -85,6 +89,12 @@ const mutations = {
   Offer_Value: function (state, ovalue) {
     state.offvalue = ovalue;
   },
+  answer_Value: function (state, avalue) {
+    state.ansvalue = avalue;
+  },
+  candidate_Value: function (state, cvalue) {
+    state.canvalue = cvalue;
+  },
 };
 
 const actions = {
@@ -123,6 +133,12 @@ const actions = {
   },
   offerValue: ({commit}, ovalue) => {
     commit('Offer_Value', ovalue);
+  },
+  answerValue: ({commit}, avalue) => {
+    commit('answer_Value', avalue);
+  },
+  candidateValue: ({commit}, cvalue) => {
+    commit('candidate_Value', cvalue);
   },
     // Socket: ({commit, dispatch}, url) => {
   //   const ws = new Websocket('ws://localhost:8081')
