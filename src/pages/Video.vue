@@ -96,9 +96,9 @@ export default {
   },
   computed: {
     ...mapGetters(['yourStream', 'theirStream', 'yourConnection', 'connectedUser', 'ws', 'sendState']),
-    loadresponsive() {
-      return this.$router.go(1)
-    },
+    // loadresponsive() {
+    //   return this.$router.go(1)
+    // },
     loadwindow() {
       this.loadr = window.location.reload()
       return this.loadr
@@ -155,12 +155,12 @@ export default {
 
     _this.yourConnection.createAnswer(function (answer) {
       _this.yourConnection.setLocalDescription(answer);
-      // if (this.connectedUser) {
-      //   ws.send(JSON.stringify({ type: 'answer', answer: answer, 
-      //     name: this.connectedUser }));
-      // } else {ws.send(JSON.stringify({ type: 'answer', answer: answer }));}
+      if (_this.connectedUser) {
+        ws.send(JSON.stringify({ type: 'answer', answer: answer, 
+          name: _this.connectedUser }));
+      } else {ws.send(JSON.stringify({ type: 'answer', answer: answer }));}
 
-      _this.$store.dispatch("sendAction", { type: 'answer', answer: answer });
+      // _this.$store.dispatch("sendAction", { type: 'answer', answer: answer });
     }, function (error) {
       alert("An error has occurred");
     });
@@ -277,8 +277,9 @@ export default {
     }
   },
   listenToLogout() {
+    const self = this
     bus.$on('refreshLogout', () => {
-      this.$store.dispatch("sendActionLeave", { type: 'leave' });
+      self.$store.dispatch("sendActionLeave", { type: 'leave' });
     });
   },
   listenToEvents() {
@@ -302,7 +303,8 @@ export default {
 
       // ws.send(JSON.stringify({ type: 'login', name: nameval }))
       //   this.sendAction({ type: 'login', name: nameval })
-        this.$store.dispatch("sendAction", { type: 'login', name: nameval });
+      const self = this
+        self.$store.dispatch("sendAction", { type: 'login', name: nameval });
       })
     .catch(() => {
     });

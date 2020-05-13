@@ -11,7 +11,6 @@ const state = {
   sendState: undefined,
   userAgent: undefined,
   objectL: null,
-  config: null,
 };
 
 const getters = {
@@ -22,7 +21,6 @@ const getters = {
   theirStream: state => state.theirsStream,
   connectedUser: state => state.connectedUser,
   objectTodo: state => state.objectL,
-  config: state => state.config,
 };
 
 const mutations = {
@@ -36,19 +34,39 @@ const mutations = {
     state.theirStream = payload;
   },
   Your_Connection: function (state, configur, connection_peer) {
-    state.config = new configur
+    state.yourConnection = new RTCPeerConnection(configur, connection_peer)
   },
   Connected_User: function (state, payload) {
     state.connectedUser = payload;
   },
   Send_Mutation: function (state, payload) {
-    state.sendState = payload    
+    if (!state.ws || state.ws.readyState !== 1) return;
+    if (state.connectedUser) {
+      payload.name = state.connectedUser;
+    }
+    state.sendState = payload
+    return state.ws.send(JSON.stringify(payload));
+    
   },
   Send_Mutation_leave: function (state, payload) {
-    state.sendState = payload 
+    if (!state.ws || state.ws.readyState !== 1) return;
+    if (state.connectedUser !== null) {
+      payload.name = state.connectedUser;
+    }
+    state.sendState = payload
+    console.log(payload, 'payload payload')
+    return state.ws.send(JSON.stringify(payload));
+    
   },
   Send_Offer_Mutation: function (state, sendo) {
-    state.sendState = payload
+    if (!state.ws || state.ws.readyState !== 1) return;
+    if (state.connectedUser !== null) {
+      sendo.name = state.connectedUser;
+    }
+    state.sendState = sendo
+    console.log(sendo, 'sendo sendo')
+    return state.ws.send(JSON.stringify(sendo));
+    
   },
   UserAgent: function (state, payload) {
     state.userAgent = payload;
@@ -66,36 +84,20 @@ const actions = {
   addTheirStream: ({commit}, payload) => {
     commit('Add_Their_Stream', payload);
   },
-  yourConnectionAction: ({commit, state}, configur) => {
-    state.yourConnection = new RTCPeerConnection(configur)
+  yourConnectionAction: ({commit}, configur) => {
     commit('Your_Connection', configur);
   },
   connectedUser: (context, payload) => {
     context.commit('Connected_User', payload);
   },
-  sendAction: ({commit, state}, oblog) => {
-    if (!state.ws || state.ws.readyState !== 1) return;
-    if (state.connectedUser) {
-      oblog.name = state.connectedUser;
-    }
+  sendAction: ({commit}, oblog) => {
     commit('Send_Mutation', oblog);
-    return state.ws.send(JSON.stringify(oblog));
   },
-  sendActionLeave: ({commit, state}, oblog) => {
-    if (!state.ws || state.ws.readyState !== 1) return;
-    if (state.connectedUser !== null) {
-      oblog.name = state.connectedUser;
-    }
+  sendActionLeave: ({commit}, oblog) => {
     commit('Send_Mutation_leave', oblog);
-    return state.ws.send(JSON.stringify(oblog));
   },
-  sofferAction: ({commit, state}, sendo) => {
-    if (!state.ws || state.ws.readyState !== 1) return;
-    if (state.connectedUser !== null) {
-      sendo.name = state.connectedUser;
-    }
+  sofferAction: ({commit}, sendo) => {
     commit('Send_Offer_Mutation', sendo);
-    return state.ws.send(JSON.stringify(sendo));
   },
   wsAction: (context, payload) => {
     context.commit('Ws', payload);
