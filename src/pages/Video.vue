@@ -69,6 +69,7 @@ export default {
         _this.onLogin(data.success);
         break;
         case "offer":
+        _this.$store.dispatch("offerName", data.name)
         _this.onOffer(data.offer,data.name);
         break;
         case "answer":
@@ -95,7 +96,7 @@ export default {
     this.fetchUser();
   },
   computed: {
-    ...mapGetters(['yourStream', 'theirStream', 'yourConnection', 'connectedUser', 'ws', 'sendState']),
+    ...mapGetters(['yourStream', 'theirStream', 'yourConnection', 'connectedUser', 'ws', 'sendState', 'offName']),
     // loadresponsive() {
     //   return this.$router.go(1)
     // },
@@ -144,8 +145,8 @@ export default {
     },
       onOffer (offer,name) {
       const _this = this
-      console.log(name, 'Onoffer connection nameeeeee')
-      _this.$store.dispatch("connectedUser", name);
+      console.log(this.offName, 'Onoffer connection nameeeeee')
+      _this.$store.dispatch("connectedUser", this.offName);
       _this.yourConnection.setRemoteDescription(new RTCSessionDescription(offer));
 
     //   this.yourConnection.createOffer(function(offer) {

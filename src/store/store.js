@@ -11,6 +11,7 @@ const state = {
   sendState: undefined,
   userAgent: undefined,
   objectL: null,
+  offname: null,
 };
 
 const getters = {
@@ -21,6 +22,7 @@ const getters = {
   theirStream: state => state.theirsStream,
   connectedUser: state => state.connectedUser,
   objectTodo: state => state.objectL,
+  offName: state => state.offname,
 };
 
 const mutations = {
@@ -75,6 +77,9 @@ const mutations = {
     state.objectL = payload;
     console.log('jkjkjjkj', payload)
   },
+  Offer_Name: function (state, oname) {
+    state.offname = oname;
+  },
 };
 
 const actions = {
@@ -107,6 +112,9 @@ const actions = {
   },
   loginA: ({commit}, sendA) => {
     commit('Login_Object', sendA);
+  },
+  offerName: ({commit}, oname) => {
+    commit('Offer_Name', oname);
   },
     // Socket: ({commit, dispatch}, url) => {
   //   const ws = new Websocket('ws://localhost:8081')
