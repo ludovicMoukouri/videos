@@ -12,6 +12,7 @@ const state = {
   userAgent: undefined,
   objectL: null,
   offname: null,
+  offvalue: null,
 };
 
 const getters = {
@@ -23,6 +24,7 @@ const getters = {
   connectedUser: state => state.connectedUser,
   objectTodo: state => state.objectL,
   offName: state => state.offname,
+  offValue: state => state.offvalue,
 };
 
 const mutations = {
@@ -80,6 +82,9 @@ const mutations = {
   Offer_Name: function (state, oname) {
     state.offname = oname;
   },
+  Offer_Value: function (state, ovalue) {
+    state.offvalue = ovalue;
+  },
 };
 
 const actions = {
@@ -115,6 +120,9 @@ const actions = {
   },
   offerName: ({commit}, oname) => {
     commit('Offer_Name', oname);
+  },
+  offerValue: ({commit}, ovalue) => {
+    commit('Offer_Value', ovalue);
   },
     // Socket: ({commit, dispatch}, url) => {
   //   const ws = new Websocket('ws://localhost:8081')
