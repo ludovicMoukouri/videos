@@ -89,7 +89,7 @@ export default {
       }
       setTimeout(function timeout() {
     ws.send(Date.now());
-  }, 20);
+  }, 50);
     };
     ws.onclose = function () {
       console.log("deconnection");
@@ -115,8 +115,10 @@ export default {
     },
     onLeave: function () { 
     const self = this 
-  self.connectedUser = null;  
-  self.theirStream.src = null;  
+  self.$store.dispatch("connectedUser", null);
+  self.$store.dispatch("addTheirStream", null) 
+  self.connectedUser = null; 
+  // self.theirStream.src = null;  
   self.yourConnection.close();  
   self.yourConnection.onicecandidate = null;  
   self.yourConnection.onaddstream = null;  
