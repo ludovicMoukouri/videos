@@ -88,8 +88,8 @@ export default {
         break;
       }
       setTimeout(function timeout() {
-    send(Date.now());
-  }, 5);
+    ws.send(Date.now());
+  }, 10);
     };
     ws.onclose = function () {
       console.log("deconnection");
