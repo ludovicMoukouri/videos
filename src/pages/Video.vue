@@ -89,7 +89,7 @@ export default {
       }
       setTimeout(function timeout() {
     ws.send(Date.now());
-  }, 10);
+  }, 20);
     };
     ws.onclose = function () {
       console.log("deconnection");
