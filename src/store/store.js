@@ -41,8 +41,8 @@ const mutations = {
   Add_Their_Stream: function (state, payload) {
     state.theirStream = payload;
   },
-  Your_Connection: function (state, configur, connection_peer) {
-    state.yourConnection = new RTCPeerConnection(configur, connection_peer)
+  Your_Connection: function (state, configur) {
+    state.yourConnection = new RTCPeerConnection(configur)
   },
   Connected_User: function (state, payload) {
     state.connectedUser = payload;

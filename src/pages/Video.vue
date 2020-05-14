@@ -57,6 +57,7 @@ export default {
     // _this.fetchUser()
   },
   created() {
+    function connect(){
     const _this = this;
     ws.onopen = function () {
       console.log("Connected");
@@ -88,9 +89,13 @@ export default {
         break;
       }
     };
-    // ws.onclose = function () {
-    //   console.log("deconnection");
-    // };
+    ws.onclose = function () {
+      console.log("deconnection");
+      setTimeout(() => {
+        _this.connect()
+      }, 1000)
+    };
+   }
     // console.log(ws, 'wssssssssssssssssssssss')
   },
   mounted() {
