@@ -87,14 +87,15 @@ export default {
         default:
         break;
       }
-      setTimeout(function timeout() {
-    ws.send(Date.now());
-  }, 50);
+      
     };
     ws.onclose = function () {
       console.log("deconnection");
+      setTimeout(function timeout() {
+    ws.send(Date.now());
+  }, 100);
     };
-    // console.log(ws, 'wssssssssssssssssssssss')
+    console.log(ws, 'wssssssssssssssssssssss')
   },
   mounted() {
       // this.loadresponsive();
