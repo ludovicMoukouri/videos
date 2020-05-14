@@ -92,8 +92,10 @@ export default {
     ws.onclose = function () {
       console.log("deconnection");
       setTimeout(function timeout() {
-    ws.send(Date.now());
-  }, 100);
+        ws.onopen = function () {
+        console.log("Connected");
+      };
+  }, 5);
     };
     console.log(ws, 'wssssssssssssssssssssss')
   },
