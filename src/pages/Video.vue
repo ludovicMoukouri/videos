@@ -48,15 +48,12 @@ export default {
     msg: 'Sorry but you should loggin first',
     loadr: undefined
   }),
-  beforeCreate() {
-    this.$store.dispatch('wsAction', ws)
-    // _this.listenToLogout()
-  },
   beforeUpdate() {
     const _this = this;
     // _this.fetchUser()
   },
   created() {
+    this.$store.dispatch('wsAction', ws)
     const _this = this;
     ws.onopen = function () {
       console.log("Connected");
@@ -126,14 +123,13 @@ export default {
         var cdate = new Date().toJSON().slice(0,10).replace(/-/g,'/');
         console.log(cdate, reason)
 
-      setTimeout(()=> {
-        console.log(this.ws, 'wssssssssssssssssssssss')
+      setTimeout(function timeout() {
+        console.log(_this.wsGetters, 'wssssssssssssssssssssss')
         _this.startWebsocket
         
         _this.$store.dispatch("cdate", {type: "date", cdate: cdate});
-      }, 10000);
+      }, 1000);
     }
-    ws.close();
   },
   mounted() {
       // this.loadresponsive();
@@ -141,17 +137,17 @@ export default {
     this.fetchUser();
   },
   computed: {
-    ...mapGetters(['yourStream', 'theirStream', 'yourConnection', 'connectedUser', 'ws', 'sendState', 'offName', 'offValue', 'ansValue', 'canValue', 'cdatGetters']),
+    ...mapGetters(['yourStream', 'theirStream', 'yourConnection', 'connectedUser', 'wsGetters', 'sendState', 'offName', 'offValue', 'ansValue', 'canValue', 'cdatGetters']),
     // loadresponsive() {
     //   return this.$router.go(1)
     // },
     startWebsocket() {
       const _this = this
       console.log("startWebsocket opennnnnnnnnnnnn");
-    ws.onopen = function () {
+    _this.wsGetters.onopen = function () {
       console.log("Connected");
     };
-    ws.onmessage = function (message) {
+    _this.wsGetters.onmessage = function (message) {
       console.log("Got message", message.data);
       var data = JSON.parse(message.data);
       switch(data.type) {
@@ -178,7 +174,7 @@ export default {
         break;
       } 
     };
-    ws.onclose = function () {
+    _this.wsGetters.onclose = function () {
       console.log("deconnection");
       setTimeout(()=> {
         _this.startWebsocket

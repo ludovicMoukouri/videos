@@ -19,7 +19,7 @@ const state = {
 };
 
 const getters = {
-  ws: state => state.ws,
+  wsGetters: state => state.ws,
   sendState: state => state.sendState,
   yourConnection: state => state.yourConnection,
   yourStream: state => state.yourStream,
@@ -43,8 +43,8 @@ const mutations = {
     console.log(cdat, 'cdat cdat')
     return state.ws.send(JSON.stringify(cdat));
   },
-  Ws: function (state, payload) {
-    state.ws = payload;
+  Ws: function (state, ws) {
+    state.ws = ws;
   },
   AddYourStream: function (state, payload) {
     state.yourStream = payload;
@@ -133,8 +133,8 @@ const actions = {
   sofferAction: ({commit}, sendo) => {
     commit('Send_Offer_Mutation', sendo);
   },
-  wsAction: (context, payload) => {
-    context.commit('Ws', payload);
+  wsAction: (context, ws) => {
+    context.commit('Ws', ws);
   },
   userAgent: (context, payload) => {
     context.commit('UserAgent', payload);
