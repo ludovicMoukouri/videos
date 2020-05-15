@@ -107,7 +107,7 @@ export default {
     // loadresponsive() {
     //   return this.$router.go(1)
     // },
-    function startWebsocket() {
+    startWebsocket() {
       const _this = this
     ws.onopen = function () {
       console.log("Connected");
@@ -145,7 +145,7 @@ export default {
         _this.startWebsocket()
       }, 5);
     };
-    }
+    },
     loadwindow() {
       this.loadr = window.location.reload()
       return this.loadr
