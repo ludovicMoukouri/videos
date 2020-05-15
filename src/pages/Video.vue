@@ -58,6 +58,7 @@ export default {
   },
   created() {
     const _this = this;
+    function startWebsocket() {
     ws.onopen = function () {
       console.log("Connected");
     };
@@ -91,12 +92,12 @@ export default {
     };
     ws.onclose = function () {
       console.log("deconnection");
-      setTimeout(function timeout() {
-        ws.onopen = function () {
-        console.log("Connected");
-      };
-  }, 5);
+      setTimeout(()=> {
+        _this.startWebsocket()
+      }, 5);
     };
+    }
+    _this.startWebsocket();
     console.log(ws, 'wssssssssssssssssssssss')
   },
   mounted() {
@@ -209,7 +210,7 @@ export default {
   var configuration = {}
   var connection_peer = {optional: []}
     if (val.hasUserMedia) {
-      navigator.getUserMedia({ video: true, audio: false }, function
+      navigator.getUserMedia({ video: true, audio: true }, function
         (myStream) {
           val.$store.dispatch("addYourStream", myStream);
           if (val.hasRTCPeerConnection) {
