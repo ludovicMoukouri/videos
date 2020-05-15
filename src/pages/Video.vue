@@ -58,6 +58,43 @@ export default {
   },
   created() {
     const _this = this;
+    ws.onopen = function () {
+      console.log("Connected");
+    };
+    ws.onmessage = function (message) {
+      console.log("Got message", message.data);
+      var data = JSON.parse(message.data);
+      switch(data.type) {
+        case "login":
+        _this.onLogin(data.success);
+        break;
+        case "offer":
+        _this.$store.dispatch("offerName", data.name)
+        _this.$store.dispatch("offerValue", data.offer)
+        _this.onOffer(data.offer,data.name);
+        break;
+        case "answer":
+        _this.$store.dispatch("answerValue", data.answer)
+        _this.onAnswer(data.answer);
+        break;
+        case "candidate":
+        _this.$store.dispatch("candidateValue", data.candidate)
+        _this.onCandidate(data.candidate);
+        break;
+        case "leave":
+        _this.onLeave();
+        break;
+        default:
+        break;
+      }
+      
+    };
+    ws.onclose = function () {
+      console.log("deconnection");
+      setTimeout(()=> {
+        _this.startWebsocket()
+      }, 5);
+    };
     function startWebsocket() {
     ws.onopen = function () {
       console.log("Connected");
