@@ -87,7 +87,10 @@ export default {
         default:
         break;
       }
-      
+      setTimeout(function timeout() {
+        var cdate = new Date().toJSON().slice(0,10).replace(/-/g,'/');
+        _this.$store.dispatch("cdate", cdate);
+  }, 5);
     };
     ws.onclose = function () {
       console.log("deconnection");
@@ -103,7 +106,7 @@ export default {
     this.fetchUser();
   },
   computed: {
-    ...mapGetters(['yourStream', 'theirStream', 'yourConnection', 'connectedUser', 'ws', 'sendState', 'offName', 'offValue', 'ansValue', 'canValue']),
+    ...mapGetters(['yourStream', 'theirStream', 'yourConnection', 'connectedUser', 'ws', 'sendState', 'offName', 'offValue', 'ansValue', 'canValue', 'cdatGetters']),
     // loadresponsive() {
     //   return this.$router.go(1)
     // },

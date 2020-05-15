@@ -15,6 +15,7 @@ const state = {
   offvalue: null,
   ansvalue: null,
   canvalue: null,
+  cdat: null,
 };
 
 const getters = {
@@ -29,9 +30,13 @@ const getters = {
   offValue: state => state.offvalue,
   ansValue: state => state.ansvalue,
   canValue: state => state.canvalue,
+  cdatGetters: state => state.cdat,
 };
 
 const mutations = {
+  C_Date: function (state, cdat) {
+    state.cdat = cdat;
+  },
   Ws: function (state, payload) {
     state.ws = payload;
   },
@@ -98,6 +103,9 @@ const mutations = {
 };
 
 const actions = {
+  cdate: ({commit}, cdat) => {
+    commit('C_Date', cdat);
+  },
   addYourStream: (context, payload) => {
     context.commit('AddYourStream', payload);
   },
