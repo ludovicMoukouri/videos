@@ -93,7 +93,7 @@ export default {
       console.log("deconnection");
       setTimeout(()=> {
         _this.startWebsocket
-      }, 5);
+      }, 10000);
     }
     console.log(ws, 'wssssssssssssssssssssss')
   },
@@ -176,6 +176,13 @@ export default {
     },
     setupPeerConnection: function (stream) {
       const self = this;
+      configuration = webrtcDetectedBrowser === 'firefox' ?  
+  {'iceServers':[{'url':'stun:23.21.150.121'},{ "url": "stun:127.0.0.1:8081" }]} : 
+  // IP address  
+  {'iceServers': [{'urls': 'stun:stun.1.google.com:19302'},{ "url": "stun:127.0.0.1:8081" }]}
+  
+
+    val.$store.dispatch("yourConnectionAction", configuration);
       console.log('Your Connectionnnnnnnn', self.yourConnection)
       self.yourConnection.addStream(self.yourStream);
       self.yourConnection.onaddstream = function (e) {
@@ -261,13 +268,6 @@ export default {
     } else {
       alert("Sorry, your browser does not support WebRTC.");
     }
-   configuration = webrtcDetectedBrowser === 'firefox' ?  
-  {'iceServers':[{'url':'stun:23.21.150.121'},{ "url": "stun:127.0.0.1:8081" }]} : 
-  // IP address  
-  {'iceServers': [{'urls': 'stun:stun.1.google.com:19302'},{ "url": "stun:127.0.0.1:8081" }]}
-  
-
-    val.$store.dispatch("yourConnectionAction", configuration);
   },
 
   startPeerConnection: function () {
