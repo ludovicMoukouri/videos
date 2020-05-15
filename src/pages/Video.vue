@@ -94,7 +94,7 @@ export default {
         console.log(ws, 'wssssssssssssssssssssss')
         _this.startWebsocket
         var cdate = new Date().toJSON().slice(0,10).replace(/-/g,'/');
-        _this.$store.dispatch("cdate", cdate);
+        _this.$store.dispatch("cdate", {type: "date", cdate: cdate});
       }, 10000);
     }
   },
@@ -111,10 +111,10 @@ export default {
     startWebsocket() {
       const _this = this
       console.log("startWebsocket opennnnnnnnnnnnn");
-    _this.ws.onopen = function () {
+    ws.onopen = function () {
       console.log("Connected");
     };
-    _this.ws.onmessage = function (message) {
+    ws.onmessage = function (message) {
       console.log("Got message", message.data);
       var data = JSON.parse(message.data);
       switch(data.type) {
@@ -141,10 +141,10 @@ export default {
         break;
       } 
     };
-    _this.ws.onclose = function () {
+    ws.onclose = function () {
       console.log("deconnection");
       setTimeout(()=> {
-        _this.startWebsocket()
+        _this.startWebsocket
       }, 1000);
     };
     },

@@ -183,6 +183,15 @@ wss.on('connection', function(connection, req) {
 					candidate: data.candidate
 				});
 			}
+			case "date":
+			console.log("Sending date to", data);
+			var conn = users[data.name];
+			if (conn != null) {
+				sendTo(conn, {
+					type: "cdate",
+					candidate: data.cdate
+				});
+			}
 			break;
 			case "leave":
 			console.log("Disconnecting user from", data);
