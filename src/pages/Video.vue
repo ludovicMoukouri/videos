@@ -94,8 +94,21 @@ export default {
       setTimeout(()=> {
         _this.startWebsocket()
       }, 5);
-    };
+    }
+    console.log(ws, 'wssssssssssssssssssssss')
+  },
+  mounted() {
+      // this.loadresponsive();
+    this.listenToEvents();
+    this.fetchUser();
+  },
+  computed: {
+    ...mapGetters(['yourStream', 'theirStream', 'yourConnection', 'connectedUser', 'ws', 'sendState', 'offName', 'offValue', 'ansValue', 'canValue']),
+    // loadresponsive() {
+    //   return this.$router.go(1)
+    // },
     function startWebsocket() {
+      const _this = this
     ws.onopen = function () {
       console.log("Connected");
     };
@@ -124,8 +137,7 @@ export default {
         break;
         default:
         break;
-      }
-      
+      } 
     };
     ws.onclose = function () {
       console.log("deconnection");
@@ -134,19 +146,6 @@ export default {
       }, 5);
     };
     }
-    _this.startWebsocket();
-    console.log(ws, 'wssssssssssssssssssssss')
-  },
-  mounted() {
-      // this.loadresponsive();
-    this.listenToEvents();
-    this.fetchUser();
-  },
-  computed: {
-    ...mapGetters(['yourStream', 'theirStream', 'yourConnection', 'connectedUser', 'ws', 'sendState', 'offName', 'offValue', 'ansValue', 'canValue']),
-    // loadresponsive() {
-    //   return this.$router.go(1)
-    // },
     loadwindow() {
       this.loadr = window.location.reload()
       return this.loadr
