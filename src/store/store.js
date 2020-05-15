@@ -3,8 +3,8 @@ import Vuex from 'vuex';
 Vue.use(Vuex);
 
 const state = {
-  yourStream: undefined,
-  theirStream: undefined,
+  yourStream: null,
+  theirStream: null,
   yourConnection: undefined,
   connectedUser: null,
   ws: undefined,

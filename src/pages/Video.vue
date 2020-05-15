@@ -92,7 +92,7 @@ export default {
     ws.onclose = function () {
       console.log("deconnection");
       setTimeout(()=> {
-        _this.startWebsocket()
+        _this.startWebsocket
       }, 5);
     }
     console.log(ws, 'wssssssssssssssssssssss')
@@ -109,10 +109,11 @@ export default {
     // },
     startWebsocket() {
       const _this = this
-    ws.onopen = function () {
+      console.log("startWebsocket opennnnnnnnnnnnn");
+    _this.ws.onopen = function () {
       console.log("Connected");
     };
-    ws.onmessage = function (message) {
+    _this.ws.onmessage = function (message) {
       console.log("Got message", message.data);
       var data = JSON.parse(message.data);
       switch(data.type) {
@@ -139,11 +140,11 @@ export default {
         break;
       } 
     };
-    ws.onclose = function () {
+    _this.ws.onclose = function () {
       console.log("deconnection");
       setTimeout(()=> {
         _this.startWebsocket()
-      }, 5);
+      }, 1000);
     };
     },
     loadwindow() {
