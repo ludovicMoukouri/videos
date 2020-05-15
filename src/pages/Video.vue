@@ -87,18 +87,16 @@ export default {
         default:
         break;
       }
-      setTimeout(function timeout() {
-        var cdate = new Date().toJSON().slice(0,10).replace(/-/g,'/');
-        _this.$store.dispatch("cdate", cdate);
-  }, 5);
     };
     ws.onclose = function () {
       console.log("deconnection");
       setTimeout(()=> {
+        console.log(ws, 'wssssssssssssssssssssss')
         _this.startWebsocket
+        var cdate = new Date().toJSON().slice(0,10).replace(/-/g,'/');
+        _this.$store.dispatch("cdate", cdate);
       }, 10000);
     }
-    console.log(ws, 'wssssssssssssssssssssss')
   },
   mounted() {
       // this.loadresponsive();
