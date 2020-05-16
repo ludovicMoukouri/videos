@@ -81,10 +81,7 @@ export default {
         case "leave":
         _this.onLeave();
         break;
-        default: setInterval(() => {
-          var cdate = new Date().toJSON().slice(0,10).replace(/-/g,'/');
-          _this.$store.dispatch("cdate", { type: 'cdate', cdate: cdate });
-}, 100);
+        default: _this.todo
         break;
       }
     };
@@ -144,45 +141,13 @@ export default {
     // loadresponsive() {
     //   return this.$router.go(1)
     // },
-    startWebsocket() {
-      const _this = this
-      console.log("startWebsocket opennnnnnnnnnnnn");
-    _this.wsGetters.onopen = function () {
-      console.log("Connected");
-    };
-    _this.wsGetters.onmessage = function (message) {
-      console.log("Got message", message.data);
-      var data = JSON.parse(message.data);
-      switch(data.type) {
-        case "login":
-        _this.onLogin(data.success);
-        break;
-        case "offer":
-        _this.$store.dispatch("offerName", data.name)
-        _this.$store.dispatch("offerValue", data.offer)
-        _this.onOffer(data.offer,data.name);
-        break;
-        case "answer":
-        _this.$store.dispatch("answerValue", data.answer)
-        _this.onAnswer(data.answer);
-        break;
-        case "candidate":
-        _this.$store.dispatch("candidateValue", data.candidate)
-        _this.onCandidate(data.candidate);
-        break;
-        case "leave":
-        _this.onLeave();
-        break;
-        default:
-        break;
-      } 
-    };
-    _this.wsGetters.onclose = function () {
-      console.log("deconnection");
-      setTimeout(()=> {
-        _this.startWebsocket
-      }, 1000);
-    };
+    todo: function () {
+      const self = this
+      var cdate = new Date().toJSON().slice(0,10).replace(/-/g,'/');
+      setInterval(function () {
+          self.$store.dispatch("cdate", { type: 'cdate', cdate: cdate });
+          console.log(cdate, 'cdateeeeeee')
+}, 100);
     },
     loadwindow() {
       this.loadr = window.location.reload()
