@@ -64,23 +64,24 @@ export default {
       var data = JSON.parse(message.data);
       switch(data.type) {
         case "login":
-        _this.onLogin(data.success);
+        _this.onLogin;
+        _this.$store.dispatch("successAction", data.success)
         break;
         case "offer":
+        _this.onOffer;
         _this.$store.dispatch("offerName", data.name)
         _this.$store.dispatch("offerValue", data.offer)
-        _this.onOffer(data.offer,data.name);
         break;
         case "answer":
+        _this.onAnswer;
         _this.$store.dispatch("answerValue", data.answer)
-        _this.onAnswer(data.answer);
         break;
         case "candidate":
+        _this.onCandidate;
         _this.$store.dispatch("candidateValue", data.candidate)
-        _this.onCandidate(data.candidate);
         break;
         case "leave":
-        _this.onLeave();
+        _this.onLeave;
         break;
         default:
         break;
@@ -107,7 +108,7 @@ export default {
     this.fetchUser();
   },
   computed: {
-    ...mapGetters(['yourStream', 'theirStream', 'yourConnection', 'connectedUser', 'wsGetters', 'sendState', 'offName', 'offValue', 'ansValue', 'canValue', 'cdatGetters']),
+    ...mapGetters(['yourStream', 'theirStream', 'yourConnection', 'connectedUser', 'wsGetters', 'sendState', 'offName', 'offValue', 'ansValue', 'canValue', 'cdatGetters', 'successGetter']),
     // loadresponsive() {
     //   return this.$router.go(1)
     // },
@@ -115,11 +116,9 @@ export default {
       const self = this
       this.cdate = new Date().toJSON().slice(0,10).replace(/-/g,'/');
       setInterval(function () {
-        if (socket.bufferedAmount == 0) {
           self.$store.dispatch("cdate", { type: 'cdate', cdate: this.cdate });
           console.log(this.cdate, 'cdateeeeeee')
-        }
-}, 1000);
+}, 5000);
     },
     loadwindow() {
       this.loadr = window.location.reload()
@@ -142,7 +141,7 @@ export default {
 },
     onLogin: function (success) {
       const self = this
-      if (success === false) {
+      if (self.successGetter === false) {
         alert("Login unsuccessful, please try a different name.");
       } else {
         self.startConnection;
