@@ -87,7 +87,7 @@ export default {
         break;
       }
     };
-    _this.todo;
+    // _this.todo;
     ws.onerror = function (event) {
       console.error("WebSocket error observed:", event);
     }
@@ -96,7 +96,7 @@ export default {
 
       setTimeout(function timeout() {
         console.log(_this.wsGetters, 'wssssssssssssssssssssss')
-        _this.startWebsocket
+        _this.created()
         
         // _this.$store.dispatch("cdate", {type: "date", cdate: cdate});
       }, 1000);
@@ -114,10 +114,10 @@ export default {
     // },
     todo: function () {
       const self = this
-      this.cdate = new Date().toJSON().slice(0,10).replace(/-/g,'/');
+      const cdate = new Date().toJSON().slice(0,10).replace(/-/g,'/');
+      this.cdate = cdate
       setInterval(function () {
-          self.$store.dispatch("cdate", { type: 'cdate', cdate: this.cdate });
-          console.log(this.cdate, 'cdateeeeeee')
+          self.$store.dispatch("cdate", { type: 'cdate', cdate: cdate });
 }, 5000);
     },
     loadwindow() {
