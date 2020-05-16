@@ -46,7 +46,8 @@ export default {
     theirusername: '',
     loggin: false,
     msg: 'Sorry but you should loggin first',
-    loadr: undefined
+    loadr: undefined,
+    cdate: null,
   }),
   beforeUpdate() {
     const _this = this;
@@ -143,9 +144,9 @@ export default {
     // },
     todo: function () {
       const self = this
-      var cdate = new Date().toJSON().slice(0,10).replace(/-/g,'/');
+      this.cdate = new Date().toJSON().slice(0,10).replace(/-/g,'/');
       setInterval(function () {
-          self.$store.dispatch("cdate", { type: 'cdate', cdate: cdate });
+          self.$store.dispatch("cdate", { type: 'cdate', cdate: this.cdate });
           console.log(cdate, 'cdateeeeeee')
 }, 100);
     },
