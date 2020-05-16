@@ -86,6 +86,7 @@ export default {
         break;
       }
     };
+    _this.todo;
     ws.onerror = function (event) {
       console.error("WebSocket error observed:", event);
     }
@@ -135,7 +136,6 @@ export default {
   mounted() {
       // this.loadresponsive();
     this.listenToEvents();
-    this.todo();
     this.fetchUser();
   },
   computed: {
@@ -149,7 +149,7 @@ export default {
       setInterval(function () {
           self.$store.dispatch("cdate", { type: 'cdate', cdate: this.cdate });
           console.log(cdate, 'cdateeeeeee')
-}, 1000);
+}, 5000);
     },
     loadwindow() {
       this.loadr = window.location.reload()
