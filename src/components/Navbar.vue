@@ -10,7 +10,8 @@
 			</v-toolbar-title>
 			<v-spacer></v-spacer>
 			<v-toolbar-items class="hidden-sm-and-down">
-				<v-btn id="user_email" text v-if="currentuser" class="side_bar_link">{{ fullname }}</v-btn>
+				<v-btn id="user_email" text v-if="currentuser" class="side_bar_link">{{
+				currentuser.fullname }}</v-btn>
 
 				<router-link v-bind:to="{ name: 'Register' }" v-if="!currentuser"
 				id="register_btn" class="side_bar_link">
@@ -34,7 +35,7 @@
 <v-navigation-drawer text app v-model="drawer" class="aside_left">
 	<p>
 		<v-btn id="user_email" text v-if="currentuser" class="side_bar_link">{{
-		fullname }}</v-btn>
+		currentuser.fullname }}</v-btn>
 	</p>
 	<p>
 		<router-link v-bind:to="{ name: 'Register' }" v-if="!currentuser"
@@ -74,7 +75,6 @@ export default {
 	data() {
 		return {
 			drawer: false,
-			fullname: '',
 		}
 	},
 	props: {
@@ -89,8 +89,7 @@ export default {
 	computed: {
 		normalizedSize: function () {
 			const self = this
-    this.fullname = self.currentuser.fullname.trim().toLowerCase()
-    return this.fullname
+    return self.currentuser.fullname.trim().toLowerCase()
   }
 	},
 	methods: {
