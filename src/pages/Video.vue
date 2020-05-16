@@ -292,7 +292,7 @@ export default {
     loadresponsive() {
       this.fetchUser();
     },
-    todo();
+    todo()
     loadLogout() {
       this.listenToLogout();
     }
