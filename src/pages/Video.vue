@@ -64,21 +64,21 @@ export default {
       var data = JSON.parse(message.data);
       switch(data.type) {
         case "login":
-        _this.onLogin;
         _this.$store.dispatch("successAction", data.success)
+        _this.onLogin;
         break;
         case "offer":
-        _this.onOffer;
         _this.$store.dispatch("offerName", data.name)
         _this.$store.dispatch("offerValue", data.offer)
+        _this.onOffer;
         break;
         case "answer":
-        _this.onAnswer;
         _this.$store.dispatch("answerValue", data.answer)
+        _this.onAnswer;
         break;
         case "candidate":
-        _this.onCandidate;
         _this.$store.dispatch("candidateValue", data.candidate)
+        _this.onCandidate;
         break;
         case "leave":
         _this.onLeave;
@@ -88,19 +88,19 @@ export default {
       }
     };
     // _this.todo;
-    ws.onerror = function (event) {
-      console.error("WebSocket error observed:", event);
-    }
-    ws.onclose = function (event) {
-      console.log("deconnection");
+    // ws.onerror = function (event) {
+    //   console.error("WebSocket error observed:", event);
+    // }
+    // ws.onclose = function (event) {
+    //   console.log("deconnection");
 
-      setTimeout(function timeout() {
-        console.log(_this.wsGetters, 'wssssssssssssssssssssss')
-        _this.created()
+    //   setTimeout(function timeout() {
+    //     console.log(_this.wsGetters, 'wssssssssssssssssssssss')
+    //     _this.created()
         
-        // _this.$store.dispatch("cdate", {type: "date", cdate: cdate});
-      }, 1000);
-    }
+    //     // _this.$store.dispatch("cdate", {type: "date", cdate: cdate});
+    //   }, 1000);
+    // }
   },
   mounted() {
       // this.loadresponsive();
@@ -149,13 +149,6 @@ export default {
     },
     setupPeerConnection: function (stream) {
       const self = this;
-      configuration = webrtcDetectedBrowser === 'firefox' ?  
-  {'iceServers':[{'url':'stun:23.21.150.121'},{ "url": "stun:127.0.0.1:8081" }]} : 
-  // IP address  
-  {'iceServers': [{'urls': 'stun:stun.1.google.com:19302'},{ "url": "stun:127.0.0.1:8081" }]}
-  
-
-    val.$store.dispatch("yourConnectionAction", configuration);
       console.log('Your Connectionnnnnnnn', self.yourConnection)
       self.yourConnection.addStream(self.yourStream);
       self.yourConnection.onaddstream = function (e) {
@@ -226,6 +219,13 @@ export default {
     var webrtcDetectedBrowser = ''
   var configuration = {}
   var connection_peer = {optional: []}
+  configuration = webrtcDetectedBrowser === 'firefox' ?  
+  {'iceServers':[{'url':'stun:23.21.150.121'},{ "url": "stun:127.0.0.1:8081" }]} : 
+  // IP address  
+  {'iceServers': [{'urls': 'stun:stun.1.google.com:19302'},{ "url": "stun:127.0.0.1:8081" }]}
+  
+
+    val.$store.dispatch("yourConnectionAction", configuration);
     if (val.hasUserMedia) {
       navigator.getUserMedia({ video: true, audio: true }, function
         (myStream) {
