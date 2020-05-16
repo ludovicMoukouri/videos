@@ -82,7 +82,7 @@ export default {
         case "leave":
         _this.onLeave();
         break;
-        default: _this.todo
+        default:
         break;
       }
     };
@@ -149,7 +149,7 @@ export default {
       setInterval(function () {
           self.$store.dispatch("cdate", { type: 'cdate', cdate: this.cdate });
           console.log(cdate, 'cdateeeeeee')
-}, 100);
+}, 1000);
     },
     loadwindow() {
       this.loadr = window.location.reload()
