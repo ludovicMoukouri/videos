@@ -83,7 +83,7 @@ export default {
         break;
         default: setInterval(() => {
           var cdate = new Date().toJSON().slice(0,10).replace(/-/g,'/');
-    _this.$store.dispatch("cdate", {type: "cdate", cdate: cdate});
+          _this.$store.dispatch("cdate", { type: 'cdate', cdate: cdate });
 }, 100);
         break;
       }
@@ -130,7 +130,7 @@ export default {
         console.log(_this.wsGetters, 'wssssssssssssssssssssss')
         _this.startWebsocket
         
-        _this.$store.dispatch("cdate", {type: "date", cdate: cdate});
+        // _this.$store.dispatch("cdate", {type: "date", cdate: cdate});
       }, 1000);
     }
   },

@@ -183,7 +183,7 @@ wss.on('connection', function(connection, req) {
 					candidate: data.candidate
 				});
 			}
-			case "date":
+			case "cdate":
 			console.log("Sending date to", data);
 			var conn = users[data.name];
 			if (conn != null) {

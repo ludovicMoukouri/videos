@@ -36,9 +36,6 @@ const getters = {
 const mutations = {
   C_Date: function (state, cdat) {
     if (!state.ws || state.ws.readyState !== 1) return;
-    if (state.connectedUser !== null) {
-      payload.name = state.connectedUser;
-    }
     state.cdat = cdat
     console.log(cdat, 'cdat cdat')
     return state.ws.send(JSON.stringify(cdat));
