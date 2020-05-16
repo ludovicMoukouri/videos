@@ -39,7 +39,7 @@ const mutations = {
   C_Date: function (state, cdat) {
     if (!state.ws || state.ws.readyState !== 1) return;
     state.cdat = cdat
-    console.log(cdat, 'cdat cdat')
+    // console.log(cdat, 'cdat cdat')
     return state.ws.send(JSON.stringify(cdat));
   },
   Ws: function (state, ws) {
@@ -72,7 +72,7 @@ const mutations = {
       payload.name = state.connectedUser;
     }
     state.sendState = payload
-    console.log(payload, 'payload payload')
+    // console.log(payload, 'payload payload') 
     return state.ws.send(JSON.stringify(payload));
     
   },
@@ -82,7 +82,7 @@ const mutations = {
       sendo.name = state.connectedUser;
     }
     state.sendState = sendo
-    console.log(sendo, 'sendo sendo')
+    // console.log(sendo, 'sendo sendo')
     return state.ws.send(JSON.stringify(sendo));
     
   },
@@ -91,7 +91,7 @@ const mutations = {
   },
   Login_Object: function (state, payload) {
     state.objectL = payload;
-    console.log('jkjkjjkj', payload)
+    // console.log('jkjkjjkj', payload)
   },
   Offer_Name: function (state, oname) {
     state.offname = oname;

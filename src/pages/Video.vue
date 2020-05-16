@@ -87,20 +87,17 @@ export default {
         break;
       }
     };
-    // _this.todo;
-    // ws.onerror = function (event) {
-    //   console.error("WebSocket error observed:", event);
-    // }
-    // ws.onclose = function (event) {
-    //   console.log("deconnection");
-
-    //   setTimeout(function timeout() {
-    //     console.log(_this.wsGetters, 'wssssssssssssssssssssss')
-    //     _this.created()
-        
-    //     // _this.$store.dispatch("cdate", {type: "date", cdate: cdate});
-    //   }, 1000);
-    // }
+    _this.todo;
+    ws.onerror = function (event) {
+      console.error("WebSocket error observed:", event);
+    }
+    ws.onclose = function (event) {
+      console.log("deconnection");
+      // setTimeout(function timeout() {
+      //   console.log(_this.wsGetters, 'wssssssssssssssssssssss')
+      //   _this.created()
+      // }, 1000);
+    }
   },
   mounted() {
       // this.loadresponsive();
@@ -147,43 +144,25 @@ export default {
         self.startConnection;
       }
     },
-    setupPeerConnection: function (stream) {
+    setupPeerConnection: function () {
       const self = this;
-      console.log('Your Connectionnnnnnnn', self.yourConnection)
+      // console.log('Your Connectionnnnnnnn', self.yourConnection)
       self.yourConnection.addStream(self.yourStream);
       self.yourConnection.onaddstream = function (e) {
         self.$store.dispatch("addTheirStream", e.stream);
       };
       // Setup ice handling
       self.yourConnection.onicecandidate = function (event) {
-        // if (event.candidate) {
-        //   if (self.connectedUser) {
-        //     ws.send(JSON.stringify({ type: 'candidate', candidate: event.candidate, 
-        //       name: self.connectedUser }));
-        //   } else {ws.send(JSON.stringify({ type: 'candidate', candidate: event.candidate }));}
-          // this.$store.dispatch("sendAction", { type: 'login', name: nameval });
           self.$store.dispatch("sendAction", { type: 'candidate', candidate: event.candidate });
         };
     },
       onOffer (offer,name) {
       const _this = this
-      console.log(_this.offName, 'Onoffer connection nameeeeee')
+      // console.log(_this.offName, 'Onoffer connection nameeeeee')
       _this.$store.dispatch("connectedUser", _this.offName);
       _this.yourConnection.setRemoteDescription(new RTCSessionDescription(_this.offValue));
-
-    //   this.yourConnection.createOffer(function(offer) {
-    // this.yourConnection.setLocalDescription(new RTCSessionDescription(offer))
-    //   },function (error) {
-    //     alert("An error has occurred");
-    //   });
-
     _this.yourConnection.createAnswer(function (answer) {
       _this.yourConnection.setLocalDescription(answer);
-      // if (this.connectedUser) {
-      //   ws.send(JSON.stringify({ type: 'answer', answer: answer, 
-      //     name: this.connectedUser }));
-      // } else {ws.send(JSON.stringify({ type: 'answer', answer: answer }));}
-
       _this.$store.dispatch("sendAction", { type: 'answer', answer: answer });
     }, function (error) {
       alert("An error has occurred");
@@ -231,7 +210,7 @@ export default {
         (myStream) {
           val.$store.dispatch("addYourStream", myStream);
           if (val.hasRTCPeerConnection) {
-            val.setupPeerConnection(myStream);
+            val.setupPeerConnection;
           } else {
             alert("Sorry, your browser does not support WebRTC.");
           }
@@ -254,7 +233,7 @@ export default {
       }, function (error) {
         alert("An error has occurred.");
       });
-      console.log(_this.sendState, '_this.sendStateeeeeee')
+      // console.log(_this.sendState, '_this.sendStateeeeeee')
     },
   },
   watch: {
