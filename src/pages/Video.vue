@@ -135,6 +135,7 @@ export default {
   mounted() {
       // this.loadresponsive();
     this.listenToEvents();
+    this.todo();
     this.fetchUser();
   },
   computed: {
@@ -291,6 +292,7 @@ export default {
     loadresponsive() {
       this.fetchUser();
     },
+    todo();
     loadLogout() {
       this.listenToLogout();
     }
