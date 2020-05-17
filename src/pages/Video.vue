@@ -125,7 +125,7 @@ export default {
     this.fetchUser();
   },
   computed: {
-    ...mapGetters(['yourStream', 'theirStream', 'yourConnection', 'connectedUser', 'wsGetters', 'sendState', 'offName', 'offValue', 'ansValue', 'canValue', 'cdatGetters', 'successGetter']),
+    ...mapGetters(['yourStream', 'theirStream', 'yourConnection', 'connectedUser', 'wsGetters', 'sendState', 'offName', 'offValue', 'ansValue', 'canValue', 'cdatGetters', 'successGetter', 'dataChannel']),
     // loadresponsive() {
     //   return this.$router.go(1)
     // },
@@ -325,7 +325,7 @@ this.messag = event.data
   },
   sendData() {
     const self = this
-    self.dataChannel.send(this.message);
+    self.dataChannel.send(self.message);
   },
   listenToLogout() {
     const self = this
