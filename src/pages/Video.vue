@@ -23,7 +23,7 @@
          v-model="message"
          required
          ></v-text-field>
-         <div id="received">{{ messag }}</div>
+         <div id="received">{{ messag }} Yes</div>
 
        </v-flex>
        <v-flex md4 xs12>
@@ -34,7 +34,7 @@
          <btn 
          label="Send"
          style="background-color:#0000ff21;margin:0 0 0 2%" 
-         @click="send" />
+         @click="sendData" />
          <btn 
          label="Hang Up"
          style="background-color:#0000ff21;margin:0 0 0 2%" 
@@ -67,6 +67,7 @@ export default {
     loadr: undefined,
     cdate: null,
     messag: '',
+    message: '',
   }),
   beforeUpdate() {
     const _this = this;
@@ -177,6 +178,7 @@ export default {
         self.openDataChannel()
     },
     openDataChannel() {
+      const self = this
   var dataChannelOptions = {
     ordered: true,
     reliable: true,
@@ -184,6 +186,7 @@ export default {
     id: 0
   }
   dataChannel = yourConnection.createDataChannel("myLabel", dataChannelOptions);
+  self.$store.dispatch("dataChannelAction", dataChannel);
 
   dataChannel.onerror = function (error) {    
     console.log("Data Channel Error:", error);  
@@ -319,6 +322,10 @@ this.messag = event.data
     if (theirusernameInput.length > 0) {
       self.startPeerConnection();
     }
+  },
+  sendData() {
+    const self = this
+    self.dataChannel.send(this.message);
   },
   listenToLogout() {
     const self = this

@@ -17,6 +17,7 @@ const state = {
   canvalue: null,
   cdat: null,
   successm: null,
+  dataChannel: null,
 };
 
 const getters = {
@@ -33,6 +34,7 @@ const getters = {
   canValue: state => state.canvalue,
   cdatGetters: state => state.cdat,
   successGetter: state => state.successm,
+  dataChannel: state => state.dataChannel,
 };
 
 const mutations = {
@@ -108,6 +110,9 @@ const mutations = {
   success_M: function (state, successm) {
     state.successm = successm;
   },
+  Data_Channel: function (state, datacha) {
+    state.dataChannel = datacha;
+  },
 };
 
 const actions = {
@@ -158,6 +163,9 @@ const actions = {
   },
   successAction: ({commit}, successm) => {
     commit('success_M', successm);
+  },
+  dataChannelAction: ({commit}, datacha) => {
+    commit('Data_Channel', datacha);
   },
     // Socket: ({commit, dispatch}, url) => {
   //   const ws = new Websocket('ws://localhost:8081')
