@@ -14,13 +14,31 @@
          v-model="theirusername"
          required
          ></v-text-field>
+         <v-text-field
+         class="v-textcall-video"
+         outlined
+         dense
+         id="message"
+         label="message send"
+         v-model="message"
+         required
+         ></v-text-field>
+         <div id="received">{{ messag }}</div>
+
        </v-flex>
        <v-flex md4 xs12>
          <btn 
          label="Call"
          style="background-color:#0000ff21;margin:0 0 0 2%" 
          @click="callButton" />
-         <btn id="hang-up">Hang Up</btn>
+         <btn 
+         label="Send"
+         style="background-color:#0000ff21;margin:0 0 0 2%" 
+         @click="send" />
+         <btn 
+         label="Hang Up"
+         style="background-color:#0000ff21;margin:0 0 0 2%" 
+         @click="hang-up" />
        </v-flex>
      </v-layout>
    </div>
@@ -48,6 +66,7 @@ export default {
     msg: 'Sorry but you should loggin first',
     loadr: undefined,
     cdate: null,
+    messag: '',
   }),
   beforeUpdate() {
     const _this = this;
@@ -155,7 +174,29 @@ export default {
       self.yourConnection.onicecandidate = function (event) {
           self.$store.dispatch("sendAction", { type: 'candidate', candidate: event.candidate });
         };
+        self.openDataChannel()
     },
+    openDataChannel() {
+  var dataChannelOptions = {
+    ordered: true,
+    reliable: true,
+    negotiated: true,
+    id: 0
+  }
+  dataChannel = yourConnection.createDataChannel("myLabel", dataChannelOptions);
+
+  dataChannel.onerror = function (error) {    
+    console.log("Data Channel Error:", error);  
+  }
+  dataChannel.onmessage = function (event) {
+console.log("Got Data Channel Message:", event.data);
+this.messag = event.data
+}
+  dataChannel.onopen = function () { 
+    dataChannel.send(name + " has connected."); 
+  }
+  dataChannel.onclose = close()
+ },
       onOffer (offer,name) {
       const _this = this
       // console.log(_this.offName, 'Onoffer connection nameeeeee')
@@ -240,7 +281,6 @@ export default {
     loadresponsive() {
       this.fetchUser();
     },
-    // todo(),
     loadLogout() {
       this.listenToLogout();
     }
