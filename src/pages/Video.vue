@@ -14,10 +14,18 @@
          v-model="theirusername"
          required
          ></v-text-field>
-         <textarea 
+         <v-text-field
+         class="v-textcall-video"
+         outlined
+         dense
+         label="add chat message"
+         v-model="messageds"
+         required
+         ></v-text-field>
+         <!-- <textarea 
          v-model="messageds" 
          placeholder="add chat message"
-         ></textarea>
+         ></textarea> -->
          <div id="received">{{ messageSender }} </div>
 
        </v-flex>
