@@ -314,15 +314,15 @@ startPeerConnection: function () {
   },
    openDataChannel() {
 
-      self.dataChannelGetter.dataChannel.onerror = function (error) {    
+      self.dataChannelGetter.onerror = function (error) {    
         console.log("Data Channel Error:", error);  
       }
-      self.dataChannelGetter.dataChannel.onmessage = function (event) {
+      self.dataChannelGetter.onmessage = function (event) {
         console.log("Got Data Channel Message:", event.data);
 
         this.messag = "recv: " + event.data
       }
-      self.dataChannelGetter.dataChannel.onopen = function () { 
+      self.dataChannelGetter.onopen = function () { 
         self.dataChannelGetter.send(this.connectedUser + " has connected."); 
       }
       self.dataChannelGetter.onclose = close()
