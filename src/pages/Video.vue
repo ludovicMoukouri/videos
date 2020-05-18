@@ -225,12 +225,19 @@ setupPeerConnection: function () {
       var configuration = {}
       var connection_peer = {optional: []}
       configuration = webrtcDetectedBrowser === 'firefox' ?  
-      {'iceServers':[{'url':'stun:23.21.150.121'},{ "url": "stun:127.0.0.1:8081" }]} : 
+      {'iceServers':[{'url':'stun:23.21.150.121'},{ "url": "stun:127.0.0.1:8081" }]} :
   // IP address  
   {'iceServers': [{'urls': 'stun:stun.1.google.com:19302'},{ "url": "stun:127.0.0.1:8081" }]}
-  
-
   val.$store.dispatch("yourConnectionAction", configuration, connection_peer);
+
+      var dataChannelOptions = {
+        ordered: true,
+        reliable: true,
+        negotiated: true,
+        id: 0
+      }
+      // const dataChannel = yourConnection.createDataChannel("myLabel", dataChannelOptions);
+      val.$store.dispatch("dataChannelAction", dataChannelOptions);
   if (val.hasUserMedia) {
     navigator.getUserMedia({ video: true, audio: false }, function
       (myStream) {
@@ -306,16 +313,6 @@ startPeerConnection: function () {
     }
   },
    openDataChannel() {
-      console.log('openDataChannel openDataChannelopenDataChannel')
-      const self = this
-      var dataChannelOptions = {
-        ordered: true,
-        reliable: true,
-        negotiated: true,
-        id: 0
-      }
-      // const dataChannel = yourConnection.createDataChannel("myLabel", dataChannelOptions);
-      this.$store.dispatch("dataChannelAction", dataChannelOptions);
 
       self.dataChannelGetter.dataChannel.onerror = function (error) {    
         console.log("Data Channel Error:", error);  
