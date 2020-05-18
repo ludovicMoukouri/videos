@@ -5,7 +5,7 @@
       <video :srcObject.prop="theirStream" id="theirs" autoplay></video>
       <v-layout row wrap>
         <v-flex md1 xs12></v-flex>
-        <v-flex md6 xs12>
+        <v-flex md6 xs9>
          <v-text-field
          class="v-textcall-video"
          outlined
@@ -14,6 +14,8 @@
          v-model="theirusername"
          required
          ></v-text-field>
+       </v-flex>
+       <v-flex md5 xs3>
          <btn 
        label="Call"
        style="background-color:#0000ff21;margin:0 0 0 2%" 
@@ -28,7 +30,11 @@
             {{ item.messages }}
           </li>
         </ul>
-
+        <v-flex md5>
+          </v-flex>
+        </v-layout>
+          <v-layout row wrap>
+          <v-flex md11 xs12>
          <v-text-field
          class="v-textcall-video"
          outlined
@@ -37,23 +43,13 @@
          v-model="messageds"
          required
          ></v-text-field>
-         <!-- <textarea 
-         v-model="messageds" 
-         placeholder="add chat message"
-         ></textarea> -->
-         <br />
-        <!-- <div id="received">{{ messageSender }} </div> -->
 
       </v-flex>
-      <v-flex md4 xs12>
+      <v-flex md11 xs12>
        <btn 
        label="Send Message"
-       style="background-color:#0000ff21;margin:0 0 0 2%;width:95%!important" 
+       style="background-color:#0000ff21;margin:0 0 0 2%;width:80%!important" 
        @click="sendData" />
-       <!-- <btn 
-       label="Hang Up"
-       style="background-color:#0000ff21;margin:0 0 0 2%" 
-       @click="hang-up" /> -->
      </v-flex>
    </v-layout>
  </div>
