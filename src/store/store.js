@@ -127,7 +127,7 @@ const actions = {
     commit('Add_Their_Stream', payload);
   },
   yourConnectionAction: ({commit}, configur, connection_peer) => {
-    commit('Your_Connection', configur);
+    commit('Your_Connection', configur, connection_peer);
   },
   connectedUser: (context, payload) => {
     context.commit('Connected_User', payload);
