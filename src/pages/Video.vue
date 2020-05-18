@@ -122,7 +122,8 @@ export default {
       //   _this.created()
       // }, 1000);
     }
-    function openDataChannel() {
+    openDataChannel() {
+      console.log('openDataChannel openDataChannelopenDataChannel')
       const self = this
       var dataChannelOptions = {
         ordered: true,
@@ -130,21 +131,21 @@ export default {
         negotiated: true,
         id: 0
       }
-      const dataChannel = yourConnection.createDataChannel("myLabel", dataChannelOptions);
-      self.$store.dispatch("dataChannelAction", dataChannel);
+      // const dataChannel = yourConnection.createDataChannel("myLabel", dataChannelOptions);
+      self.$store.dispatch("dataChannelAction", dataChannelOptions);
 
-      dataChannel.onerror = function (error) {    
+      self.dataChannelGetter.dataChannel.onerror = function (error) {    
         console.log("Data Channel Error:", error);  
       }
-      dataChannel.onmessage = function (event) {
+      self.dataChannelGetter.dataChannel.onmessage = function (event) {
         console.log("Got Data Channel Message:", event.data);
 
         this.messag = "recv: " + event.data
       }
-      dataChannel.onopen = function () { 
-        dataChannel.send(this.connectedUser + " has connected."); 
+      self.dataChannelGetter.dataChannel.onopen = function () { 
+        self.dataChannelGetter.send(this.connectedUser + " has connected."); 
       }
-      dataChannel.onclose = close()
+      self.dataChannelGetter.onclose = close()
     }
   },
   mounted() {
@@ -203,7 +204,7 @@ setupPeerConnection: function () {
       self.yourConnection.onicecandidate = function (event) {
         self.$store.dispatch("sendAction", { type: 'candidate', candidate: event.candidate });
       };
-      self.openDataChannel()
+      self.openDataChannel
     },
     onOffer (offer,name) {
       const _this = this
@@ -329,9 +330,10 @@ startPeerConnection: function () {
     }
   },
   sendData() {
-    const self = this
+    const self = this.messageds
     this.messageSender = "Sender: "+this.messageds
-    this.dataChannelGetter.send(this.messageds);
+
+    this.dataChannelGetter.send(self);
   },
   listenToLogout() {
     const self = this

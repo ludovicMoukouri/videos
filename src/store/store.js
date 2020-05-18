@@ -111,7 +111,8 @@ const mutations = {
     state.successm = successm;
   },
   Data_Channel: function (state, datacha) {
-    state.dataChannel = datacha;
+    state.dataChannel = state.yourConnection.createDataChannel("myLabel", datacha);
+    return state.dataChannel
     console.log('Data channelllllllllllllllll', datacha)
   },
 };
