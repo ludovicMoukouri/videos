@@ -26,7 +26,12 @@
          v-model="messageds" 
          placeholder="add chat message"
          ></textarea> -->
-         <div id="received">{{ messageSender }} </div>
+         <ul id="received">
+  <li v-for="item in items" :key="item.messageSender">
+    {{ item.messageSender }}
+  </li>
+</ul><br />
+         <!-- <div id="received">{{ messageSender }} </div> -->
 
        </v-flex>
        <v-flex md4 xs12>
@@ -71,7 +76,7 @@ export default {
     cdate: null,
     messageds: '',
     messageSender: '',
-
+    items: [],
   }),
   created() {
     this.$store.dispatch('wsAction', ws)
@@ -319,7 +324,8 @@ startPeerConnection: function () {
       this.dataChannelGetter.onmessage = function (event) {
         console.log("Got Data Channel Message:", event.data);
 
-        this.messag = "recv: " + event.data
+        this.messageReceive = "recv: " + event.data
+    this.items.push({message: messageSender})
       }
       this.dataChannelGetter.onopen = function () { 
         this.dataChannelGetter.send(this.connectedUser + " has connected."); 
@@ -328,7 +334,8 @@ startPeerConnection: function () {
     },
   sendData() {
     const self = this.messageds
-    this.messageSender = "Sender: "+this.messageds
+    const messageSender = "Sender: "+this.messageds
+    this.items.push({message: messageSender})
     this.dataChannelGetter.send(self);
   },
   listenToLogout() {
