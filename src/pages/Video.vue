@@ -14,6 +14,21 @@
          v-model="theirusername"
          required
          ></v-text-field>
+         <btn 
+       label="Call"
+       style="background-color:#0000ff21;margin:0 0 0 2%" 
+       @click="callButton" />
+     </v-flex>
+   </v-layout>
+    <v-layout row wrap>
+      <v-flex md1 xs12></v-flex>
+       <v-flex md6 xs12>
+        <ul id="received">
+          <li v-for="item in items" :key="item.messages">
+            {{ item.messages }}
+          </li>
+        </ul>
+
          <v-text-field
          class="v-textcall-video"
          outlined
@@ -26,27 +41,19 @@
          v-model="messageds" 
          placeholder="add chat message"
          ></textarea> -->
-         <ul id="received">
-          <li v-for="item in items" :key="item.messages">
-            {{ item.messages }}
-          </li>
-        </ul><br />
+         <br />
         <!-- <div id="received">{{ messageSender }} </div> -->
 
       </v-flex>
       <v-flex md4 xs12>
        <btn 
-       label="Call"
-       style="background-color:#0000ff21;margin:0 0 0 2%" 
-       @click="callButton" />
-       <btn 
        label="Send Message"
-       style="background-color:#0000ff21;margin:0 0 0 2%" 
+       style="background-color:#0000ff21;margin:0 0 0 2%;width:95%!important" 
        @click="sendData" />
-       <btn 
+       <!-- <btn 
        label="Hang Up"
        style="background-color:#0000ff21;margin:0 0 0 2%" 
-       @click="hang-up" />
+       @click="hang-up" /> -->
      </v-flex>
    </v-layout>
  </div>
