@@ -5,7 +5,7 @@
       <video :srcObject.prop="theirStream" id="theirs" autoplay></video>
       <v-layout row wrap>
         <v-flex md1 xs12></v-flex>
-        <v-flex md6 xs9>
+        <v-flex md7 xs9>
          <v-text-field
          class="v-textcall-video"
          outlined
@@ -15,10 +15,10 @@
          required
          ></v-text-field>
        </v-flex>
-       <v-flex md5 xs3>
+       <v-flex md4 xs3>
          <btn 
        label="Call"
-       style="background-color:#0000ff21;margin:0 0 0 2%" 
+       style="background-color:#0000ff21;margin:0 0 0 10%" 
        @click="callButton" />
      </v-flex>
    </v-layout>
@@ -30,10 +30,12 @@
             {{ item.messages }}
           </li>
         </ul>
+        </v-flex>
         <v-flex md5>
           </v-flex>
         </v-layout>
           <v-layout row wrap>
+            <v-flex md1 xs12></v-flex>
           <v-flex md11 xs12>
          <v-text-field
          class="v-textcall-video"
@@ -45,6 +47,7 @@
          ></v-text-field>
 
       </v-flex>
+      <v-flex md1 xs12></v-flex>
       <v-flex md11 xs12>
        <btn 
        label="Send Message"
