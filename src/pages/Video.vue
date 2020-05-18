@@ -317,12 +317,13 @@ setupPeerConnection: function () {
     }
   },
   openDataChannel() {
+    const self = this
     this.dataChannelGetter.onerror = function (error) {    
       console.log("Data Channel Error:", error);  
     }
     this.dataChannelGetter.onmessage = function (event) {
       console.log("Got Data Channel Message:", event.data);
-      this.items.push({messages: "recv: " + event.data})
+      self.items.push({messages: "recv: " + event.data})
     }
     this.dataChannelGetter.onopen = function () { 
       this.dataChannelGetter.send(this.connectedUser + " has connected."); 
