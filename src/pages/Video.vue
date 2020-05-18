@@ -15,7 +15,7 @@
          required
          ></v-text-field>
          <textarea 
-         v-model="message" 
+         v-model="messageds" 
          placeholder="add chat message"
          ></textarea>
          <div id="received">{{ messageSender }} </div>
@@ -61,7 +61,7 @@ export default {
     msg: 'Sorry but you should loggin first',
     loadr: undefined,
     cdate: null,
-    message: '',
+    messageds: '',
     messageSender: '',
 
   }),
@@ -121,7 +121,7 @@ export default {
     this.fetchUser();
   },
   computed: {
-    ...mapGetters(['yourStream', 'theirStream', 'yourConnection', 'connectedUser', 'wsGetters', 'sendState', 'offName', 'offValue', 'ansValue', 'canValue', 'cdatGetters', 'successGetter', 'dataChannel']),
+    ...mapGetters(['yourStream', 'theirStream', 'yourConnection', 'connectedUser', 'wsGetters', 'sendState', 'offName', 'offValue', 'ansValue', 'canValue', 'cdatGetters', 'successGetter', 'dataChannelGetter']),
     // loadresponsive() {
     //   return this.$router.go(1)
     // },
@@ -322,8 +322,8 @@ this.messag = "recv: " + event.data
   },
   sendData() {
     const self = this
-    this.messageSender = "Sender: "+this.message
-    self.dataChannel.send(this.message);
+    this.messageSender = "Sender: "+this.messageds
+    this.dataChannelGetter.send(this.messageds);
   },
   listenToLogout() {
     const self = this

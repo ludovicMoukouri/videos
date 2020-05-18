@@ -34,7 +34,7 @@ const getters = {
   canValue: state => state.canvalue,
   cdatGetters: state => state.cdat,
   successGetter: state => state.successm,
-  dataChannel: state => state.dataChannel,
+  dataChannelGetter: state => state.dataChannel,
 };
 
 const mutations = {
