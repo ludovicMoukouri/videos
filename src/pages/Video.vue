@@ -329,7 +329,7 @@ startPeerConnection: function () {
         self.dataChannelGetter.send(this.connectedUser + " has connected."); 
       }
       self.dataChannelGetter.onclose = close()
-    }
+    },
   sendData() {
     const self = this.messageds
     this.messageSender = "Sender: "+this.messageds
