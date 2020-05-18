@@ -27,30 +27,30 @@
          placeholder="add chat message"
          ></textarea> -->
          <ul id="received">
-  <li v-for="item in items" :key="item.message">
-    {{ item.message }}
-  </li>
-</ul><br />
-         <!-- <div id="received">{{ messageSender }} </div> -->
+          <li v-for="item in items" :key="item.messages">
+            {{ item.messages }}
+          </li>
+        </ul><br />
+        <!-- <div id="received">{{ messageSender }} </div> -->
 
-       </v-flex>
-       <v-flex md4 xs12>
-         <btn 
-         label="Call"
-         style="background-color:#0000ff21;margin:0 0 0 2%" 
-         @click="callButton" />
-         <btn 
-         label="Send Message"
-         style="background-color:#0000ff21;margin:0 0 0 2%" 
-         @click="sendData" />
-         <btn 
-         label="Hang Up"
-         style="background-color:#0000ff21;margin:0 0 0 2%" 
-         @click="hang-up" />
-       </v-flex>
-     </v-layout>
-   </div>
+      </v-flex>
+      <v-flex md4 xs12>
+       <btn 
+       label="Call"
+       style="background-color:#0000ff21;margin:0 0 0 2%" 
+       @click="callButton" />
+       <btn 
+       label="Send Message"
+       style="background-color:#0000ff21;margin:0 0 0 2%" 
+       @click="sendData" />
+       <btn 
+       label="Hang Up"
+       style="background-color:#0000ff21;margin:0 0 0 2%" 
+       @click="hang-up" />
+     </v-flex>
+   </v-layout>
  </div>
+</div>
 </template>
 <!-- <template v-else>
   <div class="hello">
@@ -75,7 +75,6 @@ export default {
     loadr: undefined,
     cdate: null,
     messageds: '',
-    messageSender: '',
     items: [],
   }),
   created() {
@@ -130,12 +129,12 @@ export default {
       this.fetchUser();
     },
     beforeUpdate() {
-    const _this = this;
+      const _this = this;
     // this.openDataChannel()
     // _this.fetchUser()
   },
-    computed: {
-      ...mapGetters(['yourStream', 'theirStream', 'yourConnection', 'connectedUser', 'wsGetters', 'sendState', 'offName', 'offValue', 'ansValue', 'canValue', 'cdatGetters', 'successGetter', 'dataChannelGetter']),
+  computed: {
+    ...mapGetters(['yourStream', 'theirStream', 'yourConnection', 'connectedUser', 'wsGetters', 'sendState', 'offName', 'offValue', 'ansValue', 'canValue', 'cdatGetters', 'successGetter', 'dataChannelGetter']),
     // loadresponsive() {
     //   return this.$router.go(1)
     // },
@@ -235,34 +234,34 @@ setupPeerConnection: function () {
   {'iceServers': [{'urls': 'stun:stun.1.google.com:19302'},{ "url": "stun:127.0.0.1:8081" }]}
   val.$store.dispatch("yourConnectionAction", configuration, connection_peer);
 
-      var dataChannelOptions = {
-        ordered: true,
-        reliable: true,
-        negotiated: true,
-        id: 0
-      }
+  var dataChannelOptions = {
+    ordered: true,
+    reliable: true,
+    negotiated: true,
+    id: 0
+  }
       // const dataChannel = yourConnection.createDataChannel("myLabel", dataChannelOptions);
       val.$store.dispatch("dataChannelAction", dataChannelOptions);
-  if (val.hasUserMedia) {
-    navigator.getUserMedia({ video: true, audio: false }, function
-      (myStream) {
-        val.$store.dispatch("addYourStream", myStream);
-        if (val.hasRTCPeerConnection) {
-          val.setupPeerConnection;
-        } else {
-          alert("Sorry, your browser does not support WebRTC.");
-        }
-      }, function (error) {
-        console.log(error);
-      });
-  } else {
-    alert("Sorry, your browser does not support WebRTC.");
-  }
-},
+      if (val.hasUserMedia) {
+        navigator.getUserMedia({ video: true, audio: false }, function
+          (myStream) {
+            val.$store.dispatch("addYourStream", myStream);
+            if (val.hasRTCPeerConnection) {
+              val.setupPeerConnection;
+            } else {
+              alert("Sorry, your browser does not support WebRTC.");
+            }
+          }, function (error) {
+            console.log(error);
+          });
+      } else {
+        alert("Sorry, your browser does not support WebRTC.");
+      }
+    },
 
-startPeerConnection: function () {
-  const _this = this;
-  _this.$store.dispatch("connectedUser", _this.theirusername)
+    startPeerConnection: function () {
+      const _this = this;
+      _this.$store.dispatch("connectedUser", _this.theirusername)
       // Begin the offer
       _this.yourConnection.createOffer(function (offer) {
 
@@ -317,24 +316,23 @@ startPeerConnection: function () {
       self.startPeerConnection();
     }
   },
-   openDataChannel() {
-      this.dataChannelGetter.onerror = function (error) {    
-        console.log("Data Channel Error:", error);  
-      }
-      this.dataChannelGetter.onmessage = function (event) {
-        console.log("Got Data Channel Message:", event.data);
-        const messageReceive = "recv: " + event.data
-    this.items.push({message: messageReceive})
-      }
-      this.dataChannelGetter.onopen = function () { 
-        this.dataChannelGetter.send(this.connectedUser + " has connected."); 
-      }
-      this.dataChannelGetter.onclose = close()
-    },
+  openDataChannel() {
+    this.dataChannelGetter.onerror = function (error) {    
+      console.log("Data Channel Error:", error);  
+    }
+    this.dataChannelGetter.onmessage = function (event) {
+      console.log("Got Data Channel Message:", event.data);
+      this.items.push({messages: "recv: " + event.data})
+    }
+    this.dataChannelGetter.onopen = function () { 
+      this.dataChannelGetter.send(this.connectedUser + " has connected."); 
+    }
+    this.dataChannelGetter.onclose = close()
+  },
   sendData() {
     const self = this.messageds
     const messageSender = "Sender: "+this.messageds
-    this.items.push({message: messageSender})
+    this.items.push({messages: messageSender})
     this.dataChannelGetter.send(self);
   },
   listenToLogout() {
