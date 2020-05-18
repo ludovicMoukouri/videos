@@ -122,7 +122,7 @@ export default {
       //   _this.created()
       // }, 1000);
     }
-    openDataChannel() {
+    function openDataChannel() {
       console.log('openDataChannel openDataChannelopenDataChannel')
       const self = this
       var dataChannelOptions = {
