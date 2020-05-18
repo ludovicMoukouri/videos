@@ -27,8 +27,8 @@
          placeholder="add chat message"
          ></textarea> -->
          <ul id="received">
-  <li v-for="item in items" :key="item.messageSender">
-    {{ item.messageSender }}
+  <li v-for="item in items" :key="item.message">
+    {{ item.message }}
   </li>
 </ul><br />
          <!-- <div id="received">{{ messageSender }} </div> -->
