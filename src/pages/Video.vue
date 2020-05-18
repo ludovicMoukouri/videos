@@ -122,7 +122,6 @@ export default {
       //   _this.created()
       // }, 1000);
     }
-    function openDataChannel() {
       console.log('openDataChannel openDataChannelopenDataChannel')
       const self = this
       var dataChannelOptions = {
@@ -146,7 +145,7 @@ export default {
         self.dataChannelGetter.send(this.connectedUser + " has connected."); 
       }
       self.dataChannelGetter.onclose = close()
-    }
+    
   },
   mounted() {
       // this.loadresponsive();
@@ -204,7 +203,7 @@ setupPeerConnection: function () {
       self.yourConnection.onicecandidate = function (event) {
         self.$store.dispatch("sendAction", { type: 'candidate', candidate: event.candidate });
       };
-      self.openDataChannel
+      // self.openDataChannel
     },
     onOffer (offer,name) {
       const _this = this
