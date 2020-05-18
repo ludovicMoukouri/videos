@@ -40,7 +40,7 @@
          style="background-color:#0000ff21;margin:0 0 0 2%" 
          @click="callButton" />
          <btn 
-         label="Send"
+         label="Send Message"
          style="background-color:#0000ff21;margin:0 0 0 2%" 
          @click="sendData" />
          <btn 
@@ -323,9 +323,8 @@ startPeerConnection: function () {
       }
       this.dataChannelGetter.onmessage = function (event) {
         console.log("Got Data Channel Message:", event.data);
-
-        this.messageReceive = "recv: " + event.data
-    this.items.push({message: messageSender})
+        const messageReceive = "recv: " + event.data
+    this.items.push({message: messageReceive})
       }
       this.dataChannelGetter.onopen = function () { 
         this.dataChannelGetter.send(this.connectedUser + " has connected."); 

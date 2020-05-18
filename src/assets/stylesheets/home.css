@@ -41,14 +41,14 @@ a.side_bar_link {
 	}
 	#yours {
 		width: 40%!important;
-		height: 35%!important;
+		height: 25%!important;
 		position: absolute;
 		top: 2%!important;
 		right: 15px;
 	}
 	#theirs {
 		width: 95%!important;
-		height: 310px!important;
+		height: 410px!important;
 	}
 	.v-textcall-video {
 		width: 80% !important;
@@ -142,11 +142,11 @@ a.side_bar_link {
 }
 #received {
 display: block;
-width: 480px;
+width: 95%;
 height: 100px;
 background: white;
 padding: 10px;
-margin-top: 10px;
+margin: 10px 10px 10px 10px;
 color: black;
 overflow: scroll;
 }
