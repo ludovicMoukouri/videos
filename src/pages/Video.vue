@@ -73,10 +73,6 @@ export default {
     messageSender: '',
 
   }),
-  beforeUpdate() {
-    const _this = this;
-    // _this.fetchUser()
-  },
   created() {
     this.$store.dispatch('wsAction', ws)
     const _this = this;
@@ -122,36 +118,17 @@ export default {
       //   _this.created()
       // }, 1000);
     }
-      console.log('openDataChannel openDataChannelopenDataChannel')
-      const self = this
-      var dataChannelOptions = {
-        ordered: true,
-        reliable: true,
-        negotiated: true,
-        id: 0
-      }
-      // const dataChannel = yourConnection.createDataChannel("myLabel", dataChannelOptions);
-      self.$store.dispatch("dataChannelAction", dataChannelOptions);
-
-      self.dataChannelGetter.dataChannel.onerror = function (error) {    
-        console.log("Data Channel Error:", error);  
-      }
-      self.dataChannelGetter.dataChannel.onmessage = function (event) {
-        console.log("Got Data Channel Message:", event.data);
-
-        this.messag = "recv: " + event.data
-      }
-      self.dataChannelGetter.dataChannel.onopen = function () { 
-        self.dataChannelGetter.send(this.connectedUser + " has connected."); 
-      }
-      self.dataChannelGetter.onclose = close()
-    
   },
   mounted() {
       // this.loadresponsive();
       this.listenToEvents();
       this.fetchUser();
     },
+    beforeUpdate() {
+    const _this = this;
+    // this.openDataChannel()
+    // _this.fetchUser()
+  },
     computed: {
       ...mapGetters(['yourStream', 'theirStream', 'yourConnection', 'connectedUser', 'wsGetters', 'sendState', 'offName', 'offValue', 'ansValue', 'canValue', 'cdatGetters', 'successGetter', 'dataChannelGetter']),
     // loadresponsive() {
@@ -203,7 +180,7 @@ setupPeerConnection: function () {
       self.yourConnection.onicecandidate = function (event) {
         self.$store.dispatch("sendAction", { type: 'candidate', candidate: event.candidate });
       };
-      // self.openDataChannel
+      self.openDataChannel()
     },
     onOffer (offer,name) {
       const _this = this
@@ -328,10 +305,34 @@ startPeerConnection: function () {
       self.startPeerConnection();
     }
   },
+   openDataChannel() {
+      console.log('openDataChannel openDataChannelopenDataChannel')
+      const self = this
+      var dataChannelOptions = {
+        ordered: true,
+        reliable: true,
+        negotiated: true,
+        id: 0
+      }
+      // const dataChannel = yourConnection.createDataChannel("myLabel", dataChannelOptions);
+      this.$store.dispatch("dataChannelAction", dataChannelOptions);
+
+      self.dataChannelGetter.dataChannel.onerror = function (error) {    
+        console.log("Data Channel Error:", error);  
+      }
+      self.dataChannelGetter.dataChannel.onmessage = function (event) {
+        console.log("Got Data Channel Message:", event.data);
+
+        this.messag = "recv: " + event.data
+      }
+      self.dataChannelGetter.dataChannel.onopen = function () { 
+        self.dataChannelGetter.send(this.connectedUser + " has connected."); 
+      }
+      self.dataChannelGetter.onclose = close()
+    }
   sendData() {
     const self = this.messageds
     this.messageSender = "Sender: "+this.messageds
-
     this.dataChannelGetter.send(self);
   },
   listenToLogout() {
