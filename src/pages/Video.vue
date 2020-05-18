@@ -14,16 +14,11 @@
          v-model="theirusername"
          required
          ></v-text-field>
-         <v-text-field
-         class="v-textcall-video"
-         outlined
-         dense
-         id="message"
-         label="message send"
-         v-model="message"
-         required
-         ></v-text-field>
-         <div id="received">{{ messag }} Yes</div>
+         <textarea 
+         v-model="message" 
+         placeholder="add chat message"
+         ></textarea>
+         <div id="received">{{ messageSender }} </div>
 
        </v-flex>
        <v-flex md4 xs12>
@@ -66,8 +61,9 @@ export default {
     msg: 'Sorry but you should loggin first',
     loadr: undefined,
     cdate: null,
-    messag: '',
     message: '',
+    messageSender: '',
+
   }),
   beforeUpdate() {
     const _this = this;
@@ -185,7 +181,7 @@ export default {
     negotiated: true,
     id: 0
   }
-  dataChannel = yourConnection.createDataChannel("myLabel", dataChannelOptions);
+  const dataChannel = yourConnection.createDataChannel("myLabel", dataChannelOptions);
   self.$store.dispatch("dataChannelAction", dataChannel);
 
   dataChannel.onerror = function (error) {    
@@ -193,10 +189,11 @@ export default {
   }
   dataChannel.onmessage = function (event) {
 console.log("Got Data Channel Message:", event.data);
-this.messag = event.data
+
+this.messag = "recv: " + event.data
 }
   dataChannel.onopen = function () { 
-    dataChannel.send(name + " has connected."); 
+    dataChannel.send(this.connectedUser + " has connected."); 
   }
   dataChannel.onclose = close()
  },
@@ -248,9 +245,9 @@ this.messag = event.data
   {'iceServers': [{'urls': 'stun:stun.1.google.com:19302'},{ "url": "stun:127.0.0.1:8081" }]}
   
 
-    val.$store.dispatch("yourConnectionAction", configuration);
+    val.$store.dispatch("yourConnectionAction", configuration, connection_peer);
     if (val.hasUserMedia) {
-      navigator.getUserMedia({ video: true, audio: true }, function
+      navigator.getUserMedia({ video: true, audio: false }, function
         (myStream) {
           val.$store.dispatch("addYourStream", myStream);
           if (val.hasRTCPeerConnection) {
@@ -325,7 +322,8 @@ this.messag = event.data
   },
   sendData() {
     const self = this
-    self.dataChannel.send(self.message);
+    this.messageSender = "Sender: "+this.message
+    self.dataChannel.send(this.message);
   },
   listenToLogout() {
     const self = this
