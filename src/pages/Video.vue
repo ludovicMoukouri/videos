@@ -313,19 +313,18 @@ startPeerConnection: function () {
     }
   },
    openDataChannel() {
-
-      self.dataChannelGetter.onerror = function (error) {    
+      this.dataChannelGetter.onerror = function (error) {    
         console.log("Data Channel Error:", error);  
       }
-      self.dataChannelGetter.onmessage = function (event) {
+      this.dataChannelGetter.onmessage = function (event) {
         console.log("Got Data Channel Message:", event.data);
 
         this.messag = "recv: " + event.data
       }
-      self.dataChannelGetter.onopen = function () { 
-        self.dataChannelGetter.send(this.connectedUser + " has connected."); 
+      this.dataChannelGetter.onopen = function () { 
+        this.dataChannelGetter.send(this.connectedUser + " has connected."); 
       }
-      self.dataChannelGetter.onclose = close()
+      this.dataChannelGetter.onclose = close()
     },
   sendData() {
     const self = this.messageds
