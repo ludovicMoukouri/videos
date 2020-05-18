@@ -122,14 +122,38 @@ export default {
       //   _this.created()
       // }, 1000);
     }
+    function openDataChannel() {
+      const self = this
+      var dataChannelOptions = {
+        ordered: true,
+        reliable: true,
+        negotiated: true,
+        id: 0
+      }
+      const dataChannel = yourConnection.createDataChannel("myLabel", dataChannelOptions);
+      self.$store.dispatch("dataChannelAction", dataChannel);
+
+      dataChannel.onerror = function (error) {    
+        console.log("Data Channel Error:", error);  
+      }
+      dataChannel.onmessage = function (event) {
+        console.log("Got Data Channel Message:", event.data);
+
+        this.messag = "recv: " + event.data
+      }
+      dataChannel.onopen = function () { 
+        dataChannel.send(this.connectedUser + " has connected."); 
+      }
+      dataChannel.onclose = close()
+    }
   },
   mounted() {
       // this.loadresponsive();
-    this.listenToEvents();
-    this.fetchUser();
-  },
-  computed: {
-    ...mapGetters(['yourStream', 'theirStream', 'yourConnection', 'connectedUser', 'wsGetters', 'sendState', 'offName', 'offValue', 'ansValue', 'canValue', 'cdatGetters', 'successGetter', 'dataChannelGetter']),
+      this.listenToEvents();
+      this.fetchUser();
+    },
+    computed: {
+      ...mapGetters(['yourStream', 'theirStream', 'yourConnection', 'connectedUser', 'wsGetters', 'sendState', 'offName', 'offValue', 'ansValue', 'canValue', 'cdatGetters', 'successGetter', 'dataChannelGetter']),
     // loadresponsive() {
     //   return this.$router.go(1)
     // },
@@ -138,8 +162,8 @@ export default {
       const cdate = new Date().toJSON().slice(0,10).replace(/-/g,'/');
       this.cdate = cdate
       setInterval(function () {
-          self.$store.dispatch("cdate", { type: 'cdate', cdate: cdate });
-}, 5000);
+        self.$store.dispatch("cdate", { type: 'cdate', cdate: cdate });
+      }, 5000);
     },
     loadwindow() {
       this.loadr = window.location.reload()
@@ -149,10 +173,10 @@ export default {
       return this.$router.go(1)
     },
     onLeave: function () { 
-    const self = this 
-  self.$store.dispatch("connectedUser", null);
-  self.$store.dispatch("addTheirStream", null) 
-  self.connectedUser = null; 
+      const self = this 
+      self.$store.dispatch("connectedUser", null);
+      self.$store.dispatch("addTheirStream", null) 
+      self.connectedUser = null; 
   // self.theirStream.src = null;  
   self.yourConnection.close();  
   self.yourConnection.onicecandidate = null;  
@@ -160,16 +184,16 @@ export default {
   self.setupPeerConnection(self.yourStream); 
   console.log(self.connectedUser, ' Leave Connection')
 },
-    onLogin: function (success) {
-      const self = this
-      if (self.successGetter === false) {
-        alert("Login unsuccessful, please try a different name.");
-      } else {
-        self.startConnection;
-      }
-    },
-    setupPeerConnection: function () {
-      const self = this;
+onLogin: function (success) {
+  const self = this
+  if (self.successGetter === false) {
+    alert("Login unsuccessful, please try a different name.");
+  } else {
+    self.startConnection;
+  }
+},
+setupPeerConnection: function () {
+  const self = this;
       // console.log('Your Connectionnnnnnnn', self.yourConnection)
       self.yourConnection.addStream(self.yourStream);
       self.yourConnection.onaddstream = function (e) {
@@ -177,103 +201,79 @@ export default {
       };
       // Setup ice handling
       self.yourConnection.onicecandidate = function (event) {
-          self.$store.dispatch("sendAction", { type: 'candidate', candidate: event.candidate });
-        };
-        self.openDataChannel()
+        self.$store.dispatch("sendAction", { type: 'candidate', candidate: event.candidate });
+      };
+      self.openDataChannel()
     },
-    openDataChannel() {
-      const self = this
-  var dataChannelOptions = {
-    ordered: true,
-    reliable: true,
-    negotiated: true,
-    id: 0
-  }
-  const dataChannel = yourConnection.createDataChannel("myLabel", dataChannelOptions);
-  self.$store.dispatch("dataChannelAction", dataChannel);
-
-  dataChannel.onerror = function (error) {    
-    console.log("Data Channel Error:", error);  
-  }
-  dataChannel.onmessage = function (event) {
-console.log("Got Data Channel Message:", event.data);
-
-this.messag = "recv: " + event.data
-}
-  dataChannel.onopen = function () { 
-    dataChannel.send(this.connectedUser + " has connected."); 
-  }
-  dataChannel.onclose = close()
- },
-      onOffer (offer,name) {
+    onOffer (offer,name) {
       const _this = this
       // console.log(_this.offName, 'Onoffer connection nameeeeee')
       _this.$store.dispatch("connectedUser", _this.offName);
       _this.yourConnection.setRemoteDescription(new RTCSessionDescription(_this.offValue));
-    _this.yourConnection.createAnswer(function (answer) {
-      _this.yourConnection.setLocalDescription(answer);
-      _this.$store.dispatch("sendAction", { type: 'answer', answer: answer });
-    }, function (error) {
-      alert("An error has occurred");
-    });
-  },
-  onAnswer: function (answer) {
-    const self = this
-    self.yourConnection.setRemoteDescription(new
-      RTCSessionDescription(self.ansValue));
-  },
-  onCandidate: function (candidate) {
-    const self = this
-    self.yourConnection.addIceCandidate(new RTCIceCandidate(self.canValue));
-  },
-  hasUserMedia: function () {
-    navigator.getUserMedia = navigator.getUserMedia ||
-    navigator.webkitGetUserMedia || navigator.mozGetUserMedia ||
-    navigator.msGetUserMedia;
-    return !!navigator.getUserMedia;
-  },
-  hasRTCPeerConnection: function () {
-    window.RTCPeerConnection = window.RTCPeerConnection ||
-    window.webkitRTCPeerConnection || window.mozRTCPeerConnection;
-    window.RTCSessionDescription = window.RTCSessionDescription ||
-    window.webkitRTCSessionDescription ||
-    window.mozRTCSessionDescription;
-    window.RTCIceCandidate = window.RTCIceCandidate ||
-    window.webkitRTCIceCandidate || window.mozRTCIceCandidate;
-    return !!window.RTCPeerConnection;
-  },
-  startConnection: function () {
-    var val = this
-    var webrtcDetectedBrowser = ''
-  var configuration = {}
-  var connection_peer = {optional: []}
-  configuration = webrtcDetectedBrowser === 'firefox' ?  
-  {'iceServers':[{'url':'stun:23.21.150.121'},{ "url": "stun:127.0.0.1:8081" }]} : 
+      _this.yourConnection.createAnswer(function (answer) {
+        _this.yourConnection.setLocalDescription(answer);
+        _this.$store.dispatch("sendAction", { type: 'answer', answer: answer });
+      }, function (error) {
+        alert("An error has occurred");
+      });
+    },
+    onAnswer: function (answer) {
+      const self = this
+      self.yourConnection.setRemoteDescription(new
+        RTCSessionDescription(self.ansValue));
+    },
+    onCandidate: function (candidate) {
+      const self = this
+      self.yourConnection.addIceCandidate(new RTCIceCandidate(self.canValue));
+    },
+    hasUserMedia: function () {
+      navigator.getUserMedia = navigator.getUserMedia ||
+      navigator.webkitGetUserMedia || navigator.mozGetUserMedia ||
+      navigator.msGetUserMedia;
+      return !!navigator.getUserMedia;
+    },
+    hasRTCPeerConnection: function () {
+      window.RTCPeerConnection = window.RTCPeerConnection ||
+      window.webkitRTCPeerConnection || window.mozRTCPeerConnection;
+      window.RTCSessionDescription = window.RTCSessionDescription ||
+      window.webkitRTCSessionDescription ||
+      window.mozRTCSessionDescription;
+      window.RTCIceCandidate = window.RTCIceCandidate ||
+      window.webkitRTCIceCandidate || window.mozRTCIceCandidate;
+      return !!window.RTCPeerConnection;
+    },
+    startConnection: function () {
+      var val = this
+      var webrtcDetectedBrowser = ''
+      var configuration = {}
+      var connection_peer = {optional: []}
+      configuration = webrtcDetectedBrowser === 'firefox' ?  
+      {'iceServers':[{'url':'stun:23.21.150.121'},{ "url": "stun:127.0.0.1:8081" }]} : 
   // IP address  
   {'iceServers': [{'urls': 'stun:stun.1.google.com:19302'},{ "url": "stun:127.0.0.1:8081" }]}
   
 
-    val.$store.dispatch("yourConnectionAction", configuration, connection_peer);
-    if (val.hasUserMedia) {
-      navigator.getUserMedia({ video: true, audio: false }, function
-        (myStream) {
-          val.$store.dispatch("addYourStream", myStream);
-          if (val.hasRTCPeerConnection) {
-            val.setupPeerConnection;
-          } else {
-            alert("Sorry, your browser does not support WebRTC.");
-          }
-        }, function (error) {
-          console.log(error);
-        });
-    } else {
-      alert("Sorry, your browser does not support WebRTC.");
-    }
-  },
+  val.$store.dispatch("yourConnectionAction", configuration, connection_peer);
+  if (val.hasUserMedia) {
+    navigator.getUserMedia({ video: true, audio: false }, function
+      (myStream) {
+        val.$store.dispatch("addYourStream", myStream);
+        if (val.hasRTCPeerConnection) {
+          val.setupPeerConnection;
+        } else {
+          alert("Sorry, your browser does not support WebRTC.");
+        }
+      }, function (error) {
+        console.log(error);
+      });
+  } else {
+    alert("Sorry, your browser does not support WebRTC.");
+  }
+},
 
-  startPeerConnection: function () {
-    const _this = this;
-    _this.$store.dispatch("connectedUser", _this.theirusername)
+startPeerConnection: function () {
+  const _this = this;
+  _this.$store.dispatch("connectedUser", _this.theirusername)
       // Begin the offer
       _this.yourConnection.createOffer(function (offer) {
 
@@ -294,7 +294,7 @@ this.messag = "recv: " + event.data
     }
   },
   methods: {
-...mapActions (['wsAction', 'sendAction', 'connectedUser', 'yourConnectionAction', 
+    ...mapActions (['wsAction', 'sendAction', 'connectedUser', 'yourConnectionAction', 
       'addTheirStream', 'addYourStream']),
   //   checkAgent(){
   //     const mobile = {
@@ -361,8 +361,8 @@ this.messag = "recv: " + event.data
       // ws.send(JSON.stringify({ type: 'login', name: nameval }))
       //   this.sendAction({ type: 'login', name: nameval })
       const self = this
-        self.$store.dispatch("sendAction", { type: 'login', name: nameval });
-      })
+      self.$store.dispatch("sendAction", { type: 'login', name: nameval });
+    })
     .catch(() => {
     });
   },
