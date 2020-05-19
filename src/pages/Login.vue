@@ -31,7 +31,13 @@
       class="timeline-item right"
     >
           <div class="login">
-            {{ item.event }}
+            <a class="btn facebook oauthItems" href="/login/facebook"> 
+              <img :src="images.facebookIcon" class="imgLogin"> 
+            {{ item.faceb }}</a>
+            <a class="btn google" href="/login/google"> 
+              <img :src="images.googleIcon" class="imgLogin"> 
+              {{ item.google }}
+            </a>
           </div>
         </div>
       </div>
@@ -103,8 +109,8 @@
 import services from '@services';
 import bus from '../bus';
 const timelineData = [ 
-{datetime: '', event: '<a class="btn facebook oauthItems" href="/login/facebook"><img :src="images.facebookIcon" class="imgLogin"> Login with facebook</a>' },
-{datetime: '', event: '<a class="btn google" href="/login/google"><img :src="images.googleIcon" class="imgLogin">Login with google</a>' },
+{datetime: '', faceb: 'Login with facebook' },
+{datetime: '', google: 'Login with google' },
 ];
 export default {
   data: () => ({
