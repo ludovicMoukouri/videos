@@ -5,7 +5,7 @@
       <v-flex xs3></v-flex>
       <v-flex xs12 sm8 md6>
         <v-card
-        style="margin: 3% 1% 0 1%;background-color: #ffffff45">
+        style="margin: 3% 1% 0 1%;background-color: #ffffff9e">
         <v-card-title primary-title>
           <v-layout row wrap>
               <v-flex md5 xs5>
@@ -14,14 +14,13 @@
               <v-flex md1 xs1></v-flex>
               <v-flex md5 xs5>
                 <router-link v-bind:to="{ name: 'Register' }" class="side_bar_link">
-                  <span>
+                  <span style="font-size: 90%">
                     Create New Account
                   </span>
                 </router-link>
               </v-flex>
               <v-flex md1 xs1></v-flex>
             </v-layout>
-          <v-divider />
         </v-card-title>
         <!-- <h6 class="card-title" v-if="current_user" @click="rate">Rate this movie</h6> -->
         <v-card-text>
@@ -74,6 +73,7 @@
             @click="clear"
             />
             <v-layout style="margin:4% 0px 0px 0px" row wrap>
+              <v-flex md1 xs1></v-flex>
               <v-flex md5 xs5>
                 <v-checkbox
           v-model="checkbox"
@@ -82,9 +82,8 @@
           required
         ></v-checkbox>
               </v-flex>
-              <v-flex md1 xs1></v-flex>
-              <v-flex md5 xs5>
-                <span style="color:#4ae387">
+              <v-flex md5 xs5 style="margin: 3% 0px 0px 0px">
+                <span style="color:#4ae387;font-size: 90%">
                   Recover password?
                 </span>
               </v-flex>

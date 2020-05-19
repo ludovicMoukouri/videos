@@ -5,7 +5,7 @@
       <v-flex xs3></v-flex>
       <v-flex xs12 sm8 md6>
         <v-card
-        style="margin: 0 1% 0 1%">
+        style="margin: 3% 1% 0 1%;background-color: #ffffff9e">
         <v-card-title primary-title>
           <v-layout row wrap>
               <v-flex md5 xs5>
@@ -14,7 +14,7 @@
               <v-flex md1 xs1></v-flex>
               <v-flex md5 xs5>
                 <router-link v-bind:to="{ name: 'Login' }" class="side_bar_link">
-                  <span>
+                  <span style="font-size: 90%">
                     Login
                   </span>
                 </router-link>
@@ -24,15 +24,6 @@
         </v-card-title>
         <h6 class="card-title" v-if="current_user" @click="rate">Rate this movie</h6>
         <v-card-text>
-          <div class="login">
-            <a class="btn facebook oauthItems" href="/login/facebook"> 
-              <img :src="images.facebookIcon" class="imgLogin"> 
-            Login with facebook</a>
-            <a class="btn google" href="/login/google"> 
-              <img :src="images.googleIcon" class="imgLogin"> 
-              Login with google
-            </a>
-          </div>
           <v-form v-model="valid" ref="form" lazy-validation>
             <v-text-field
             outlined
@@ -83,23 +74,6 @@
             @click:append="show2 = !show2"
             required
             ></v-text-field>
-            <v-layout style="margin:4% 0px 0px 0px" row wrap>
-              <v-flex md5 xs5>
-                <v-checkbox
-          v-model="checkbox"
-          :rules="[v => !!v || 'You must agree to continue!']"
-          label="I agree to Terms of Use."
-          required
-        ></v-checkbox>
-              </v-flex>
-              <v-flex md1 xs1></v-flex>
-              <v-flex md5 xs5>
-                <span style="color:#4ae387">
-                  Recover password?
-                </span>
-              </v-flex>
-              <v-flex md1 xs1></v-flex>
-            </v-layout>
             <btn
             label="Sign Up"
             :disabled="!valid"
@@ -112,6 +86,23 @@
             style="background-color:#0000ff21;margin:0 0 0 2%"
             @click="clear"
             />
+            <v-layout style="margin:4% 0px 0px 0px" row wrap>
+              <v-flex md1 xs1></v-flex>
+              <v-flex md5 xs5>
+                <v-checkbox
+          v-model="checkbox"
+          :rules="[v => !!v || 'You must agree to continue!']"
+          label="I agree to Terms of Use."
+          required
+        ></v-checkbox>
+              </v-flex>
+              <v-flex md5 xs5 style="margin: 3% 0px 0px 0px">
+                <span style="color:#4ae387;font-size: 90%">
+                  Recover password?
+                </span>
+              </v-flex>
+              <v-flex md1 xs1></v-flex>
+            </v-layout>
           </v-form>
         </v-card-text>
       </v-card>
