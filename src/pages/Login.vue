@@ -12,7 +12,7 @@
               <span class="headline">Login</span>
             </v-flex>
             <v-flex md1 xs1></v-flex>
-            <v-flex md5 xs5>
+            <v-flex md5 xs5 class="divHS">
               <router-link v-bind:to="{ name: 'Register' }" class="side_bar_link">
                 <span style="font-size: 90%">
                   Create New Account
@@ -107,6 +107,13 @@
             </div>
           </div>
         </div>
+        <v-flex class="divHS">
+              <router-link v-bind:to="{ name: 'Register' }" class="side_bar_link">
+                <span style="font-size: 90%">
+                  Create New Account
+                </span>
+              </router-link>
+            </v-flex>
       </v-flex>
   </v-layout>
     </v-card-text>

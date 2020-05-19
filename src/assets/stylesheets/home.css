@@ -28,10 +28,16 @@ a.side_bar_link {
 .btn_sign {
 	display:none!important
 }
+.divHS {
+		display: block;
+	}
 
 @media only screen and (max-width: 600px) {
 	.btn_sign {
 		display:block!important
+	}
+	.divHS {
+		display: none;
 	}
 	.page {
 		position: relative;
@@ -282,10 +288,11 @@ a.side_bar_link {
   }
 
   .timeline-item::before {
-    left: 60px;
-    border: medium solid white;
+    left: 50px;
+    border: medium solid #4fe38a;
     border-width: 10px 10px 10px 0;
     border-color: transparent white transparent transparent;
+    margin-top: -0.01%;
   }
 
   .left::after,
