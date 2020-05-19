@@ -2,8 +2,8 @@
   <div class="login">
     &nbsp;
     <v-layout row wrap>
-      <v-flex xs3 md3></v-flex>
-      <v-flex xs12 sm8 md8>
+      <v-flex xs3 md2></v-flex>
+      <v-flex xs12 sm12 md8>
         <v-card
         style="margin: 3% 1% 0 1%;background-color: #f5f5f5">
         <v-card-title primary-title>
@@ -26,6 +26,10 @@
         <v-card-text>
           <v-layout row wrap>
          <v-flex md8 xs12>
+          <div class="divHS" style="font-size:120%;font-weight:bold;margin: 0 0 2% 0">Or</div>
+          <p style="font-size:120%;font-weight:bold">
+            By our website
+          </p>
           <v-form v-model="valid" ref="form" lazy-validation>
             <v-text-field
             outlined
@@ -85,6 +89,8 @@
           </v-form>
         </v-flex>
         <v-flex md4 xs12>
+          <p style="font-size:120%;font-weight:bold;">By OAuth
+    </p>
           <div class="timeline">
             <div
             v-for="(item, i) in events"
