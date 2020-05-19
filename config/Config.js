@@ -6,5 +6,5 @@ SECRET: 'movieratingapplicationsecretkey',
 FACEBOOK_APP_ID: '224070629040899',
 FACEBOOK_APP_SECRET: 'd828c38f793fe1cdbd753baad00f4a89',
 GOOGLE_APP_ID: '860816668971-6d4j0eleraj15ne36sco85ni2qd00lhj.apps.googleusercontent.com',
-GOOGLE_APP_SECRET: 'cvPdwuTOfOFK9nXGafmz_qVN',
+GOOGLE_APP_SECRET: 't68EARKPQMJwX6jcw9ATJKU6',
 }

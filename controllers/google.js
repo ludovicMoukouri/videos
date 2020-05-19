@@ -8,7 +8,7 @@ module.exports.controller = (app) => {
 	passport.use(new GoogleStrategy({
 		clientID: config.GOOGLE_APP_ID,
 		clientSecret: config.GOOGLE_APP_SECRET,
-		callbackURL: '/login/google/return'
+		callbackURL: 'https://v-video.herokuapp.com/login/google/return'
 	},
 	(accessToken, refreshToken , profile, cb) => {
 		const email = profile.emails[0].value;
