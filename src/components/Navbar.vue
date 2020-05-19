@@ -13,13 +13,7 @@
 				<div v-if="currentuser" class="text-center">
       <v-menu offset-y>
         <template v-slot:activator="{ on }">
-          <v-btn
-            color="primary"
-            dark
-            v-on="on"
-          >
-            <v-icon color="blue darken-2">mdi-bell-ring</v-icon> Dropdown
-          </v-btn>
+          <v-icon color="blue darken-2">mdi-bell-ring</v-icon> Dropdown
         </template>
         <v-list>
           <v-list-item
