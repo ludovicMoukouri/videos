@@ -2,10 +2,10 @@
   <div class="login">
     &nbsp;
     <v-layout row wrap>
-      <v-flex xs3></v-flex>
-      <v-flex xs12 sm8 md6>
+      <v-flex xs2></v-flex>
+      <v-flex xs12 sm9 md6>
         <v-card
-        style="margin: 3% 1% 0 1%;background-color: #ffffff9e">
+        style="margin: 3% 1% 0 1%;background-color: #f5f5f5">
         <v-card-title primary-title>
           <v-layout row wrap>
               <v-flex md5 xs5>
@@ -24,15 +24,22 @@
         </v-card-title>
         <!-- <h6 class="card-title" v-if="current_user" @click="rate">Rate this movie</h6> -->
         <v-card-text>
+           <div class="timeline">
+    <div
+      v-for="(item, i) in events"
+      v-bind:key="i"
+    >
           <div class="login">
             <a class="btn facebook oauthItems" href="/login/facebook"> 
               <img :src="images.facebookIcon" class="imgLogin"> 
-            Login with facebook</a>
+            {{ item.event }}</a>
             <a class="btn google" href="/login/google"> 
               <img :src="images.googleIcon" class="imgLogin"> 
-              Login with google
+              {{ item.event }}
             </a>
           </div>
+        </div>
+      </div>
           <v-form v-model="valid" ref="form" lazy-validation>
             <v-text-field
             outlined
@@ -82,8 +89,8 @@
           required
         ></v-checkbox>
               </v-flex>
-              <v-flex md5 xs5 style="margin: 3% 0px 0px 0px">
-                <span style="color:#4ae387;font-size: 90%">
+              <v-flex md5 xs5 style="margin: 4% 0px 0px 0px">
+                <span style="color:#4ae387;font-size: 120%">
                   Recover password?
                 </span>
               </v-flex>
@@ -100,13 +107,17 @@
 <script>
 import services from '@services';
 import bus from '../bus';
-
+const timelineData = [ 
+{datetime: '', event: 'Login with facebook' },
+{datetime: '', event: 'Login with google' },
+];
 export default {
   data: () => ({
     images: {
       facebookIcon: require('./../assets/static/images/facebook1.png'),
       googleIcon: require('./../assets/static/images/google.png'),
     },
+    events: timelineData,
     show1: false,
     valid: true,
     loading: false,

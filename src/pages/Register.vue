@@ -5,7 +5,7 @@
       <v-flex xs3></v-flex>
       <v-flex xs12 sm8 md6>
         <v-card
-        style="margin: 3% 1% 0 1%;background-color: #ffffff9e">
+        style="margin: 3% 1% 0 1%;background-color: #f5f5f5">
         <v-card-title primary-title>
           <v-layout row wrap>
               <v-flex md5 xs5>
@@ -96,8 +96,8 @@
           required
         ></v-checkbox>
               </v-flex>
-              <v-flex md5 xs5 style="margin: 3% 0px 0px 0px">
-                <span style="color:#4ae387;font-size: 90%">
+              <v-flex md5 xs5 style="margin: 4% 0px 0px 0px">
+                <span style="color:#4ae387;font-size: 120%">
                   Recover password?
                 </span>
               </v-flex>
