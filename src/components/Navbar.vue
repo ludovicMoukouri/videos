@@ -10,17 +10,28 @@
 			</v-toolbar-title>
 			<v-spacer></v-spacer>
 			<v-toolbar-items class="hidden-sm-and-down">
-
-<drop-down v-if="currentuser" class="nav-item"
-                     title="5 Notifications"
-                     title-classes="nav-link"
-                     icon="mdi-bell-ring">
-            <a class="dropdown-item" href="#">Notification 1</a>
-            <a class="dropdown-item" href="#">Notification 2</a>
-            <a class="dropdown-item" href="#">Notification 3</a>
-            <a class="dropdown-item" href="#">Notification 4</a>
-            <a class="dropdown-item" href="#">Another notification</a>
-          </drop-down>
+				<div v-if="currentuser" class="text-center">
+      <v-menu offset-y>
+        <template v-slot:activator="{ on }">
+          <v-btn
+            color="primary"
+            dark
+            v-on="on"
+          >
+            <v-icon color="blue darken-2">mdi-bell-ring</v-icon> Dropdown
+          </v-btn>
+        </template>
+        <v-list>
+          <v-list-item
+            v-for="(item, index) in items"
+            :key="index"
+            @click=""
+          >
+            <v-list-item-title>{{ item.title }}</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
+    </div>
 
 				<v-btn id="user_email" text v-if="currentuser" class="side_bar_link">{{
 				currentuser.fullname }}</v-btn>
@@ -87,6 +98,12 @@ export default {
 	data() {
 		return {
 			drawer: false,
+			items: [
+      { title: 'Click Me' },
+      { title: 'Click Me' },
+      { title: 'Click Me' },
+      { title: 'Click Me 2' },
+    ],
 		}
 	},
 	props: {
