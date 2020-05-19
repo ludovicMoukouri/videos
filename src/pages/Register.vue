@@ -7,12 +7,32 @@
         <v-card
         style="margin: 0 1% 0 1%">
         <v-card-title primary-title>
-          <div>
-            <div class="headline">S'inscrire</div>
-          </div>
+          <v-layout row wrap>
+              <v-flex md5 xs5>
+                <span class="headline">Register</span>
+              </v-flex>
+              <v-flex md1 xs1></v-flex>
+              <v-flex md5 xs5>
+                <router-link v-bind:to="{ name: 'Login' }" class="side_bar_link">
+                  <span>
+                    Login
+                  </span>
+                </router-link>
+              </v-flex>
+              <v-flex md1 xs1></v-flex>
+            </v-layout>
         </v-card-title>
         <h6 class="card-title" v-if="current_user" @click="rate">Rate this movie</h6>
         <v-card-text>
+          <div class="login">
+            <a class="btn facebook oauthItems" href="/login/facebook"> 
+              <img :src="images.facebookIcon" class="imgLogin"> 
+            Login with facebook</a>
+            <a class="btn google" href="/login/google"> 
+              <img :src="images.googleIcon" class="imgLogin"> 
+              Login with google
+            </a>
+          </div>
           <v-form v-model="valid" ref="form" lazy-validation>
             <v-text-field
             outlined
@@ -52,7 +72,7 @@
             @click:append="show1 = !show1"
             required
             ></v-text-field>
-            <!-- <v-text-field
+            <v-text-field
             outlined
             dense
             prepend-inner-icon="mdi-lock"
@@ -62,13 +82,24 @@
             v-model="confirm_password"
             @click:append="show2 = !show2"
             required
-            ></v-text-field> -->
-            <v-checkbox
+            ></v-text-field>
+            <v-layout style="margin:4% 0px 0px 0px" row wrap>
+              <v-flex md5 xs5>
+                <v-checkbox
           v-model="checkbox"
           :rules="[v => !!v || 'You must agree to continue!']"
-          label="Do you agree?"
+          label="I agree to Terms of Use."
           required
         ></v-checkbox>
+              </v-flex>
+              <v-flex md1 xs1></v-flex>
+              <v-flex md5 xs5>
+                <span style="color:#4ae387">
+                  Recover password?
+                </span>
+              </v-flex>
+              <v-flex md1 xs1></v-flex>
+            </v-layout>
             <btn
             label="Sign Up"
             :disabled="!valid"
