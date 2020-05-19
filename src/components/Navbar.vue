@@ -10,10 +10,21 @@
 			</v-toolbar-title>
 			<v-spacer></v-spacer>
 			<v-toolbar-items class="hidden-sm-and-down">
+				
+
+				<v-btn id="user_email" text v-if="currentuser" class="side_bar_link">{{
+				currentuser.fullname }}</v-btn>
+				
 				<div v-if="currentuser" class="text-center">
       <v-menu offset-y>
         <template v-slot:activator="{ on }">
-          <v-icon color="blue darken-2">mdi-bell-ring</v-icon> Dropdown
+          <v-btn
+            dark
+            v-on="on"
+            class="side_bar_link"
+          >
+            <v-icon color="blue darken-2">mdi-bell-ring</v-icon>(2) Notifications
+          </v-btn>
         </template>
         <v-list>
           <v-list-item
@@ -26,9 +37,6 @@
         </v-list>
       </v-menu>
     </div>
-
-				<v-btn id="user_email" text v-if="currentuser" class="side_bar_link">{{
-				currentuser.fullname }}</v-btn>
 
 				<router-link v-bind:to="{ name: 'Register' }" v-if="!currentuser"
 				id="register_btn" class="side_bar_link">
