@@ -14,12 +14,11 @@
 
 				<v-btn id="user_email" text v-if="currentuser" class="side_bar_link">{{
 				currentuser.fullname }}</v-btn>
-				
+
 				<div v-if="currentuser" class="text-center">
       <v-menu offset-y>
         <template v-slot:activator="{ on }">
           <v-btn
-            dark
             v-on="on"
             class="side_bar_link"
           >
