@@ -63,7 +63,7 @@
             @click:append="show1 = !show1"
             required
             ></v-text-field>
-            <v-text-field
+            <!-- <v-text-field
             outlined
             dense
             prepend-inner-icon="mdi-lock"
@@ -73,7 +73,7 @@
             v-model="confirm_password"
             @click:append="show2 = !show2"
             required
-            ></v-text-field>
+            ></v-text-field> -->
             <btn
             label="Sign Up"
             :disabled="!valid"

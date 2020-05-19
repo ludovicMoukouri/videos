@@ -14,7 +14,7 @@
             <v-flex md1 xs1></v-flex>
             <v-flex md5 xs5 class="divMobil">
               <router-link v-bind:to="{ name: 'Register' }" class="side_bar_link">
-                <span style="font-size: 90%">
+                <span style="font-size: 70%;">
                   Create New Account
                 </span>
               </router-link>
@@ -71,14 +71,14 @@
             />
             <v-layout style="margin:4% 0px 0px 0px" row wrap>
               <v-flex md1 xs1></v-flex>
-              <v-flex md5 xs5>
+              <!-- <v-flex md5 xs5>
                 <v-checkbox
                 v-model="checkbox"
                 :rules="[v => !!v || 'You must agree to continue!']"
                 label="Keep me logged in"
                 required
                 ></v-checkbox>
-              </v-flex>
+              </v-flex> -->
               <v-flex md5 xs5 style="margin: 4% 0px 0px 0px">
                 <span style="color:#4ae387;font-size: 120%">
                   Recover password?
@@ -116,7 +116,7 @@
         </div>
         <v-flex class="divDesk">
               <router-link v-bind:to="{ name: 'Register' }" class="side_bar_link">
-                <span style="font-size: 90%">
+                <span style="font-size: 120%;margin: 35% 0 0 0">
                   Create New Account
                 </span>
               </router-link>
