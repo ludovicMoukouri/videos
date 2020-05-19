@@ -24,6 +24,7 @@
         </v-card-title>
         <!-- <h6 class="card-title" v-if="current_user" @click="rate">Rate this movie</h6> -->
         <v-card-text>
+          <v-layout row wrap>
          <v-flex md8 xs12>
           <v-form v-model="valid" ref="form" lazy-validation>
             <v-text-field
@@ -91,17 +92,23 @@
             class="timeline-item right"
             >
             <div class="login">
-              <a class="btn facebook oauthItems" href="/login/facebook"> 
-                <img :src='item.faceb ? "images.facebookIcon" : ""' class="imgLogin"> 
+              <span v-if="item.faceb">
+                <a class="btn facebook oauthItems" href="/login/facebook"> 
+                <img :src="images.facebookIcon" class="imgLogin"> 
               {{ item.faceb }}</a>
-              <a class="btn google" href="/login/google"> 
-                <img :src='item.google ?"images.googleIcon" : ""' class="imgLogin"> 
+            </span>
+              <span v-if="item.google">
+                <a class="btn google" href="/login/google"> 
+                <img :src="images.googleIcon" class="imgLogin"> 
                 {{ item.google }}
               </a>
+              </span>
+              
             </div>
           </div>
         </div>
       </v-flex>
+  </v-layout>
     </v-card-text>
   </v-card>
 </v-flex>
