@@ -28,16 +28,22 @@ a.side_bar_link {
 .btn_sign {
 	display:none!important
 }
-.divHS {
+.divDesk {
 		display: block;
+	}
+.divMobil {
+		display: none;
 	}
 
 @media only screen and (max-width: 600px) {
 	.btn_sign {
 		display:block!important
 	}
-	.divHS {
+	.divDesk {
 		display: none;
+	}
+	.divMobil {
+		display: block;
 	}
 	.page {
 		position: relative;
@@ -204,10 +210,10 @@ a.side_bar_link {
   content: "";
   position: absolute;
   width: 3px;
-  background-color: white;
+  background-color: 4fe38a;
   top: 0;
   bottom: 0;
-  left: 10%;
+  left: .01%;
   margin-left: -2px;
 }
 
@@ -262,6 +268,7 @@ a.side_bar_link {
   left: 10%;
   border: medium solid #4fe38a;
   border-width: 10px 10px 10px 0;
+  border-right: solid #4fe38a!important;
   border-color: transparent white transparent transparent;
 }
 

@@ -12,7 +12,7 @@
               <span class="headline">Login</span>
             </v-flex>
             <v-flex md1 xs1></v-flex>
-            <v-flex md5 xs5 class="divHS">
+            <v-flex md5 xs5 class="divDesk">
               <router-link v-bind:to="{ name: 'Register' }" class="side_bar_link">
                 <span style="font-size: 90%">
                   Create New Account
@@ -26,7 +26,7 @@
         <v-card-text>
           <v-layout row wrap>
          <v-flex md8 xs12>
-          <div class="divHS" style="font-size:120%;font-weight:bold;margin: 0 0 2% 0">Or</div>
+          <div class="divDesk" style="position: absolute;left:65%">Or</div>
           <p style="font-size:120%;font-weight:bold">
             By our website
           </p>
@@ -89,6 +89,7 @@
           </v-form>
         </v-flex>
         <v-flex md4 xs12>
+        <div class="divMobil" style="font-size:120%;font-weight:bold;margin: 0 0 2% 0">Or</div>
           <p style="font-size:120%;font-weight:bold;">By OAuth
     </p>
           <div class="timeline">
@@ -113,7 +114,7 @@
             </div>
           </div>
         </div>
-        <v-flex class="divHS">
+        <v-flex class="divMobil">
               <router-link v-bind:to="{ name: 'Register' }" class="side_bar_link">
                 <span style="font-size: 90%">
                   Create New Account
