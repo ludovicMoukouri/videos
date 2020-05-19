@@ -28,15 +28,10 @@
     <div
       v-for="(item, i) in events"
       v-bind:key="i"
+      class="timeline-item right"
     >
           <div class="login">
-            <a class="btn facebook oauthItems" href="/login/facebook"> 
-              <img :src="images.facebookIcon" class="imgLogin"> 
-            {{ item.event }}</a>
-            <a class="btn google" href="/login/google"> 
-              <img :src="images.googleIcon" class="imgLogin"> 
-              {{ item.event }}
-            </a>
+            {{ item.event }}
           </div>
         </div>
       </div>
@@ -108,8 +103,8 @@
 import services from '@services';
 import bus from '../bus';
 const timelineData = [ 
-{datetime: '', event: 'Login with facebook' },
-{datetime: '', event: 'Login with google' },
+{datetime: '', event: '<a class="btn facebook oauthItems" href="/login/facebook"><img :src="images.facebookIcon" class="imgLogin"> Login with facebook</a>' },
+{datetime: '', event: '<a class="btn google" href="/login/google"><img :src="images.googleIcon" class="imgLogin">Login with google</a>' },
 ];
 export default {
   data: () => ({
