@@ -2,45 +2,29 @@
   <div class="login">
     &nbsp;
     <v-layout row wrap>
-      <v-flex xs2></v-flex>
-      <v-flex xs12 sm9 md6>
+      <v-flex xs3 md3></v-flex>
+      <v-flex xs12 sm8 md8>
         <v-card
         style="margin: 3% 1% 0 1%;background-color: #f5f5f5">
         <v-card-title primary-title>
           <v-layout row wrap>
-              <v-flex md5 xs5>
-                <span class="headline">Login</span>
-              </v-flex>
-              <v-flex md1 xs1></v-flex>
-              <v-flex md5 xs5>
-                <router-link v-bind:to="{ name: 'Register' }" class="side_bar_link">
-                  <span style="font-size: 90%">
-                    Create New Account
-                  </span>
-                </router-link>
-              </v-flex>
-              <v-flex md1 xs1></v-flex>
-            </v-layout>
+            <v-flex md5 xs5>
+              <span class="headline">Login</span>
+            </v-flex>
+            <v-flex md1 xs1></v-flex>
+            <v-flex md5 xs5>
+              <router-link v-bind:to="{ name: 'Register' }" class="side_bar_link">
+                <span style="font-size: 90%">
+                  Create New Account
+                </span>
+              </router-link>
+            </v-flex>
+            <v-flex md1 xs1></v-flex>
+          </v-layout>
         </v-card-title>
         <!-- <h6 class="card-title" v-if="current_user" @click="rate">Rate this movie</h6> -->
         <v-card-text>
-           <div class="timeline">
-    <div
-      v-for="(item, i) in events"
-      v-bind:key="i"
-      class="timeline-item right"
-    >
-          <div class="login">
-            <a class="btn facebook oauthItems" href="/login/facebook"> 
-              <img :src="images.facebookIcon" class="imgLogin"> 
-            {{ item.faceb }}</a>
-            <a class="btn google" href="/login/google"> 
-              <img :src="images.googleIcon" class="imgLogin"> 
-              {{ item.google }}
-            </a>
-          </div>
-        </div>
-      </div>
+         <v-flex md8 xs12>
           <v-form v-model="valid" ref="form" lazy-validation>
             <v-text-field
             outlined
@@ -84,11 +68,11 @@
               <v-flex md1 xs1></v-flex>
               <v-flex md5 xs5>
                 <v-checkbox
-          v-model="checkbox"
-          :rules="[v => !!v || 'You must agree to continue!']"
-          label="Keep me logged in"
-          required
-        ></v-checkbox>
+                v-model="checkbox"
+                :rules="[v => !!v || 'You must agree to continue!']"
+                label="Keep me logged in"
+                required
+                ></v-checkbox>
               </v-flex>
               <v-flex md5 xs5 style="margin: 4% 0px 0px 0px">
                 <span style="color:#4ae387;font-size: 120%">
@@ -98,10 +82,30 @@
               <v-flex md1 xs1></v-flex>
             </v-layout>
           </v-form>
-        </v-card-text>
-      </v-card>
-    </v-flex>
-  </v-layout>
+        </v-flex>
+        <v-flex md4 xs12>
+          <div class="timeline">
+            <div
+            v-for="(item, i) in events"
+            v-bind:key="i"
+            class="timeline-item right"
+            >
+            <div class="login">
+              <a class="btn facebook oauthItems" href="/login/facebook"> 
+                <img :src='item.faceb ? "images.facebookIcon" : ""' class="imgLogin"> 
+              {{ item.faceb }}</a>
+              <a class="btn google" href="/login/google"> 
+                <img :src='item.google ?"images.googleIcon" : ""' class="imgLogin"> 
+                {{ item.google }}
+              </a>
+            </div>
+          </div>
+        </div>
+      </v-flex>
+    </v-card-text>
+  </v-card>
+</v-flex>
+</v-layout>
 </div>
 </template>
 
