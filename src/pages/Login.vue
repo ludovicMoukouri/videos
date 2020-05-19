@@ -116,9 +116,9 @@
         </div>
         <v-flex class="divDesk">
               <router-link v-bind:to="{ name: 'Register' }" class="side_bar_link">
-                <span style="font-size: 120%;margin: 35% 0 0 0">
+                <p style="font-size: 120%;margin: 35% 0 0 0">
                   Create New Account
-                </span>
+                </p>
               </router-link>
             </v-flex>
       </v-flex>

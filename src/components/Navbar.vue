@@ -10,6 +10,20 @@
 			</v-toolbar-title>
 			<v-spacer></v-spacer>
 			<v-toolbar-items class="hidden-sm-and-down">
+				<drop-down tag="div">
+  <template v-if="currentuser" slot="title">
+    <v-icon color="white">mdi-bell-ring</v-icon>
+    <span>5</span>
+  </template>
+  <ul>
+  	<li>Notification 1</li>
+  	<li>Notification 2</li>
+  	<li>Notification 3</li>
+  	<li>Notification 4</li>
+  	<li>Another notification</li>
+    </ul>
+</drop-down>
+
 				<v-btn id="user_email" text v-if="currentuser" class="side_bar_link">{{
 				currentuser.fullname }}</v-btn>
 
