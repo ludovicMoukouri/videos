@@ -24,19 +24,18 @@
    </v-layout>
     <v-layout row wrap>
       <v-flex md1 xs12></v-flex>
-       <v-flex md6 xs12>
+       <v-flex md5 xs12>
         <ul id="received">
           <li v-for="item in items" :key="item.messages">
             {{ item.messages }}
           </li>
         </ul>
         </v-flex>
-        <v-flex md5>
-          </v-flex>
+        <v-flex md1 xs12></v-flex>
         </v-layout>
           <v-layout row wrap>
             <v-flex md1 xs12></v-flex>
-          <v-flex md11 xs12>
+          <v-flex md10 xs12>
          <v-text-field
          class="v-textcall-video"
          outlined
@@ -95,7 +94,7 @@ export default {
       switch(data.type) {
         case "login":
         _this.$store.dispatch("successAction", data.success)
-        _this.onLogin(data.success);
+        _this.onLogin();
         break;
         case "offer":
         _this.$store.dispatch("offerName", data.name)
@@ -171,9 +170,9 @@ export default {
   self.setupPeerConnection(self.yourStream); 
   console.log(self.connectedUser, ' Leave Connection')
 },
-onLogin: function (success) {
+onLogin: function () {
   const self = this
-  if (success === false) {
+  if (self.successGetter === false) {
     alert("Login unsuccessful, please try a different name.");
   } else {
     self.startConnection;

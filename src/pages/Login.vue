@@ -8,10 +8,14 @@
         style="margin: 3% 1% 0 1%;background-color: #f5f5f5">
         <v-card-title primary-title>
           <v-layout row wrap>
-            <v-flex md5 xs5>
+            <v-flex class="divMobil" xs6 style="margin: 4% 0px 0px 0px">
+                <span style="color:#4ae387;font-size: 120%">
+                  Recover password?
+                </span>
+              </v-flex>
+            <v-flex class="divDesk" md6 xs6>
               <span class="headline">Login</span>
             </v-flex>
-            <v-flex md1 xs1></v-flex>
             <v-flex md5 xs5 class="divMobil">
               <router-link v-bind:to="{ name: 'Register' }" class="side_bar_link">
                 <span style="font-size: 70%;">
@@ -27,7 +31,10 @@
           <v-layout row wrap>
          <v-flex md8 xs12>
           <div class="divDesk" style="position: absolute;left:65%">Or</div>
-          <p style="font-size:120%;font-weight:bold">
+          <p class="divDesk" style="font-size:120%;font-weight:bold">
+            Logon By our website
+          </p>
+          <p class="divMobil" style="font-size:120%;font-weight:bold">
             By our website
           </p>
           <v-form v-model="valid" ref="form" lazy-validation>
@@ -79,7 +86,7 @@
                 required
                 ></v-checkbox>
               </v-flex> -->
-              <v-flex md5 xs5 style="margin: 4% 0px 0px 0px">
+              <v-flex md5 xs7 style="margin: 4% 0px 0px 0px">
                 <span style="color:#4ae387;font-size: 120%">
                   Recover password?
                 </span>
@@ -89,8 +96,10 @@
           </v-form>
         </v-flex>
         <v-flex md4 xs12>
-        <div class="divMobil" style="font-size:120%;font-weight:bold;margin: 0 0 2% 0">Or</div>
-          <p style="font-size:120%;font-weight:bold;">By OAuth
+        <!-- <div class="divMobil" style="font-size:120%;font-weight:bold;margin: 0 0 2% 0">Or</div> -->
+          <p class="divMobil" style="font-size:120%;font-weight:bold;">Or By OAuth
+    </p>
+        <p class="divDesk" style="font-size:120%;font-weight:bold;"> By OAuth
     </p>
           <div class="timeline">
             <div
