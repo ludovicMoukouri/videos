@@ -184,6 +184,7 @@ const actions = {
   },
   notifsTab: ({commit}, ntab) => {
     commit('Notifs_Tab', ntab);
+    console.log(ntab, 'ntab ntabntab ntab')
   },
     // Socket: ({commit, dispatch}, url) => {
   //   const ws = new Websocket('ws://localhost:8081')

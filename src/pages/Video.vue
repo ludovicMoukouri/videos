@@ -320,7 +320,7 @@ setupPeerConnection: function () {
   callButton() {
     const theirusernameInput = this.theirusername;
     const self = this
-    self.$store.dispatch("sendConNotifs", { type: 'notif', data: 'You are with '+this.curUser });
+    this.$store.dispatch("sendConNotifs", { type: 'notif', data: 'You are connected with '+this.curUser });
     if (theirusernameInput.length > 0) {
       self.startPeerConnection();
     }
@@ -340,20 +340,21 @@ setupPeerConnection: function () {
          data = JSON.parse(event.data);
         if(data.type) {
        // self.notifs.push({messages: this.nconGetter})
-       self.$store.dispatch("notifsTab", this.nconGetter);
+       this.$store.dispatch("notifsTab", this.nconGetter);
      }else {
       self.items.push({messages: "recv: " + event.data})
      }
       } catch (e) {
         alert(e)
       }
-      self.$store.dispatch("sendConNotifs", '');
+      this.$store.dispatch("sendConNotifs", null);
       
     }
     this.dataChannelGetter.onclose = close()
   },
   sendData() {
     const self = this.messageds
+    console.log(this.nconGetter, 'this.nconGetter this.nconGetter this.nconGetter')
     if(this.nconGetter !== null){
       this.dataChannelGetter.send(this.nconGetter);
     }else {

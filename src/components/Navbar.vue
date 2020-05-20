@@ -63,6 +63,30 @@
 		currentuser.fullname }}</v-btn>
 	</p>
 	<p>
+		<div v-if="currentuser" class="text-center">
+      <v-menu offset-y>
+        <template v-slot:activator="{ on }">
+          <v-btn
+            v-on="on"
+            text
+            style="margin:13px 0 0 0"
+          >
+            <v-icon color="blue darken-2">mdi-bell-ring</v-icon>({{ items.length }})
+          </v-btn>
+        </template>
+        <v-list>
+          <v-list-item
+            v-for="(item, index) in items"
+            :key="index"
+            @click=""
+          >
+            <v-list-item-title>{{ item.title }}</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
+    </div>
+	</p>
+	<p>
 		<router-link v-bind:to="{ name: 'Register' }" v-if="!currentuser"
 		id="register_btn" class="side_bar_link">
 		<v-btn icon>
