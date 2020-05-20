@@ -338,8 +338,8 @@ setupPeerConnection: function () {
         const data = event.data;
         if(data.includes("notifications_connection")) {
        // self.notifs.push({messages: this.nconGetter})
-       data = data.splice(0, 1)
-       this.$store.dispatch("notifsTab", data);
+       const datas = data.splice(0, 1)
+       this.$store.dispatch("notifsTab", datas);
      }else {
       self.items.push({messages: "recv: " + data})
      }
