@@ -333,21 +333,16 @@ setupPeerConnection: function () {
     this.dataChannelGetter.onmessage = function (event) {
       console.log("Got Data Channel Message:", event.data);
       var data = JSON.parse(event.data);
-      try{
         if(data.type === 'notifs') {
        // self.notifs.push({messages: this.nconGetter})
        self.$store.dispatch("notifsTab", this.nconGetter);
      }else {
       self.items.push({messages: "recv: " + event.data})
      }
-      } catch(error) {
-        console.log(error)
-      }
       
     }
     this.dataChannelGetter.onopen = function () { 
-      console.log(this.connectedUser + " has connected.")
-      // this.dataChannelGetter.send(this.connectedUser + " has connected."); 
+      self.dataChannelGetter.send(this.connectedUser + " has connected."); 
     }
     this.dataChannelGetter.onclose = close()
   },
