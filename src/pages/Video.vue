@@ -80,6 +80,7 @@ export default {
     loadr: undefined,
     cdate: null,
     messageds: '',
+    nbool: false,
     curUser: '',
     items: [],
     // notifs: [],
@@ -320,6 +321,7 @@ setupPeerConnection: function () {
   callButton() {
     const theirusernameInput = this.theirusername;
     const self = this
+    this.nbool = true
     this.$store.dispatch("sendConNotifs", { type: 'notif', data: 'You are connected with '+this.curUser });
     if (theirusernameInput.length > 0) {
       self.startPeerConnection();
@@ -328,7 +330,7 @@ setupPeerConnection: function () {
   openDataChannel() {
     const self = this
     this.dataChannelGetter.onopen = function () { 
-      self.dataChannelGetter.send(self.connectedUser + " has connected."); 
+      self.dataChannelGetter.send(self.theirusername + " has connected."); 
     }
     this.dataChannelGetter.onerror = function (error) {    
       console.log("Data Channel Error:", error);  
@@ -343,7 +345,7 @@ setupPeerConnection: function () {
      }else {
       self.items.push({messages: "recv: " + data})
      }
-      this.$store.dispatch("sendConNotifs", null);
+      // self.$store.dispatch("sendConNotifs", null);
       
     }
     this.dataChannelGetter.onclose = close()
@@ -351,8 +353,9 @@ setupPeerConnection: function () {
   sendData() {
     const self = this.messageds
     console.log(this.nconGetter, 'this.nconGetter this.nconGetter this.nconGetter')
-    if(this.nconGetter !== null){
+    if(this.nbool === true){
       this.dataChannelGetter.send('notifications_connection You are connected with '+this.curUser);
+      this.nbool = false
     }else {
     const messageSender = "Sender: "+this.messageds
     this.items.push({messages: messageSender})
