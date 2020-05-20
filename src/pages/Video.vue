@@ -335,18 +335,14 @@ setupPeerConnection: function () {
     }
     this.dataChannelGetter.onmessage = function (event) {
       console.log("Got Data Channel Message:", event.data);
-      var data = {}
-      try {
-         data = JSON.parse(event.data);
-        if(data.type) {
+        const data = event.data;
+        if(data.includes("notifications_connection")) {
        // self.notifs.push({messages: this.nconGetter})
-       this.$store.dispatch("notifsTab", this.nconGetter);
+       data = data.splice(0, 1)
+       this.$store.dispatch("notifsTab", data);
      }else {
-      self.items.push({messages: "recv: " + event.data})
+      self.items.push({messages: "recv: " + data})
      }
-      } catch (e) {
-        alert(e)
-      }
       this.$store.dispatch("sendConNotifs", null);
       
     }
@@ -356,7 +352,7 @@ setupPeerConnection: function () {
     const self = this.messageds
     console.log(this.nconGetter, 'this.nconGetter this.nconGetter this.nconGetter')
     if(this.nconGetter !== null){
-      this.dataChannelGetter.send(this.nconGetter);
+      this.dataChannelGetter.send('notifications_connection You are connected with '+this.curUser);
     }else {
     const messageSender = "Sender: "+this.messageds
     this.items.push({messages: messageSender})
