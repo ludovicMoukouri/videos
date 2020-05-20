@@ -8,8 +8,8 @@
         style="margin: 3% 1% 0 1%;background-color: #f5f5f5">
         <v-card-title primary-title>
           <v-layout row wrap>
-            <v-flex class="divMobil" xs6 style="margin: 4% 0px 0px 0px">
-                <span style="color:#4ae387;font-size: 120%">
+            <v-flex class="divMobil" xs6>
+                <span style="color:#4ae387;font-size: 70%">
                   Recover password?
                 </span>
               </v-flex>
@@ -31,10 +31,10 @@
           <v-layout row wrap>
          <v-flex md8 xs12>
           <div class="divDesk" style="position: absolute;left:65%">Or</div>
-          <p class="divDesk" style="font-size:120%;font-weight:bold">
+          <p class="divMobil" style="font-size:120%;font-weight:bold">
             Logon By our website
           </p>
-          <p class="divMobil" style="font-size:120%;font-weight:bold">
+          <p class="divDesk" style="font-size:120%;font-weight:bold">
             By our website
           </p>
           <v-form v-model="valid" ref="form" lazy-validation>
@@ -86,7 +86,7 @@
                 required
                 ></v-checkbox>
               </v-flex> -->
-              <v-flex md5 xs7 style="margin: 4% 0px 0px 0px">
+              <v-flex class="divDesk" md5 xs7 style="margin: 4% 0px 0px 0px">
                 <span style="color:#4ae387;font-size: 120%">
                   Recover password?
                 </span>

@@ -15,7 +15,7 @@
 				<v-btn id="user_email" text v-if="currentuser" class="side_bar_link">{{
 				currentuser.fullname }}</v-btn>
 
-				<div v-if="currentuser" class="text-center side_bar_link">
+				<span v-if="currentuser" class="text-center side_bar_link">
       <v-menu offset-y>
         <template v-slot:activator="{ on }">
           <v-btn
@@ -34,7 +34,7 @@
           </v-list-item>
         </v-list>
       </v-menu>
-    </div>
+    </span>
 
 				<router-link v-bind:to="{ name: 'Register' }" v-if="!currentuser"
 				id="register_btn" class="side_bar_link">

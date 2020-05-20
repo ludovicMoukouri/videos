@@ -189,7 +189,7 @@ a.side_bar_link {
 }
 #received {
 	display: block;
-	width: 480px;
+	width: 420px;
 	height: 100px;
 	background: white;
 	padding: 10px;
@@ -214,7 +214,7 @@ a.side_bar_link {
   top: 0;
   bottom: 0;
   left: .01%;
-  margin-left: -2px;
+  margin-left: -3px;
 }
 
 .timeline-item {
@@ -262,7 +262,7 @@ a.side_bar_link {
   content: " ";
   height: 0;
   position: absolute;
-  top: 22px;
+  top: 20px;
   width: 0;
   z-index: 1;
   left: 10%;
