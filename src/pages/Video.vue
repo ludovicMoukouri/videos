@@ -327,22 +327,28 @@ setupPeerConnection: function () {
   },
   openDataChannel() {
     const self = this
+    this.dataChannelGetter.onopen = function () { 
+      self.dataChannelGetter.send(self.connectedUser + " has connected."); 
+    }
     this.dataChannelGetter.onerror = function (error) {    
       console.log("Data Channel Error:", error);  
     }
     this.dataChannelGetter.onmessage = function (event) {
       console.log("Got Data Channel Message:", event.data);
-        var data = event.data;
+      var data = {}
+      try {
+         data = JSON.parse(event.data);
         if(data.type) {
        // self.notifs.push({messages: this.nconGetter})
        self.$store.dispatch("notifsTab", this.nconGetter);
      }else {
       self.items.push({messages: "recv: " + event.data})
      }
+      } catch (e) {
+        alert(e)
+      }
+      self.$store.dispatch("sendConNotifs", '');
       
-    }
-    this.dataChannelGetter.onopen = function () { 
-      self.dataChannelGetter.send(this.connectedUser + " has connected."); 
     }
     this.dataChannelGetter.onclose = close()
   },
