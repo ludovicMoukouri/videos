@@ -18,6 +18,8 @@ const state = {
   cdat: null,
   successm: null,
   dataChannel: null,
+  ncon: null,
+  notifs: [],
 };
 
 const getters = {
@@ -35,6 +37,8 @@ const getters = {
   cdatGetters: state => state.cdat,
   successGetter: state => state.successm,
   dataChannelGetter: state => state.dataChannel,
+  nconGetter: state => state.ncon,
+  notifsGetter: state => state.notifs,
 };
 
 const mutations = {
@@ -115,6 +119,12 @@ const mutations = {
     return state.dataChannel
     console.log('Data channelllllllllllllllll', datacha)
   },
+  Send_Con_Notifs: function (state, ncon) {
+    state.ncon = ncon;
+  },
+  Notifs_Tab: function (state, ntab) {
+    state.notifs.push({title: ntab})
+  },
 };
 
 const actions = {
@@ -168,6 +178,12 @@ const actions = {
   },
   dataChannelAction: ({commit}, datacha) => {
     commit('Data_Channel', datacha);
+  },
+  sendConNotifs: ({commit}, ncon) => {
+    commit('Send_Con_Notifs', ncon);
+  },
+  notifsTab: ({commit}, ntab) => {
+    commit('Notifs_Tab', ntab);
   },
     // Socket: ({commit, dispatch}, url) => {
   //   const ws = new Websocket('ws://localhost:8081')

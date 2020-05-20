@@ -80,7 +80,9 @@ export default {
     loadr: undefined,
     cdate: null,
     messageds: '',
+    curUser: '',
     items: [],
+    // notifs: [],
   }),
   created() {
     this.$store.dispatch('wsAction', ws)
@@ -139,7 +141,7 @@ export default {
     // _this.fetchUser()
   },
   computed: {
-    ...mapGetters(['yourStream', 'theirStream', 'yourConnection', 'connectedUser', 'wsGetters', 'sendState', 'offName', 'offValue', 'ansValue', 'canValue', 'cdatGetters', 'successGetter', 'dataChannelGetter']),
+    ...mapGetters(['yourStream', 'theirStream', 'yourConnection', 'connectedUser', 'wsGetters', 'sendState', 'offName', 'offValue', 'ansValue', 'canValue', 'cdatGetters', 'successGetter', 'dataChannelGetter', 'nconGetter', 'notifsGetter']),
     // loadresponsive() {
     //   return this.$router.go(1)
     // },
@@ -276,6 +278,7 @@ setupPeerConnection: function () {
         alert("An error has occurred.");
       });
       // console.log(_this.sendState, '_this.sendStateeeeeee')
+      _this.sendData()
     },
   },
   watch: {
@@ -317,6 +320,7 @@ setupPeerConnection: function () {
   callButton() {
     const theirusernameInput = this.theirusername;
     const self = this
+    self.$store.dispatch("sendConNotifs", { type: 'notif', data: 'You are with '+this.curUser });
     if (theirusernameInput.length > 0) {
       self.startPeerConnection();
     }
@@ -328,7 +332,18 @@ setupPeerConnection: function () {
     }
     this.dataChannelGetter.onmessage = function (event) {
       console.log("Got Data Channel Message:", event.data);
+      var data = JSON.parse(event.data);
+      try{
+        if(data.type === 'notifs') {
+       // self.notifs.push({messages: this.nconGetter})
+       self.$store.dispatch("notifsTab", this.nconGetter);
+     }else {
       self.items.push({messages: "recv: " + event.data})
+     }
+      } catch(error) {
+        console.log(error)
+      }
+      
     }
     this.dataChannelGetter.onopen = function () { 
       this.dataChannelGetter.send(this.connectedUser + " has connected."); 
@@ -337,9 +352,13 @@ setupPeerConnection: function () {
   },
   sendData() {
     const self = this.messageds
+    if(this.nconGetter.data !== null){
+      this.dataChannelGetter.send(this.nconGetter);
+    }else {
     const messageSender = "Sender: "+this.messageds
     this.items.push({messages: messageSender})
     this.dataChannelGetter.send(self);
+    }
   },
   listenToLogout() {
     const self = this
@@ -359,6 +378,7 @@ setupPeerConnection: function () {
     })
     .then((response) => {
       const nameval = response.data.current_user.fullname;
+      this.curUser = nameval
       const email = response.data.current_user.email;
       var dataval = {
         fullname: nameval,

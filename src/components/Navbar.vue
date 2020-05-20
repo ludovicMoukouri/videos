@@ -15,11 +15,12 @@
 				<v-btn id="user_email" text v-if="currentuser" class="side_bar_link">{{
 				currentuser.fullname }}</v-btn>
 
-				<div v-if="currentuser" text class="text-center">
+				<div v-if="currentuser" class="text-center">
       <v-menu offset-y>
         <template v-slot:activator="{ on }">
           <v-btn
             v-on="on"
+            text
             style="margin:13px 0 0 0"
           >
             <v-icon color="blue darken-2">mdi-bell-ring</v-icon>(2)
@@ -93,18 +94,14 @@
 
 <script>
 import axios from 'axios';
+import { mapGetters } from 'vuex'
 import bus from './../bus';
 
 export default {
 	data() {
 		return {
 			drawer: false,
-			items: [
-      { title: 'Click Me' },
-      { title: 'Click Me' },
-      { title: 'Click Me' },
-      { title: 'Click Me 2' },
-    ],
+			items: [],
 		}
 	},
 	props: {
@@ -115,8 +112,13 @@ export default {
 	},
 	mounted() {
 		this.normalizedSize()
+		this.notifsConnect
 	},
 	computed: {
+		...mapGetters(['notifsGetter']),
+		notifsConnect() {
+			this.items = this.notifsGetter
+		},
 		normalizedSize: function () {
 			const self = this
     return self.currentuser.fullname.trim().toLowerCase()
