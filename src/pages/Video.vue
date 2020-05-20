@@ -353,7 +353,7 @@ setupPeerConnection: function () {
   },
   sendData() {
     const self = this.messageds
-    if(this.nconGetter.data !== null){
+    if(this.nconGetter !== null){
       this.dataChannelGetter.send(this.nconGetter);
     }else {
     const messageSender = "Sender: "+this.messageds
