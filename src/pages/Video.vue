@@ -95,7 +95,7 @@ export default {
       switch(data.type) {
         case "login":
         _this.$store.dispatch("successAction", data.success)
-        _this.onLogin;
+        _this.onLogin(data.success);
         break;
         case "offer":
         _this.$store.dispatch("offerName", data.name)
@@ -173,7 +173,7 @@ export default {
 },
 onLogin: function (success) {
   const self = this
-  if (self.successGetter === false) {
+  if (success === false) {
     alert("Login unsuccessful, please try a different name.");
   } else {
     self.startConnection;

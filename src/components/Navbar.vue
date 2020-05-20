@@ -15,12 +15,11 @@
 				<v-btn id="user_email" text v-if="currentuser" class="side_bar_link">{{
 				currentuser.fullname }}</v-btn>
 
-				<div v-if="currentuser" class="text-center">
+				<div v-if="currentuser" class="text-center side_bar_link">
       <v-menu offset-y>
         <template v-slot:activator="{ on }">
           <v-btn
             v-on="on"
-            class="side_bar_link"
           >
             <v-icon color="blue darken-2">mdi-bell-ring</v-icon>(2) Notifications
           </v-btn>
