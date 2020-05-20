@@ -15,13 +15,14 @@
 				<v-btn id="user_email" text v-if="currentuser" class="side_bar_link">{{
 				currentuser.fullname }}</v-btn>
 
-				<span v-if="currentuser" class="text-center side_bar_link">
+				<div v-if="currentuser" text class="text-center">
       <v-menu offset-y>
         <template v-slot:activator="{ on }">
           <v-btn
             v-on="on"
+            style="margin:13px 0 0 0"
           >
-            <v-icon color="blue darken-2">mdi-bell-ring</v-icon>(2) Notifications
+            <v-icon color="blue darken-2">mdi-bell-ring</v-icon>(2)
           </v-btn>
         </template>
         <v-list>
@@ -34,7 +35,7 @@
           </v-list-item>
         </v-list>
       </v-menu>
-    </span>
+    </div>
 
 				<router-link v-bind:to="{ name: 'Register' }" v-if="!currentuser"
 				id="register_btn" class="side_bar_link">
