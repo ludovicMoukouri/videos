@@ -334,7 +334,7 @@ setupPeerConnection: function () {
       console.log("Got Data Channel Message:", event.data);
       try {
         var data = JSON.parse(event.data);
-        if(data.type === 'notifs') {
+        if(data.type === 'notif') {
        // self.notifs.push({messages: this.nconGetter})
        self.$store.dispatch("notifsTab", this.nconGetter);
      }else {
