@@ -346,7 +346,7 @@ setupPeerConnection: function () {
       
     }
     this.dataChannelGetter.onopen = function () { 
-      this.dataChannelGetter.send(this.connectedUser + " has connected."); 
+      this.dataChannelGetter.send(" has connected."); 
     }
     this.dataChannelGetter.onclose = close()
   },

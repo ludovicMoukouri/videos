@@ -23,7 +23,7 @@
             text
             style="margin:13px 0 0 0"
           >
-            <v-icon color="blue darken-2">mdi-bell-ring</v-icon>(2)
+            <v-icon color="blue darken-2">mdi-bell-ring</v-icon>({{ items.length }})
           </v-btn>
         </template>
         <v-list>
