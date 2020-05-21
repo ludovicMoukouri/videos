@@ -281,7 +281,7 @@ setupPeerConnection: function () {
       });
       setTimeout(function() {
         _this.sendData()
-      }, 100);
+      }, 1000);
     },
   },
   watch: {
@@ -331,7 +331,7 @@ setupPeerConnection: function () {
   openDataChannel() {
     const self = this 
     this.dataChannelGetter.onopen = function () { 
-      self.dataChannelGetter.send(this.currentUGetter + " has connected."); 
+      self.dataChannelGetter.send(self.currentUGetter + " has connected."); 
     }
     this.dataChannelGetter.onerror = function (error) {    
       console.log("Data Channel Error:", error);  
