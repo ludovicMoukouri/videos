@@ -339,9 +339,10 @@ setupPeerConnection: function () {
     this.dataChannelGetter.onmessage = function (event) {
       console.log("Got Data Channel Message:", event.data);
         const data = event.data;
-        if(data.includes("notifications_connection")) {
+        const res = data.split(" "); // Split a string into an array 
+        if(res.includes("notifications_connection")) {
        // self.notifs.push({messages: this.nconGetter})
-       const datas = data.splice(0, 1)
+       const datas = data.splice(0, 1) // Remove 1 element at index 0
        console.log("Remove notifications_connection", datas)
        this.$store.dispatch("notifsTab", datas);
      }else {
@@ -356,7 +357,6 @@ setupPeerConnection: function () {
     const self = this.messageds
     if(this.nbool){
       this.dataChannelGetter.send('notifications_connection You are connected with '+this.curUser);
-      console.log('Send Dataaaaaaaaaaa')
       this.nbool = !this.nbool
     }else {
     const messageSender = "Sender: "+this.messageds
