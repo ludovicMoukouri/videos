@@ -343,7 +343,7 @@ setupPeerConnection: function () {
       console.log(data.mtype)
         if(data.mtype === 'notification') {
           console.log(data.mtype)
-       this.$store.dispatch("notifsTab", data.msge);
+       self.$store.dispatch("notifsTab", data.msge);
      }else {
       self.items.push({messages: "recv: " + data.msge})
      }
