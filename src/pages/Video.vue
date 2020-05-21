@@ -179,6 +179,7 @@ onLogin: function () {
     alert("Login unsuccessful, please try a different name.");
   } else {
     self.startConnection;
+    this.nbool = !this.nbool
   }
 },
 setupPeerConnection: function () {
@@ -280,7 +281,7 @@ setupPeerConnection: function () {
       });
       setTimeout(function() {
         _this.sendData()
-      }, 100);
+      }, 3000);
     },
   },
   watch: {
@@ -322,7 +323,6 @@ setupPeerConnection: function () {
   callButton() {
     const theirusernameInput = this.theirusername;
     const self = this
-    this.nbool = true
     this.$store.dispatch("sendConNotifs", { type: 'notif', data: 'You are connected with '+this.curUser });
     if (theirusernameInput.length > 0) {
       self.startPeerConnection();
@@ -353,9 +353,10 @@ setupPeerConnection: function () {
   },
   sendData() {
     const self = this.messageds
-    if(this.nbool === true){
+    if(this.nbool){
       this.dataChannelGetter.send('notifications_connection You are connected with '+this.curUser);
-      this.nbool = false
+      console.log('Send Dataaaaaaaaaaa')
+      this.nbool = !this.nbool
     }else {
     const messageSender = "Sender: "+this.messageds
     this.items.push({messages: messageSender})
