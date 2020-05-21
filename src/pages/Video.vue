@@ -338,15 +338,12 @@ setupPeerConnection: function () {
     }
     this.dataChannelGetter.onmessage = function (event) {
       console.log("Got Data Channel Message:", event.data);
-        const data = event.data;
-        const res = data.split(" "); // Split a string into an array 
-        if(res.includes("notifications_connection")) {
-       // self.notifs.push({messages: this.nconGetter})
-       const datas = data.splice(0, 1) // Remove 1 element at index 0
-       console.log("Remove notifications_connection", datas)
-       this.$store.dispatch("notifsTab", datas);
+      const data = event.data;
+      console.log(data)
+        if(data.mtype === 'notification') {
+       this.$store.dispatch("notifsTab", data.msge);
      }else {
-      self.items.push({messages: "recv: " + data})
+      self.items.push({messages: "recv: " + data.msge})
      }
       // self.$store.dispatch("sendConNotifs", null);
       
@@ -356,12 +353,12 @@ setupPeerConnection: function () {
   sendData() {
     const self = this.messageds
     if(this.nbool){
-      this.dataChannelGetter.send('notifications_connection You are connected with '+this.curUser);
+      this.dataChannelGetter.send({mtype: 'notification', msge: 'You are connected with '+this.curUser});
       this.nbool = !this.nbool
     }else {
     const messageSender = "Sender: "+this.messageds
     this.items.push({messages: messageSender})
-    this.dataChannelGetter.send(self);
+    this.dataChannelGetter.send({ mtype: 'datamess', msge: self});
     }
   },
   listenToLogout() {
