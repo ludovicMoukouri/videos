@@ -165,7 +165,7 @@ export default {
       const self = this 
       self.$store.dispatch("connectedUser", null);
       self.$store.dispatch("addTheirStream", null) 
-      self.connectedUser = null; 
+      // self.connectedUser = null; 
   // self.theirStream.src = null;  
   self.yourConnection.close();  
   self.yourConnection.onicecandidate = null;  
@@ -278,8 +278,9 @@ setupPeerConnection: function () {
       }, function (error) {
         alert("An error has occurred.");
       });
-      // console.log(_this.sendState, '_this.sendStateeeeeee')
-      _this.sendData()
+      setTimeout(function() {
+        _this.sendData()
+      }, 100);
     },
   },
   watch: {
@@ -328,9 +329,9 @@ setupPeerConnection: function () {
     }
   },
   openDataChannel() {
-    const self = this
+    const self = this 
     this.dataChannelGetter.onopen = function () { 
-      self.dataChannelGetter.send(self.theirusername + " has connected."); 
+      this.dataChannelGetter.send(this.connectedUser + " has connected."); 
     }
     this.dataChannelGetter.onerror = function (error) {    
       console.log("Data Channel Error:", error);  
