@@ -96,8 +96,8 @@ export default {
       var data = JSON.parse(message.data);
       switch(data.type) {
         case "login":
-        _this.$store.dispatch("successAction", data.success)
         _this.onLogin();
+        _this.$store.dispatch("successAction", data.success)
         break;
         case "offer":
         _this.$store.dispatch("offerName", data.name)
@@ -175,7 +175,7 @@ export default {
 },
 onLogin: function () {
   const self = this
-  if (self.successGetter === false) {
+  if (this.successGetter === false) {
     alert("Login unsuccessful, please try a different name.");
   } else {
     self.startConnection;
@@ -331,7 +331,7 @@ setupPeerConnection: function () {
   openDataChannel() {
     const self = this 
     this.dataChannelGetter.onopen = function () { 
-      this.dataChannelGetter.send(this.connectedUser + " has connected."); 
+      self.dataChannelGetter.send(this.curUser + " has connected."); 
     }
     this.dataChannelGetter.onerror = function (error) {    
       console.log("Data Channel Error:", error);  
@@ -341,8 +341,8 @@ setupPeerConnection: function () {
         const data = event.data;
         if(data.includes("notifications_connection")) {
        // self.notifs.push({messages: this.nconGetter})
-       const datas = data.splice(0, 1)
-       this.$store.dispatch("notifsTab", datas);
+       // const datas = data.splice(0, 1)
+       this.$store.dispatch("notifsTab", data);
      }else {
       self.items.push({messages: "recv: " + data})
      }
@@ -353,7 +353,6 @@ setupPeerConnection: function () {
   },
   sendData() {
     const self = this.messageds
-    console.log(this.nconGetter, 'this.nconGetter this.nconGetter this.nconGetter')
     if(this.nbool === true){
       this.dataChannelGetter.send('notifications_connection You are connected with '+this.curUser);
       this.nbool = false
