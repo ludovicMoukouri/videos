@@ -138,18 +138,22 @@ export default {
 		this.normalizedSize()
 		this.notifsConnect()
 	},
+	beforeUpdate() {
+		this.notifsConnect()
+	},
 	computed: {
 		...mapGetters(['notifsGetter']),
-		notifsConnect() {
-			this.items = this.notifsGetter
-			console.log("Computed Navbar", this.notifsGetter)
-		},
 		normalizedSize: function () {
 			const self = this
     return self.currentuser.fullname.trim().toLowerCase()
   }
 	},
 	methods: {
+		notifsConnect() {
+    bus.$on('refreshnotif', () => {
+      this.items = this.notifsGetter
+    });
+  },
 		async logout() {
       return axios({
         method: 'get',

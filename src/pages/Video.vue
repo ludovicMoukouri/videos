@@ -340,10 +340,9 @@ setupPeerConnection: function () {
       console.log("Got Data Channel Message:", event.data);
       var data = JSON.parse(event.data);
       try{
-      console.log(data.mtype)
         if(data.mtype === 'notification') {
-          console.log(data.mtype)
        self.$store.dispatch("notifsTab", data.msge);
+       bus.$emit('refreshnotif');
      }else {
       self.items.push({messages: "recv: " + data.msge})
      }
