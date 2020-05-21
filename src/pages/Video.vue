@@ -338,7 +338,8 @@ setupPeerConnection: function () {
     }
     this.dataChannelGetter.onmessage = function (event) {
       console.log("Got Data Channel Message:", event.data);
-      const data = event.data;
+      var data = JSON.parse(event.data);
+      try{
       console.log(data.mtype)
         if(data.mtype === 'notification') {
           console.log(data.mtype)
@@ -346,6 +347,10 @@ setupPeerConnection: function () {
      }else {
       self.items.push({messages: "recv: " + data.msge})
      }
+      } catch(e) {
+        alert(e)
+      }
+      
       // self.$store.dispatch("sendConNotifs", null);
       
     }
@@ -353,13 +358,13 @@ setupPeerConnection: function () {
   },
   sendData() {
     const self = this.messageds
-    if(this.nbool){
-      this.dataChannelGetter.send({mtype: 'notification', msge: 'You are connected with '+this.curUser});
+    if(this.nbool){ 
+      this.dataChannelGetter.send(JSON.stringify({mtype: 'notification', msge: 'You are connected with '+this.curUser}));
       this.nbool = !this.nbool
     }else {
     const messageSender = "Sender: "+this.messageds
     this.items.push({messages: messageSender})
-    this.dataChannelGetter.send({ mtype: 'datamess', msge: self});
+    this.dataChannelGetter.send(JSON.stringify({ mtype: 'datamess', msge: self}));
     }
   },
   listenToLogout() {
