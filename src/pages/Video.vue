@@ -5,7 +5,7 @@
       <video :srcObject.prop="theirStream" id="theirs" autoplay></video>
       <v-layout row wrap>
         <v-flex md1 xs12></v-flex>
-        <v-flex md7 xs9>
+        <v-flex md7 xs8>
          <v-text-field
          class="v-textcall-video"
          outlined
@@ -281,7 +281,7 @@ setupPeerConnection: function () {
       });
       setTimeout(function() {
         _this.sendData()
-      }, 1000);
+      }, 3000);
     },
   },
   watch: {

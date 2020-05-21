@@ -63,7 +63,7 @@
 		currentuser.fullname }}</v-btn>
 	</p>
 	<p>
-		<div v-if="currentuser" class="text-center">
+		<div v-if="currentuser">
       <v-menu offset-y>
         <template v-slot:activator="{ on }">
           <v-btn
