@@ -339,8 +339,9 @@ setupPeerConnection: function () {
     this.dataChannelGetter.onmessage = function (event) {
       console.log("Got Data Channel Message:", event.data);
       const data = event.data;
-      console.log(data)
+      console.log(data.mtype)
         if(data.mtype === 'notification') {
+          console.log(data.mtype)
        this.$store.dispatch("notifsTab", data.msge);
      }else {
       self.items.push({messages: "recv: " + data.msge})
