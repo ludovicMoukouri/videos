@@ -142,7 +142,7 @@ export default {
     // _this.fetchUser()
   },
   computed: {
-    ...mapGetters(['yourStream', 'theirStream', 'yourConnection', 'connectedUser', 'wsGetters', 'sendState', 'offName', 'offValue', 'ansValue', 'canValue', 'cdatGetters', 'successGetter', 'dataChannelGetter', 'nconGetter', 'notifsGetter']),
+    ...mapGetters(['yourStream', 'theirStream', 'yourConnection', 'connectedUser', 'wsGetters', 'sendState', 'offName', 'offValue', 'ansValue', 'canValue', 'cdatGetters', 'successGetter', 'dataChannelGetter', 'nconGetter', 'notifsGetter', 'currentUGetter']),
     // loadresponsive() {
     //   return this.$router.go(1)
     // },
@@ -175,7 +175,7 @@ export default {
 },
 onLogin: function () {
   const self = this
-  if (this.successGetter === false) {
+  if (self.successGetter === false) {
     alert("Login unsuccessful, please try a different name.");
   } else {
     self.startConnection;
@@ -281,7 +281,7 @@ setupPeerConnection: function () {
       });
       setTimeout(function() {
         _this.sendData()
-      }, 3000);
+      }, 100);
     },
   },
   watch: {
@@ -323,7 +323,7 @@ setupPeerConnection: function () {
   callButton() {
     const theirusernameInput = this.theirusername;
     const self = this
-    this.$store.dispatch("sendConNotifs", { type: 'notif', data: 'You are connected with '+this.curUser });
+    // this.$store.dispatch("sendConNotifs", { type: 'notif', data: 'You are connected with '+this.curUser });
     if (theirusernameInput.length > 0) {
       self.startPeerConnection();
     }
@@ -331,7 +331,7 @@ setupPeerConnection: function () {
   openDataChannel() {
     const self = this 
     this.dataChannelGetter.onopen = function () { 
-      self.dataChannelGetter.send(this.curUser + " has connected."); 
+      self.dataChannelGetter.send(this.currentUGetter + " has connected."); 
     }
     this.dataChannelGetter.onerror = function (error) {    
       console.log("Data Channel Error:", error);  
@@ -341,8 +341,9 @@ setupPeerConnection: function () {
         const data = event.data;
         if(data.includes("notifications_connection")) {
        // self.notifs.push({messages: this.nconGetter})
-       // const datas = data.splice(0, 1)
-       this.$store.dispatch("notifsTab", data);
+       const datas = data.splice(0, 1)
+       console.log("Remove notifications_connection", datas)
+       this.$store.dispatch("notifsTab", datas);
      }else {
       self.items.push({messages: "recv: " + data})
      }
@@ -388,9 +389,7 @@ setupPeerConnection: function () {
         email: email,
       }
       this.fetchUsersConnect(dataval)
-
-      // ws.send(JSON.stringify({ type: 'login', name: nameval }))
-      //   this.sendAction({ type: 'login', name: nameval })
+      this.$store.dispatch("sendCurUser", nameval);
       const self = this
       self.$store.dispatch("sendAction", { type: 'login', name: nameval });
     })

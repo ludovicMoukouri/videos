@@ -136,12 +136,13 @@ export default {
 	},
 	mounted() {
 		this.normalizedSize()
-		this.notifsConnect
+		this.notifsConnect()
 	},
 	computed: {
 		...mapGetters(['notifsGetter']),
 		notifsConnect() {
 			this.items = this.notifsGetter
+			console.log("Computed Navbar", this.notifsGetter)
 		},
 		normalizedSize: function () {
 			const self = this

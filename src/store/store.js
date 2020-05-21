@@ -20,6 +20,7 @@ const state = {
   dataChannel: null,
   ncon: null,
   notifs: [],
+  currentU: null,
 };
 
 const getters = {
@@ -39,9 +40,13 @@ const getters = {
   dataChannelGetter: state => state.dataChannel,
   nconGetter: state => state.ncon,
   notifsGetter: state => state.notifs,
+  currentUGetter: state => state.currentU,
 };
 
 const mutations = {
+  send_Cur_User: function (state, cu) {
+    state.currentU = cu;
+  },
   C_Date: function (state, cdat) {
     if (!state.ws || state.ws.readyState !== 1) return;
     state.cdat = cdat
@@ -124,10 +129,14 @@ const mutations = {
   },
   Notifs_Tab: function (state, ntab) {
     state.notifs.push({title: ntab})
+    console.log(ntab, 'ntab ntabntab ntab')
   },
 };
 
 const actions = {
+  sendCurUser: ({commit}, cu) => {
+    commit('send_Cur_User', cu);
+  },
   cdate: ({commit}, cdat) => {
     commit('C_Date', cdat);
   },
@@ -184,7 +193,6 @@ const actions = {
   },
   notifsTab: ({commit}, ntab) => {
     commit('Notifs_Tab', ntab);
-    console.log(ntab, 'ntab ntabntab ntab')
   },
     // Socket: ({commit, dispatch}, url) => {
   //   const ws = new Websocket('ws://localhost:8081')
