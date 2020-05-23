@@ -17,37 +17,37 @@
        </v-flex>
        <v-flex md4 xs3>
          <btn 
-       label="Call"
-       style="background-color:#0000ff21;margin:0 0 0 10%" 
-       @click="callButton" />
-     </v-flex>
-   </v-layout>
-    <v-layout row wrap>
+         label="Call"
+         style="background-color:#0000ff21;margin:0 0 0 10%" 
+         @click="callButton" />
+       </v-flex>
+     </v-layout>
+     <v-layout row wrap>
       <v-flex md1 xs12></v-flex>
-       <v-flex md5 xs12>
+      <v-flex md5 xs12>
         <ul id="received">
           <li v-for="item in items" :key="item.messages">
             {{ item.messages }}
           </li>
         </ul>
-        </v-flex>
-        <v-flex md1 xs12></v-flex>
-        </v-layout>
-          <v-layout row wrap>
-            <v-flex md1 xs12></v-flex>
-          <v-flex md10 xs12>
-         <v-text-field
-         class="v-textcall-video"
-         outlined
-         dense
-         label="add chat message"
-         v-model="messageds"
-         required
-         ></v-text-field>
-
       </v-flex>
       <v-flex md1 xs12></v-flex>
-      <v-flex md11 xs12>
+    </v-layout>
+    <v-layout row wrap>
+      <v-flex md1 xs12></v-flex>
+      <v-flex md10 xs12>
+       <v-text-field
+       class="v-textcall-video"
+       outlined
+       dense
+       label="add chat message"
+       v-model="messageds"
+       required
+       ></v-text-field>
+
+     </v-flex>
+     <v-flex md1 xs12></v-flex>
+     <v-flex md11 xs12>
        <btn 
        label="Send Message"
        style="background-color:#0000ff21;margin:0 0 0 2%;width:80%!important" 
@@ -55,6 +55,41 @@
      </v-flex>
    </v-layout>
  </div>
+
+ <div class="container-fluid page" id="share-page" style="text-align:center">
+  <div>
+    <h2 style="text-align:center">Sharing Files</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-4" style="background-color:grey">
+      <div id="ready">Ready!</div>
+      <br />
+      <div class="input-group">
+       <label class="custom-file" id="customFile">
+        <input type="file" id="files" style="color:black">
+        <span class="custom-file-control form-control-file" style="color:black"> </span>
+      </label>
+      <button class="btn btn-warning btn-icon-split" id="send" disabled="true">
+       <span class="icon text-white-50">
+        <i class="fas fa-arrow-right"></i>
+      </span>
+      <span class="text">Send File</span>
+    </button><br />  
+  </div>
+  <p id="enbas"></p>
+  <div class="progress" id="status" style="visibility:hidden">
+  </div><br />
+  <input type="text" id="their-username" />
+  <button id="connect">Connect</button>
+</div>
+<div class="col-md-5">
+  <h5 id="conection_name" style="color:white;font-size:bold"></h5><br />
+</div>
+</div>
+
+
+</div>
 </div>
 </template>
 <!-- <template v-else>
@@ -232,6 +267,9 @@ setupPeerConnection: function () {
       window.webkitRTCIceCandidate || window.mozRTCIceCandidate;
       return !!window.RTCPeerConnection;
     },
+    hasFileApi: function () {
+      return window.File && window.FileReader && window.FileList && window.Blob;
+    }
     startConnection: function () {
       var val = this
       var webrtcDetectedBrowser = ''
@@ -341,15 +379,15 @@ setupPeerConnection: function () {
       var data = JSON.parse(event.data);
       try{
         if(data.mtype === 'notification') {
-       self.$store.dispatch("notifsTab", data.msge);
-       bus.$emit('refreshnotif');
-     }else {
-      self.items.push({messages: "recv: " + data.msge})
-     }
-      } catch(e) {
-        alert(e)
+         self.$store.dispatch("notifsTab", data.msge);
+         bus.$emit('refreshnotif');
+       }else {
+        self.items.push({messages: "recv: " + data.msge})
       }
-      
+    } catch(e) {
+      alert(e)
+    }
+    
       // self.$store.dispatch("sendConNotifs", null);
       
     }
@@ -361,9 +399,9 @@ setupPeerConnection: function () {
       this.dataChannelGetter.send(JSON.stringify({mtype: 'notification', msge: 'You are connected with '+this.curUser}));
       this.nbool = !this.nbool
     }else {
-    const messageSender = "Sender: "+this.messageds
-    this.items.push({messages: messageSender})
-    this.dataChannelGetter.send(JSON.stringify({ mtype: 'datamess', msge: self}));
+      const messageSender = "Sender: "+this.messageds
+      this.items.push({messages: messageSender})
+      this.dataChannelGetter.send(JSON.stringify({ mtype: 'datamess', msge: self}));
     }
   },
   listenToLogout() {
