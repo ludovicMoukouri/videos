@@ -109,16 +109,16 @@
             >
             <div class="login">
               <v-layout row wrap>
-                <v-flex md6 xs12>
+                <v-flex md11 xs12>
                   <span v-if="item.faceb">
                 <a class="btn facebook oauthItems" href="/login/facebook"> 
                 <img :src="images.facebookIcon" class="imgLogin"> 
               {{ item.faceb }}</a>
             </span>
                 </v-flex>
-                <v-flex md6 xs12>
+                <v-flex md11 xs12>
                   <span v-if="item.google">
-                <a class="btn google" href="/login/google"> 
+                <a class="btn google oauthItems" href="/login/google"> 
                 <img :src="images.googleIcon" class="imgLogin"> 
                 {{ item.google }}
               </a>

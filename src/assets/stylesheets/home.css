@@ -11,71 +11,6 @@
 	background-color: #0000ff21;
 }
 
-#modal {
-  display: none;
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 2000;
-}
-
-#modal.show {
-  display: block;
-}
-
-.modal-content {
-  height: 100%;
-  max-width: 105vh;
-  padding-top: 12vh;
-  margin: 0 auto;
-  position: relative;
-}
-
-.modal-content img {
-  max-width: 100%;
-}
-
-button {
-  border-radius: 4px;
-  border: 1px solid #c4c4c4;
-  text-align: center;
-  vertical-align: middle;
-  font-weight: bold;
-  line-height: 1.43;
-  user-select: none;
-  white-space: nowrap;
-  cursor: pointer;
-  background: white;
-  color: #484848;
-  padding: 7px 18px;
-  font-size: 14px;
-  display: inline-block;
-  margin-bottom: 0;
-}
-
-.header .header-img .view-photos {
-  position: absolute;
-  bottom: 20px;
-  left: 20px;
-}
-
-.header {
-  height: 320px;
-}
-
-.header .header-img {
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: 50% 50%;
-  /*background-color: #f5f5f5;*/
-  background-image: url('../static/images/facebook1.png');
-  height: 100%;
-  cursor: pointer;
-  position: relative;
-}
-
 .btn_lud {
 	background-color: #0000ff21;
 }
@@ -133,7 +68,7 @@ a.side_bar_link {
 		margin: 0px 0px 0px 10% !important;
 	}
 	.oauthItems {
-		margin: 0px 0px 2% 0px!important;
+		margin: 3% 0px 2% 0px!important;
 	}
 	#received {
 		display: block;
@@ -199,7 +134,7 @@ a.side_bar_link {
 		position: relative;
 		display: block;
 		margin: 0 auto;
-		width: 100%;
+		width: 500px;
 		height: 100%;
 	}
 	#yours {
@@ -210,7 +145,7 @@ a.side_bar_link {
 		right: 15px;
 	}
 	#theirs {
-		width: 100%;
+		width: 500px;
 		height: 500px;
 	}
 
@@ -242,11 +177,14 @@ a.side_bar_link {
 
 .oauthItems {
 	margin: 0px 0px 0% 0px;
+	margin: 0 0 0 10%;
+	width:90%;
+	font-size:98%
 }
 #received {
 	display: block;
-	width: 100%;
-	height: 450px;
+	width: 420px;
+	height: 100px;
 	background: white;
 	padding: 10px;
 	margin-top: 10px;
@@ -274,7 +212,7 @@ a.side_bar_link {
 }
 
 .timeline-item {
-  /*padding: 10px 20px;*/
+  padding: 8px 0px 0px 2px;
   position: relative;
   background-color: inherit;
   width: 100%;
@@ -313,8 +251,8 @@ a.side_bar_link {
   top: 20px;
   width: 0;
   z-index: 1;
-  left: 2%;
-  /*border: medium solid #4fe38a;*/
+  left: 3%;
+  border: medium solid #4fe38a;
   border-width: 10px 10px 10px 0;
   border-right: solid #4fe38a!important;
   border-color: transparent white transparent transparent;
@@ -365,16 +303,3 @@ a.side_bar_link {
 
 /*TimeLines css End*/
 
-/*share file stylesheet begin*/
-
-.thumb {
-        height: 75px;
-        border: 1px solid #000;
-        margin: 10px 5px 0 0;
-      }
-
-      #byte_range {
-        margin-top: 5px;
-      }
-
-      /*share file stylesheet end*/
