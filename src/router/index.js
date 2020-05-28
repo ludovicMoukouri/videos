@@ -4,6 +4,7 @@ import Hello from '@/pages/Hello';
 import Login from '@/pages/Login';
 import Register from '@/pages/Register';
 import Video from '@/pages/Video';
+import Share from '@/pages/Share';
 
 Vue.use(Router);
 
@@ -29,6 +30,11 @@ export default new Router({
       path: '/video',
       name: 'Video',
       component: Video,
+    },
+    {
+      path: '/share',
+      name: 'Share',
+      component: Share,
     },
   ],
 });

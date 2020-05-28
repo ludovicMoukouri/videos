@@ -32,7 +32,7 @@
          <v-flex md8 xs12>
           <div class="divDesk" style="position: absolute;left:65%">Or</div>
           <p class="divMobil" style="font-size:120%;font-weight:bold">
-            Logon By our website
+            Login By our website
           </p>
           <p class="divDesk" style="font-size:120%;font-weight:bold">
             By our website
@@ -108,18 +108,23 @@
             class="timeline-item right"
             >
             <div class="login">
-              <span v-if="item.faceb">
+              <v-layout row wrap>
+                <v-flex md6 xs12>
+                  <span v-if="item.faceb">
                 <a class="btn facebook oauthItems" href="/login/facebook"> 
                 <img :src="images.facebookIcon" class="imgLogin"> 
               {{ item.faceb }}</a>
             </span>
-              <span v-if="item.google">
+                </v-flex>
+                <v-flex md6 xs12>
+                  <span v-if="item.google">
                 <a class="btn google" href="/login/google"> 
                 <img :src="images.googleIcon" class="imgLogin"> 
                 {{ item.google }}
               </a>
               </span>
-              
+                </v-flex>
+              </v-layout>
             </div>
           </div>
         </div>
@@ -190,6 +195,7 @@ export default {
             bus.$emit('refreshUser');
             // this.$router.push({ name: 'Video' });
             return document.location.href = '/video' // is use for reloading Page
+            // return document.location.href = '/share' // is use for reloading Page
           }
           
         } catch (error) {
