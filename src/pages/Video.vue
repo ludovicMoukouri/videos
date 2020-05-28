@@ -342,7 +342,7 @@ setupPeerConnection: function () {
       try{
         if(data.mtype === 'notification') {
        self.$store.dispatch("notifsTab", data.msge);
-       bus.$emit('refreshnotif');
+       bus.$emit('refreshnotif'); 
      }else {
       self.items.push({messages: "recv: " + data.msge})
      }
