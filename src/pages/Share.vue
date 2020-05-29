@@ -138,13 +138,13 @@ export default {
     ws.onerror = function (err) {
       console.error("Got error observed: ", err);
     }
-    // ws.onclose = function (event) {
-    //   console.log("deconnection");
-    //   // setTimeout(function timeout() {
-    //   //   console.log(_this.wsGetters, 'wssssssssssssssssssssss')
-    //   //   _this.created()
-    //   // }, 1000);
-    // }
+    ws.onclose = function (event) {
+      console.log("deconnection");
+      // setTimeout(function timeout() {
+      //   console.log(_this.wsGetters, 'wssssssssssssssssssssss')
+      //   _this.created()
+      // }, 1000);
+    }
   },
   mounted() {
       // this.loadresponsive();
@@ -196,14 +196,6 @@ onLogin: function () {
 },
 setupPeerConnection: function () {
   const self = this;
-  
-  var dataChannelOptions = {
-    ordered: true,
-    reliable: false,
-    negotiated: true,
-    id: 0
-  }
-      self.$store.dispatch("dataChannelAction", dataChannelOptions);
       // Setup ice handling
       self.yourConnection.onicecandidate = function (event) {
         if (event.candidate) {
@@ -258,25 +250,15 @@ setupPeerConnection: function () {
       var configuration = {}
       var connection_peer = {optional: [{RtpDataChannels: true}]}
       configuration = webrtcDetectedBrowser === 'firefox' ?  
-      {'iceServers':[{'url':'stun:23.21.150.121'},{ "url": 'stun:127.0.0.1:8081' }]} :
+      {'iceServers':[{'url':'stun:23.21.150.121'},{ 'url': 'stun:127.0.0.1:8081' }]} :
   // IP address  
-  {'iceServers': [{'urls': 'stun:stun.1.google.com:19302'},{ "url": 'stun:127.0.0.1:8081' }]}
+  {'iceServers': [{'url': 'stun:stun.1.google.com:19302'},{ 'url': 'stun:127.0.0.1:8081' }]}
   val.$store.dispatch("yourConnectionAction", configuration, connection_peer);
-      if (val.hasUserMedia) {
-        navigator.getUserMedia({ video: true, audio: false }, function
-          (myStream) {
-            val.$store.dispatch("addYourStream", myStream);
-            if (val.hasRTCPeerConnection) {
+      if (val.hasRTCPeerConnection) {
               val.setupPeerConnection;
             } else {
               alert("Sorry, your browser does not support WebRTC.");
             }
-          }, function (error) {
-            console.log(error);
-          });
-      } else {
-        alert("Sorry, your browser does not support WebRTC.");
-      }
     },
 
     startPeerConnection: function () {
@@ -341,10 +323,12 @@ setupPeerConnection: function () {
   },
   openDataChannel() {
     const self = this 
+    var dataChannelOptions = {
+    reliable: true,
+    id: 0
+  }
+      self.$store.dispatch("dataChannelAction", dataChannelOptions);
     
-    this.dataChannelGetter.onopen = function () { 
-      self.dataChannelGetter.send(self.currentUGetter + " has connected."); 
-    }
     this.dataChannelGetter.onerror = function (error) {    
       console.log("Data Channel Error:", error);  
     }
@@ -364,7 +348,13 @@ setupPeerConnection: function () {
     }
       // self.$store.dispatch("sendConNotifs", null);
     }
-    this.dataChannelGetter.onclose = close()
+    this.dataChannelGetter.onopen = function () { 
+      self.dataChannelGetter.send(self.currentUGetter + " has connected."); 
+    }
+    // this.dataChannelGetter.onclose = close()
+    dataChannel.onclose = function () {
+    console.log("Data channel has been closed.");
+};
   },
   sendData() {
     const self = this

@@ -244,10 +244,7 @@ setupPeerConnection: function () {
   val.$store.dispatch("yourConnectionAction", configuration, connection_peer);
 
   var dataChannelOptions = {
-    ordered: true,
     reliable: true,
-    negotiated: true,
-    id: 0
   }
       // const dataChannel = yourConnection.createDataChannel("myLabel", dataChannelOptions);
       val.$store.dispatch("dataChannelAction", dataChannelOptions);

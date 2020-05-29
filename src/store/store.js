@@ -122,7 +122,7 @@ const mutations = {
   },
   Data_Channel: function (state, datacha) {
     state.dataChannel = state.yourConnection.createDataChannel("myLabel", datacha);
-    console.log('Data channelllllllllllllllll', state.dataChannel)
+    return state.dataChannel
   },
   Send_Con_Notifs: function (state, ncon) {
     state.ncon = ncon;
