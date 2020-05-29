@@ -143,9 +143,9 @@ export default {
   },
   computed: {
     ...mapGetters(['yourStream', 'theirStream', 'yourConnection', 'connectedUser', 'wsGetters', 'sendState', 'offName', 'offValue', 'ansValue', 'canValue', 'cdatGetters', 'successGetter', 'dataChannelGetter', 'nconGetter', 'notifsGetter', 'currentUGetter']),
-    // loadresponsive() {
-    //   return this.$router.go(1)
-    // },
+    loadresponsive() {
+      return this.$router.go(1)
+    },
     todo: function () {
       const self = this
       const cdate = new Date().toJSON().slice(0,10).replace(/-/g,'/');
@@ -236,18 +236,14 @@ setupPeerConnection: function () {
       var val = this
       var webrtcDetectedBrowser = ''
       var configuration = {}
-      var connection_peer = {optional: []}
+      // var connection_peer = {optional: []}
+      var connection_peer = { 'optional': [{'DtlsSrtpKeyAgreement': true}, {'RtpDataChannels': true }] };
       configuration = webrtcDetectedBrowser === 'firefox' ?  
       {'iceServers':[{'url':'stun:23.21.150.121'},{ "url": "stun:127.0.0.1:8081" }]} :
   // IP address  
   {'iceServers': [{'urls': 'stun:stun.1.google.com:19302'},{ "url": "stun:127.0.0.1:8081" }]}
   val.$store.dispatch("yourConnectionAction", configuration, connection_peer);
 
-  var dataChannelOptions = {
-    reliable: true,
-  }
-      // const dataChannel = yourConnection.createDataChannel("myLabel", dataChannelOptions);
-      val.$store.dispatch("dataChannelAction", dataChannelOptions);
       if (val.hasUserMedia) {
         navigator.getUserMedia({ video: true, audio: false }, function
           (myStream) {
@@ -267,6 +263,14 @@ setupPeerConnection: function () {
 
     startPeerConnection: function () {
       const _this = this;
+       var dataChannelOptions = {
+        ordered: true,
+        reliable: true,
+        negotiated: true,
+        id: 0
+      }
+      // const dataChannel = yourConnection.createDataChannel("myLabel", dataChannelOptions);
+      _this.$store.dispatch("dataChannelAction", dataChannelOptions);
       _this.$store.dispatch("connectedUser", _this.theirusername)
       // Begin the offer
       _this.yourConnection.createOffer(function (offer) {
@@ -327,9 +331,7 @@ setupPeerConnection: function () {
   },
   openDataChannel() {
     const self = this 
-    this.dataChannelGetter.onopen = function () { 
-      self.dataChannelGetter.send(self.currentUGetter + " has connected."); 
-    }
+    
     this.dataChannelGetter.onerror = function (error) {    
       console.log("Data Channel Error:", error);  
     }
@@ -349,6 +351,9 @@ setupPeerConnection: function () {
       
       // self.$store.dispatch("sendConNotifs", null);
       
+    }
+    this.dataChannelGetter.onopen = function () { 
+      self.dataChannelGetter.send(self.currentUGetter + " has connected."); 
     }
     this.dataChannelGetter.onclose = close()
   },

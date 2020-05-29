@@ -23,7 +23,7 @@
          @click="callButton" />
        </v-flex>
      </v-layout>
-      <ul id="received">
+      <ul id="received2">
           <li v-for="item in items" :key="item.messages">
             {{ item.messages }}
           </li>
@@ -111,8 +111,8 @@ export default {
       var data = JSON.parse(message.data);
       switch(data.type) {
         case "login":
-        _this.onLogin;
         _this.$store.dispatch("successAction", data.success)
+        _this.onLogin;
         break;
         case "offer":
         _this.$store.dispatch("offerName", data.name)
@@ -158,9 +158,9 @@ export default {
   },
   computed: {
     ...mapGetters(['yourStream', 'theirStream', 'yourConnection', 'connectedUser', 'wsGetters', 'sendState', 'offName', 'offValue', 'ansValue', 'canValue', 'cdatGetters', 'successGetter', 'dataChannelGetter', 'nconGetter', 'notifsGetter', 'currentUGetter']),
-    // loadresponsive() {
-    //   return this.$router.go(1)
-    // },
+    loadresponsive() {
+      return this.$router.go(1)
+    },
     keepServerActive: function () {
       const self = this
       const cdate = new Date().toJSON().slice(0,10).replace(/-/g,'/');
@@ -191,18 +191,33 @@ onLogin: function () {
     alert("Login unsuccessful, please try a different name.");
   } else {
     self.startConnection;
-    this.nbool = !this.nbool
+    this.nbool = true
   }
 },
 setupPeerConnection: function () {
   const self = this;
-      // Setup ice handling
-      self.yourConnection.onicecandidate = function (event) {
-        if (event.candidate) {
-        self.$store.dispatch("sendAction", { type: 'candidate', candidate: event.candidate });
-      };
-    };
-      self.openDataChannel()
+  var dataChannelOptions = {
+        ordered: true,
+        reliable: true,
+        negotiated: true,
+        id: 0
+      }
+      // const dataChannel = yourConnection.createDataChannel("myLabel", dataChannelOptions);
+      self.$store.dispatch("dataChannelAction", dataChannelOptions);
+      self.yourConnection.ondatachannel = function (event) {
+            receiveChannel = event.channel
+        // receiveChannel.onmessage = handleReceiveMessage
+        receiveChannel.onopen = openDataChannel
+        receiveChannel.onclose = openDataChannel
+          };
+      // self.yourConnection.ondatachannel = self.receivedChannelCallback()
+  // Setup ice handling
+  self.yourConnection.onicecandidate = function (event) {
+    if (event.candidate) {
+    self.$store.dispatch("sendAction", { type: 'candidate', candidate: event.candidate });
+  };
+};
+        this.openDataChannel
     },
     onOffer: function () {
       const _this = this
@@ -248,12 +263,19 @@ setupPeerConnection: function () {
       var val = this
       var webrtcDetectedBrowser = ''
       var configuration = {}
-      var connection_peer = {optional: [{RtpDataChannels: true}]}
+      var connection_peer = { 'optional': [{'DtlsSrtpKeyAgreement': true}, {'RtpDataChannels': true }] };
       configuration = webrtcDetectedBrowser === 'firefox' ?  
       {'iceServers':[{'url':'stun:23.21.150.121'},{ 'url': 'stun:127.0.0.1:8081' }]} :
   // IP address  
   {'iceServers': [{'url': 'stun:stun.1.google.com:19302'},{ 'url': 'stun:127.0.0.1:8081' }]}
   val.$store.dispatch("yourConnectionAction", configuration, connection_peer);
+  // var dataChannelOptions = {
+  //     ordered: true,
+  //     reliable: true,
+  //     negotiated: true,
+  //     id: 0
+  //   }
+  //     val.$store.dispatch("dataChannelAction", dataChannelOptions);
       if (val.hasRTCPeerConnection) {
               val.setupPeerConnection;
             } else {
@@ -263,6 +285,7 @@ setupPeerConnection: function () {
 
     startPeerConnection: function () {
       const _this = this;
+      
       _this.$store.dispatch("connectedUser", _this.theirusername)
       // Begin the offer
       _this.yourConnection.createOffer(function (offer) {
@@ -274,7 +297,7 @@ setupPeerConnection: function () {
       });
       setTimeout(function() {
         _this.sendData()
-      }, 3000);
+      }, 1000);
     },
   },
   watch: {
@@ -321,13 +344,16 @@ setupPeerConnection: function () {
       self.startPeerConnection;
     }
   },
+  receivedChannelCallback(event) {
+    receiveChannel = event.channel
+    // receiveChannel.onmessage = handleReceiveMessage
+    receiveChannel.onopen = openDataChannel
+    receiveChannel.onclose = openDataChannel
+  },
   openDataChannel() {
     const self = this 
-    var dataChannelOptions = {
-    reliable: true,
-    id: 0
-  }
-      self.$store.dispatch("dataChannelAction", dataChannelOptions);
+
+    console.log(this.dataChannelGetter, 'this.dataChannelGetter this.dataChannelGetter')
     
     this.dataChannelGetter.onerror = function (error) {    
       console.log("Data Channel Error:", error);  
@@ -352,7 +378,7 @@ setupPeerConnection: function () {
       self.dataChannelGetter.send(self.currentUGetter + " has connected."); 
     }
     // this.dataChannelGetter.onclose = close()
-    dataChannel.onclose = function () {
+    this.dataChannelGetter.onclose = function () {
     console.log("Data channel has been closed.");
 };
   },

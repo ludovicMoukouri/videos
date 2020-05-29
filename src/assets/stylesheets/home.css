@@ -80,6 +80,16 @@ a.side_bar_link {
 		color: black;
 		overflow: scroll;
 	}
+	#received2 {
+		display: block;
+		width: 95%!important;
+		height: 100px;
+		background: white;
+		padding: 10px;
+		margin: 10px 10px 10px 10px!important;
+		color: black;
+		overflow: scroll;
+	}
 	.btn.facebook {
 	background-color: #3b5998 !important;
 	border-color: #2196f3;
@@ -182,6 +192,17 @@ a.side_bar_link {
 	font-size:98%
 }
 #received {
+	display: block;
+	width: 420px;
+	height: 100px;
+	background: white;
+	padding: 10px;
+	margin-top: 10px;
+	color: black;
+	overflow: scroll;
+}
+
+#received2 {
 	display: block;
 	width: 420px;
 	height: 100px;

@@ -64,7 +64,7 @@ const mutations = {
   },
   Your_Connection: function (state, configur, connection_peer) {
     state.yourConnection = new RTCPeerConnection(configur, connection_peer)
-    console.log('Data yourConnectionnnnnnnnnnnnn', state.yourConnection)
+    console.log('yourConnectionnnnnnnnnnnnnnnnnn', state.yourConnection)
   },
   Connected_User: function (state, payload) {
     state.connectedUser = payload;
@@ -122,7 +122,8 @@ const mutations = {
   },
   Data_Channel: function (state, datacha) {
     state.dataChannel = state.yourConnection.createDataChannel("myLabel", datacha);
-    return state.dataChannel
+    // return state.dataChannel
+    console.log('Data channelllllllllllllllll', state.dataChannel)
   },
   Send_Con_Notifs: function (state, ncon) {
     state.ncon = ncon;
