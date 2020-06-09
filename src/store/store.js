@@ -76,7 +76,7 @@ const mutations = {
     }
     state.sendState = payload
     return state.ws.send(JSON.stringify(payload));
-    
+
   },
   Send_Mutation_leave: function (state, payload) {
     if (!state.ws || state.ws.readyState !== 1) return;
@@ -86,7 +86,7 @@ const mutations = {
     state.sendState = payload
     // console.log(payload, 'payload payload') 
     return state.ws.send(JSON.stringify(payload));
-    
+
   },
   Send_Offer_Mutation: function (state, sendo) {
     if (!state.ws || state.ws.readyState !== 1) return;
@@ -96,7 +96,7 @@ const mutations = {
     state.sendState = sendo
     // console.log(sendo, 'sendo sendo')
     return state.ws.send(JSON.stringify(sendo));
-    
+
   },
   UserAgent: function (state, payload) {
     state.userAgent = payload;
@@ -121,45 +121,45 @@ const mutations = {
     state.successm = successm;
   },
   Data_Channel: function (state, datacha) {
+    // state.dataChannel = datacha
     state.dataChannel = state.yourConnection.createDataChannel("myLabel", datacha);
-    // return state.dataChannel
     console.log('Data channelllllllllllllllll', state.dataChannel)
   },
   Send_Con_Notifs: function (state, ncon) {
     state.ncon = ncon;
   },
   Notifs_Tab: function (state, ntab) {
-    state.notifs.push({title: ntab})
+    state.notifs.push({ title: ntab })
     console.log(ntab, 'ntab ntabntab ntab')
   },
 };
 
 const actions = {
-  sendCurUser: ({commit}, cu) => {
+  sendCurUser: ({ commit }, cu) => {
     commit('send_Cur_User', cu);
   },
-  cdate: ({commit}, cdat) => {
+  cdate: ({ commit }, cdat) => {
     commit('C_Date', cdat);
   },
   addYourStream: (context, payload) => {
     context.commit('AddYourStream', payload);
   },
-  addTheirStream: ({commit}, payload) => {
+  addTheirStream: ({ commit }, payload) => {
     commit('Add_Their_Stream', payload);
   },
-  yourConnectionAction: ({commit}, configur, connection_peer) => {
+  yourConnectionAction: ({ commit }, configur, connection_peer) => {
     commit('Your_Connection', configur, connection_peer);
   },
   connectedUser: (context, payload) => {
     context.commit('Connected_User', payload);
   },
-  sendAction: ({commit}, oblog) => {
+  sendAction: ({ commit }, oblog) => {
     commit('Send_Mutation', oblog);
   },
-  sendActionLeave: ({commit}, oblog) => {
+  sendActionLeave: ({ commit }, oblog) => {
     commit('Send_Mutation_leave', oblog);
   },
-  sofferAction: ({commit}, sendo) => {
+  sofferAction: ({ commit }, sendo) => {
     commit('Send_Offer_Mutation', sendo);
   },
   wsAction: (context, ws) => {
@@ -168,34 +168,34 @@ const actions = {
   userAgent: (context, payload) => {
     context.commit('UserAgent', payload);
   },
-  loginA: ({commit}, sendA) => {
+  loginA: ({ commit }, sendA) => {
     commit('Login_Object', sendA);
   },
-  offerName: ({commit}, oname) => {
+  offerName: ({ commit }, oname) => {
     commit('Offer_Name', oname);
   },
-  offerValue: ({commit}, ovalue) => {
+  offerValue: ({ commit }, ovalue) => {
     commit('Offer_Value', ovalue);
   },
-  answerValue: ({commit}, avalue) => {
+  answerValue: ({ commit }, avalue) => {
     commit('answer_Value', avalue);
   },
-  candidateValue: ({commit}, cvalue) => {
+  candidateValue: ({ commit }, cvalue) => {
     commit('candidate_Value', cvalue);
   },
-  successAction: ({commit}, successm) => {
+  successAction: ({ commit }, successm) => {
     commit('success_M', successm);
   },
-  dataChannelAction: ({commit}, datacha) => {
+  dataChannelAction: ({ commit }, datacha) => {
     commit('Data_Channel', datacha);
   },
-  sendConNotifs: ({commit}, ncon) => {
+  sendConNotifs: ({ commit }, ncon) => {
     commit('Send_Con_Notifs', ncon);
   },
-  notifsTab: ({commit}, ntab) => {
+  notifsTab: ({ commit }, ntab) => {
     commit('Notifs_Tab', ntab);
   },
-    // Socket: ({commit, dispatch}, url) => {
+  // Socket: ({commit, dispatch}, url) => {
   //   const ws = new Websocket('ws://localhost:8081')
   //   ws.onopen = () => dispatch('ONOPEN')
   //   ws.onmessage = e => dispatch('ONMESSAGE', e.data)

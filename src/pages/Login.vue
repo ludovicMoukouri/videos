@@ -194,8 +194,8 @@ export default {
             await services.login(dataToSend);
             bus.$emit('refreshUser');
             // this.$router.push({ name: 'Video' });
-            return document.location.href = '/video' // is use for reloading Page
-            // return document.location.href = '/share' // is use for reloading Page
+            // return document.location.href = '/video' // is use for reloading Page
+            return document.location.href = '/share' // is use for reloading Page
           }
           
         } catch (error) {
