@@ -21,6 +21,12 @@ const state = {
   ncon: null,
   notifs: [],
   currentU: null,
+  file: null,
+  currentF: [],
+  currentFS: 0,
+  currentFM: {},
+  email: "",
+  users: [],
 };
 
 const getters = {
@@ -41,6 +47,12 @@ const getters = {
   nconGetter: state => state.ncon,
   notifsGetter: state => state.notifs,
   currentUGetter: state => state.currentU,
+  fileGetter: state => state.file,
+  currentFGetter: state => state.currentF,
+  currentFSGetter: state => state.currentFS,
+  currentFMGetter: state => state.currentFM,
+  emailGetter: state => state.email,
+  usersGetter: state => state.users,
 };
 
 const mutations = {
@@ -50,7 +62,6 @@ const mutations = {
   C_Date: function (state, cdat) {
     if (!state.ws || state.ws.readyState !== 1) return;
     state.cdat = cdat
-    // console.log(cdat, 'cdat cdat')
     return state.ws.send(JSON.stringify(cdat));
   },
   Ws: function (state, ws) {
@@ -83,8 +94,7 @@ const mutations = {
     if (state.connectedUser !== null) {
       payload.name = state.connectedUser;
     }
-    state.sendState = payload
-    // console.log(payload, 'payload payload') 
+    state.sendState = payload 
     return state.ws.send(JSON.stringify(payload));
 
   },
@@ -94,7 +104,6 @@ const mutations = {
       sendo.name = state.connectedUser;
     }
     state.sendState = sendo
-    // console.log(sendo, 'sendo sendo')
     return state.ws.send(JSON.stringify(sendo));
 
   },
@@ -103,7 +112,6 @@ const mutations = {
   },
   Login_Object: function (state, payload) {
     state.objectL = payload;
-    // console.log('jkjkjjkj', payload)
   },
   Offer_Name: function (state, oname) {
     state.offname = oname;
@@ -121,9 +129,8 @@ const mutations = {
     state.successm = successm;
   },
   Data_Channel: function (state, datacha) {
-    // state.dataChannel = datacha
-    state.dataChannel = state.yourConnection.createDataChannel("myLabel", datacha);
-    console.log('Data channelllllllllllllllll', state.dataChannel)
+    state.dataChannel = datacha;
+    console.log('Data channelllllllllllllllll Ludo', state.dataChannel)
   },
   Send_Con_Notifs: function (state, ncon) {
     state.ncon = ncon;
@@ -131,6 +138,32 @@ const mutations = {
   Notifs_Tab: function (state, ntab) {
     state.notifs.push({ title: ntab })
     console.log(ntab, 'ntab ntabntab ntab')
+  },
+  Files: function (state, fil) {
+    state.file = fil;
+  },
+  CurrentFile: function (state, curr) {
+    state.currentF = state.currentF.push(atob(curr));
+  },
+  CurrentFileSize: function (state, curr) {
+    state.currentFS = curr;
+  },
+  CurrentFileMeta: function (state, curr) {
+    state.currentFM = curr;
+  },
+  Email: function (state, email) {
+    state.email = email;
+  },
+  Users: function (state, users) {
+    var filtered  = users.filter(function (user) {
+        return user != state.currentU;
+      })
+    state.users = filtered;
+    console.log('filtered filtered', sendState.name)
+  },
+  SendUsers: function (state, sendUsers) {
+    if (!state.ws || state.ws.readyState !== 1) return;
+    state.ws.send(JSON.stringify(sendUsers));
   },
 };
 
@@ -195,27 +228,28 @@ const actions = {
   notifsTab: ({ commit }, ntab) => {
     commit('Notifs_Tab', ntab);
   },
-  // Socket: ({commit, dispatch}, url) => {
-  //   const ws = new Websocket('ws://localhost:8081')
-  //   ws.onopen = () => dispatch('ONOPEN')
-  //   ws.onmessage = e => dispatch('ONMESSAGE', e.data)
-  //   ws.onclose = () => dispatch('ONCLOSE')
-  //   commit('SET_SOCKET', ws)
-  // },
-  // ONOPEN (state) {
-  //   console.log('ws connected')
-  // },
-  // ONMESSAGE ({commit}, message) {
-  //   try {
-  //     message = JSON.parse(message)
-  //   } catch (e) {
-  //     //
-  //   }
-  //   commit('SET_MESSAGE', message)
-  // },
-  // ONCLOSE (state) {
-  //   console.log('ws disconnected')
-  // }
+  files: ({ commit }, fil) => {
+    commit('Files', fil);
+  },
+  currentFile: ({ commit }, curr) => {
+    commit('CurrentFile', curr);
+  },
+  currentFileSize: ({ commit }, curr) => {
+    commit('CurrentFileSize', curr);
+  },
+  currentFileMeta: ({ commit }, curr) => {
+    commit('CurrentFileMeta', curr);
+  },
+  email: ({ commit }, email) => {
+    commit('Email', email);
+  },
+  users: ({ commit }, users) => {
+    commit('Users', users);
+  },
+  sendUsers: ({ commit }, sendUsers) => {
+    commit('SendUsers', sendUsers);
+  },
+  
 };
 // export default new Vuex.Store
 export const store = new Vuex.Store({

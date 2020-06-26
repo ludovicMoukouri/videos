@@ -5,6 +5,7 @@ import Login from '@/pages/Login';
 import Register from '@/pages/Register';
 import Video from '@/pages/Video';
 import Share from '@/pages/Share';
+import Chat from '@/pages/Chat';
 
 Vue.use(Router);
 
@@ -35,6 +36,11 @@ export default new Router({
       path: '/share',
       name: 'Share',
       component: Share,
+    },
+    {
+      path: '/chat',
+      name: 'Chat',
+      component: Chat,
     },
   ],
 });

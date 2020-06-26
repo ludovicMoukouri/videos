@@ -239,9 +239,9 @@ setupPeerConnection: function () {
       // var connection_peer = {optional: []}
       var connection_peer = { 'optional': [{'DtlsSrtpKeyAgreement': true}, {'RtpDataChannels': true }] };
       configuration = webrtcDetectedBrowser === 'firefox' ?  
-      {'iceServers':[{'url':'stun:23.21.150.121'},{ "url": "stun:127.0.0.1:8081" }]} :
+      {'iceServers':[{urls:'stun:23.21.150.121'},{ urls: "stun:127.0.0.1:8081" }]} :
   // IP address  
-  {'iceServers': [{'urls': 'stun:stun.1.google.com:19302'},{ "url": "stun:127.0.0.1:8081" }]}
+  {'iceServers': [{urls: 'stun:stun.1.google.com:19302'},{ urls: "stun:127.0.0.1:8081" }]}
   val.$store.dispatch("yourConnectionAction", configuration, connection_peer);
 
       if (val.hasUserMedia) {
@@ -263,14 +263,6 @@ setupPeerConnection: function () {
 
     startPeerConnection: function () {
       const _this = this;
-       var dataChannelOptions = {
-        ordered: true,
-        reliable: true,
-        negotiated: true,
-        id: 0
-      }
-      // const dataChannel = yourConnection.createDataChannel("myLabel", dataChannelOptions);
-      _this.$store.dispatch("dataChannelAction", dataChannelOptions);
       _this.$store.dispatch("connectedUser", _this.theirusername)
       // Begin the offer
       _this.yourConnection.createOffer(function (offer) {
@@ -330,7 +322,15 @@ setupPeerConnection: function () {
     }
   },
   openDataChannel() {
-    const self = this 
+    const self = this;
+      var dataChannelOptions = {
+        ordered: true,
+        reliable: true,
+        negotiated: true,
+        id: 0
+      };
+      const dataChannel = this.yourConnection.createDataChannel("myLabel", dataChannelOptions);
+      self.$store.dispatch("dataChannelAction", dataChannel);
     
     this.dataChannelGetter.onerror = function (error) {    
       console.log("Data Channel Error:", error);  
@@ -348,14 +348,11 @@ setupPeerConnection: function () {
       } catch(e) {
         alert(e)
       }
-      
-      // self.$store.dispatch("sendConNotifs", null);
-      
-    }
+    };
     this.dataChannelGetter.onopen = function () { 
       self.dataChannelGetter.send(self.currentUGetter + " has connected."); 
-    }
-    this.dataChannelGetter.onclose = close()
+    };
+    this.dataChannelGetter.onclose = self.close()
   },
   sendData() {
     const self = this.messageds
@@ -374,6 +371,9 @@ setupPeerConnection: function () {
       self.$store.dispatch("sendActionLeave", { type: 'leave' });
     });
   },
+  close() {
+        console.log("Data channel has been closed.");
+      },
   listenToEvents() {
     bus.$on('refreshUser', () => {
       this.loadwindow();

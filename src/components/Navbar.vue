@@ -1,5 +1,5 @@
 <template>
-	<nav>
+	<nav class="navig-drawer-desk">
 		<v-toolbar fixed text app>
 			<v-app-bar-nav-icon hidden class="btn_sign grey--text" 
 			@click="drawer = !drawer"></v-app-bar-nav-icon>
@@ -16,77 +16,28 @@
 				currentuser.fullname }}</v-btn>
 
 				<div v-if="currentuser" class="text-center">
-      <v-menu offset-y>
-        <template v-slot:activator="{ on }">
-          <v-btn
-            v-on="on"
-            text
-            style="margin:13px 0 0 0"
-          >
-            <v-icon color="blue darken-2">mdi-bell-ring</v-icon>({{ items.length }})
-          </v-btn>
-        </template>
-        <v-list>
-          <v-list-item
-            v-for="(item, index) in items"
-            :key="index"
-            @click=""
-          >
-            <v-list-item-title>{{ item.title }}</v-list-item-title>
-          </v-list-item>
-        </v-list>
-      </v-menu>
-    </div>
+					<v-menu offset-y>
+						<template v-slot:activator="{ on }">
+							<v-btn
+							v-on="on"
+							text
+							style="margin:13px 0 0 0"
+							>
+							<v-icon color="blue darken-2">mdi-bell-ring</v-icon>({{ items.length }})
+						</v-btn>
+					</template>
+					<v-list>
+						<v-list-item
+						v-for="(item, index) in items"
+						:key="index"
+						@click=""
+						>
+						<v-list-item-title>{{ item.title }}</v-list-item-title>
+					</v-list-item>
+				</v-list>
+			</v-menu>
+		</div>
 
-				<router-link v-bind:to="{ name: 'Register' }" v-if="!currentuser"
-				id="register_btn" class="side_bar_link">
-				<v-btn icon>
-					<v-icon color="blue darken-2">save_alt</v-icon>
-				</v-btn>
-				Sign up
-			</router-link>
-			<router-link class="nav_head" v-bind:to="{ name: 'Login' }" v-if="!currentuser"
-			id="login_btn" class="side_bar_link">
-			<v-btn icon>
-				<v-icon color="blue darken-2">mdi-login</v-icon>
-			</v-btn>
-			Sign in
-		</router-link>
-		<v-btn id="logout_btn" text v-if="currentuser" class="side_bar_link"
-		@click="logout">Logout</v-btn>
-	</v-toolbar-items>
-</v-toolbar>
-
-<v-navigation-drawer text app v-model="drawer" class="aside_left">
-	<p>
-		<v-btn id="user_email" text v-if="currentuser" class="side_bar_link">{{
-		currentuser.fullname }}</v-btn>
-	</p>
-	<p>
-		<div v-if="currentuser">
-      <v-menu offset-y>
-        <template v-slot:activator="{ on }">
-          <v-btn
-            v-on="on"
-            text
-            style="margin:13px 0 0 0"
-          >
-            <v-icon color="blue darken-2">mdi-bell-ring</v-icon>({{ items.length }})
-          </v-btn>
-        </template>
-        <v-list>
-          <v-list-item
-            v-for="(item, index) in items"
-            :key="index"
-            @click=""
-          >
-            <v-list-item-title>{{ item.title }}</v-list-item-title>
-          </v-list-item>
-        </v-list>
-      </v-menu>
-    </div>
-	</p>
-	<p>
 		<router-link v-bind:to="{ name: 'Register' }" v-if="!currentuser"
 		id="register_btn" class="side_bar_link">
 		<v-btn icon>
@@ -94,6 +45,54 @@
 		</v-btn>
 		Sign up
 	</router-link>
+	<router-link class="nav_head" v-bind:to="{ name: 'Login' }" v-if="!currentuser"
+	id="login_btn" class="side_bar_link">
+	<v-btn icon>
+		<v-icon color="blue darken-2">mdi-login</v-icon>
+	</v-btn>
+	Sign in
+</router-link>
+<v-btn id="logout_btn" text v-if="currentuser" class="side_bar_link"
+@click="logout">Logout</v-btn>
+</v-toolbar-items>
+</v-toolbar>
+<v-navigation-drawer text app v-model="drawer" class="aside_left">
+	<p>
+		<v-btn id="user_email" text v-if="currentuser" class="side_bar_link">{{
+		currentuser.fullname }}</v-btn>
+	</p>
+	<p>
+		<div v-if="currentuser">
+			<v-menu offset-y>
+				<template v-slot:activator="{ on }">
+					<v-btn
+					v-on="on"
+					text
+					style="margin:13px 0 0 0"
+					>
+					<v-icon color="blue darken-2">mdi-bell-ring</v-icon>({{ items.length }})
+				</v-btn>
+			</template>
+			<v-list>
+				<v-list-item
+				v-for="(item, index) in items"
+				:key="index"
+				@click=""
+				>
+				<v-list-item-title>{{ item.title }}</v-list-item-title>
+			</v-list-item>
+		</v-list>
+	</v-menu>
+</div>
+</p>
+<p>
+	<router-link v-bind:to="{ name: 'Register' }" v-if="!currentuser"
+	id="register_btn" class="side_bar_link">
+	<v-btn icon>
+		<v-icon color="blue darken-2">save_alt</v-icon>
+	</v-btn>
+	Sign up
+</router-link>
 </p>
 
 <p>
@@ -118,7 +117,8 @@
 
 <script>
 import axios from 'axios';
-import { mapGetters } from 'vuex'
+import services from '@services';
+import { mapGetters, mapActions } from "vuex";
 import bus from './../bus';
 
 export default {
@@ -142,32 +142,44 @@ export default {
 		this.notifsConnect()
 	},
 	computed: {
-		...mapGetters(['notifsGetter']),
+		...mapGetters(['notifsGetter', 'emailGetter']),
 		normalizedSize: function () {
 			const self = this
-    return self.currentuser.fullname.trim().toLowerCase()
-  }
+			return self.currentuser.fullname.trim().toLowerCase()
+		}
 	},
 	methods: {
 		notifsConnect() {
-    bus.$on('refreshnotif', () => {
-      this.items = this.notifsGetter
-    });
-  },
+			bus.$on('refreshnotif', () => {
+				this.items = this.notifsGetter
+			});
+		},
+		async connectedUser() {
+      const self = this
+      var dataToConnection = {
+          email: self.emailGetter,
+          connected: false
+        };
+        const resp = await services.updateConnected(dataToConnection);
+        self.$store.dispatch("users", resp.users);
+        console.log('resp resp resp', resp)
+    },
 		async logout() {
-      return axios({
-        method: 'get',
-        url: '/api/logout',
-      })
-        .then(() => {
-          bus.$on('refreshUser');
-          bus.$emit('refreshLogout');
+			return axios({
+				method: 'get',
+				url: '/api/logout',
+			})
+			.then(() => {
+				this.connectedUser()
+				bus.$on('refreshUser');
+				bus.$emit('refreshLogout', 'refreshLogoutShare');
+				
           // this.$router.push({ name: 'Hello' });
           return document.location.href = '/' // is use for reloading Page
-        })
-        .catch(() => {
-        });
-    },
+      })
+			.catch(() => {
+			});
+		},
 	}
 };
 </script>

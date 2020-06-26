@@ -58,9 +58,9 @@ app.post('/users/register', (req, res) => {
 // });
 
 app.post('/users/login', passport.authenticate('local', { failureRedirect: '/users/login' }),
- (req, res) => {
- 	res.redirect('/');
-});
+	(req, res) => {
+		res.redirect('/');
+	});
 
 passport.serializeUser(function(user, done) {
 	done(null, user.id);
@@ -83,6 +83,36 @@ app.get('/video_chat', (req, res) => {
 		res.send({
 			message: 'Welcome to Your Vue.js App 2'
 		});
+	});
+});
+
+app.get('/users/userConnected', (req, res) => {
+	// const userCo = req.params.user
+	// clause where pseudo != name   User.find({'connected': true, 'pseudo': { "$ne": userCo}}, 'pseudo email', (error,
+	// 	users) => {
+		User.find({'connected': true}, 'pseudo email', (error,
+		users) => {
+		aruserArrayr = Array()
+		usersSend = Array()
+		if (error) { console.log(error); }
+		arr = users
+		for (var i = 0; i < arr.length; i++) {
+        usersSend[i] = arr[i].pseudo
+      }
+		res.send({
+			users: usersSend
+		});
+	});
+});
+
+app.put('/users/updateConnected', (req, res) => {
+	const email = req.body.email
+	const connected = req.body.connected
+
+	User.UpdateById(email, connected, (error, user) => {
+		
+		if (error) { console.log(error); }
+		res.send(user)
 	});
 });
 

@@ -23,4 +23,16 @@ export default {
 		.get(`/users/usersConnect/${email}`)
 		.then(response => response.data);
 	},
+
+	getusersConnected() {
+		return axios
+		.get(`/users/userConnected`)
+		.then(response => response.data);
+	},
+
+	updateConnected(credentials, headers) {
+		return axios
+		.put(`/users/updateConnected`, credentials)
+		.then(response => response.data);
+	},
 }

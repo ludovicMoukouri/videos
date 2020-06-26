@@ -11,7 +11,7 @@
 </v-content>
 
 <v-footer color="grey lighten-4" app>
-  <span class="black--text" style="text-align: center">&copy; 2018</span>
+  <span class="black--text" style="text-align: center">&copy; 2020</span>
 </v-footer>
 
 </v-app>

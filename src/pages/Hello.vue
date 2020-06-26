@@ -11,7 +11,7 @@ export default {
   name: 'HelloWorld',
   data: () => ({
     theirusername: '',
-    msg: 'Welcome to video chat'
+    msg: 'Welcome to data transfer application'
   }),
 };
 </script>

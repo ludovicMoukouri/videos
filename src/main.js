@@ -7,6 +7,9 @@ import BootstrapVue from 'bootstrap-vue';
 import Vue from 'vue';
 import Vuetify from 'vuetify';
 import VueSwal from 'vue-swal';
+import VueFileAgent from 'vue-file-agent';
+import VueCarousel from 'vue-carousel';
+import VueFileAgentStyles from 'vue-file-agent/dist/vue-file-agent.css';
 import Button from '@/components/Button';
 import Navbar from '@/components/Navbar';
 import InputComponent from '@/components/InputComponent';
@@ -15,6 +18,8 @@ import { store } from './store/store';
 import router from '@/router';
 
 Vue.use(BootstrapVue);
+Vue.use(VueFileAgent);
+Vue.use(VueCarousel);
 Vue.use(Vuetify);
 Vue.use(VueSwal);
 

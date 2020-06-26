@@ -63,7 +63,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 //connect to mongodb
-mongoose.connect(process.env.DATABASE_URL || config.DB, { useNewUrlParser: true, useUnifiedTopology: true }, function() {
+mongoose.connect(process.env.DATABASE_URL || config.DB, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false }, function() {
 	console.log('Connection has been made');
 })
 .catch(err => {
@@ -118,13 +118,25 @@ var wss = new WebSocketServer({ server });
 // });
 
 let users = {};
+userL = []
+// Broadcast to all.
+function broadcast(data, connection) {
+	wss.clients.forEach(function each(client) {
+		if (client !== connection && client.readyState === ws.OPEN) {
+			client.send(JSON.stringify(data));
+			console.log('data data', data)
+		}
+	});
+};
+
 
 wss.on('connection', function(connection, req) {
 	console.log('WebSocket client connected...');
 	sess(req, {}, () => {
 		console.log('Session is parsed! ', req.session.passport);
 	});
-
+	connection.userL = []
+	
 	connection.on('message', function (message) {
 		var data;
 		try {
@@ -134,85 +146,103 @@ wss.on('connection', function(connection, req) {
 			data = {};
 		}
 		switch (data.type) {
-			case "login":
-			console.log("User logged in as", data);
-			if (users[data.name]) {
-				sendTo(connection, {
-					type: "login",
-					success: false
-				});
-			} else {
-				connection.name = data.name;
-				users[data.name] = connection;
-				console.log("connectedUser ", data)
-				sendTo(connection, {
-					type: "login",
-					success: true,
-				});
-			}
-			break;
-			case "offer":
-			console.log("Sending offer to", data);
-			var conn = users[data.name];
-			if (conn != null) {
-				connection.otherName = data.name;
-				sendTo(conn, {
-					type: "offer",
-					offer: data.offer,
-					name: connection.name
-				});
-			}
-			break;	
-			case "answer":
-			console.log("Sending answer to", data);
-			var conn = users[data.name];
-			if (conn != null) {
-				connection.otherName = data.name;
-				sendTo(conn, {
-					type: "answer",
-					answer: data.answer
-				});
-			}
-			break;
-			case "candidate":
-			console.log("Sending candidate to", data);
-			var conn = users[data.name];
-			if (conn != null) {
-				sendTo(conn, {
-					type: "candidate",
-					candidate: data.candidate
-				});
-			}
-			case "cdate":
-			console.log("Sending date to", data);
-			var conn = users[data.name];
-			if (conn != null) {
-				sendTo(conn, {
-					type: "cdate",
-					candidate: data.cdate
-				});
-			}
-			break;
-			case "leave":
-			console.log("Disconnecting user from", data);
-			var conn = users[data.name];
-			conn.otherName = null;
-			if (conn != null) {
-				sendTo(conn, {
-					type: "leave"
-				});
-			}
-			break;
-			default:
-			sendTo(connection, {
-				type: "error",
-				message: "Unrecognized command: " + data.type
-			});
-			break;
-		}
-	});
+			case "ADD_USER":   {     
+       // console.log({name: data.name, id:index+1})
+       // userL.push({name: data.name, id:index+1}) 
+       userL = data.userL 
+       console.log('userL userL userL2222', data.userL)
+       connection.send(JSON.stringify({
+       	type: 'USERS_LIST',
+       	userL: userL
+       }))
+       broadcast({
+       	type:'USERS_LIST',
+       	userL: userL
+       }, connection)
+       break;
+   }
+   case "login":
+   console.log("User logged in as", data);
+   nameToDelete = data.name 
+   if (users[data.name]) {
+   	sendTo(connection, {
+   		type: "login",
+   		success: false
+   	});
+   } else {
+   	connection.name = data.name;
+   	users[data.name] = connection;
+   	console.log("connectedUser ", data)
+   	sendTo(connection, {
+   		type: "login",
+   		success: true,
+   	});
+   }
+   break;
+   case "offer":
+   console.log("Sending offer to", data);
+   var conn = users[data.name];
+   if (conn != null) {
+   	connection.otherName = data.name;
+   	sendTo(conn, {
+   		type: "offer",
+   		offer: data.offer,
+   		name: connection.name
+   	});
+   }
+   break;	
+   case "answer":
+   console.log("Sending answer to", data);
+   var conn = users[data.name];
+   if (conn != null) {
+   	connection.otherName = data.name;
+   	sendTo(conn, {
+   		type: "answer",
+   		answer: data.answer
+   	});
+   }
+   break;
+   case "candidate":
+   console.log("Sending candidate to", data);
+   var conn = users[data.name];
+   if (conn != null) {
+   	sendTo(conn, {
+   		type: "candidate",
+   		candidate: data.candidate
+   	});
+   }
+   case "cdate":
+   console.log("Sending date to", data);
+   var conn = users[data.name];
+   if (conn != null) {
+   	sendTo(conn, {
+   		type: "cdate",
+   		candidate: data.cdate
+   	});
+   }
+   break;
+   case "leave":
+   console.log("Disconnecting user from", data);
+   var conn = users[data.name];
+   conn.otherName = null;
+   if (conn != null) {
+   	sendTo(conn, {
+   		type: "leave"
+   	});
+   }
+   break;
+   default:
+   sendTo(connection, {
+   	type: "error",
+   	message: "Unrecognized command: " + data.type
+   });
+   break;
+}
+});
 
 	connection.on('close', function () {
+		removeElement(userL, connection, connection)
+		
 		if (connection.name) {
 			delete users[connection.name];
 			if (connection.otherName) {
@@ -232,12 +262,23 @@ wss.on('connection', function(connection, req) {
 
 // 	function heartbeat() {
 //   clearTimeout(this.pingTimeout);
-  
+
 //   this.pingTimeout = setTimeout(() => {
 //     this.terminate();
 //   }, 30000 + 1000);
 // }
-	connection.send('Hello World');
+function removeElement(array, connection) {
+	var index = array.indexOf(connection.name);
+	if(index > -1) {
+		array.splice(index, 1);
+		broadcast({
+			type: 'USERS_LIST',
+			userL: array
+		}, connection)
+		
+	}
+}
+connection.send('Hello World');
 });
 
 function sendTo(conn, message) {

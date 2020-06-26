@@ -26,7 +26,6 @@
             <v-flex md1 xs1></v-flex>
           </v-layout>
         </v-card-title>
-        <!-- <h6 class="card-title" v-if="current_user" @click="rate">Rate this movie</h6> -->
         <v-card-text>
           <v-layout row wrap>
          <v-flex md8 xs12>
@@ -96,7 +95,6 @@
           </v-form>
         </v-flex>
         <v-flex md4 xs12>
-        <!-- <div class="divMobil" style="font-size:120%;font-weight:bold;margin: 0 0 2% 0">Or</div> -->
           <p class="divMobil" style="font-size:120%;font-weight:bold;">Or By OAuth
     </p>
         <p class="divDesk" style="font-size:120%;font-weight:bold;"> By OAuth
@@ -172,11 +170,14 @@ export default {
     ],
     ws_var: '',
   }),
-  // mounted() {
-  //   // this.loaddesktop();
-  //   this.loadresponsive();
-  // },
   methods: {
+    async connectedUser(email) {
+      var dataToConnection = {
+          email: email,
+          connected: true
+        };
+        const resp = await services.updateConnected(dataToConnection);
+    },
     async login() {
       if (this.$refs.form.validate()) {
         try {
@@ -186,31 +187,28 @@ export default {
             email,
             password
           };
-          const resp = await services.getUsersConnect(this.email);
-          if (resp.userConnect !== 'no user') {
-            this.$swal('Oh oo!', `The user who have this ${email} is already logged`, 'error');
-            this.$router.push({ name: 'Login' });
-          } else {
+          // const resp = await services.getUsersConnect(this.email);
+          // if (resp.userConnect !== 'no user') {
+          //   this.$swal('Oh oo!', `The user who have this ${email} is already logged`, 'error');
+          //   this.$router.push({ name: 'Login' });
+          // } else {
             await services.login(dataToSend);
+              this.connectedUser(email)
             bus.$emit('refreshUser');
             // this.$router.push({ name: 'Video' });
             // return document.location.href = '/video' // is use for reloading Page
             return document.location.href = '/share' // is use for reloading Page
-          }
+          // }
           
         } catch (error) {
           console.log(error.response.data.message);
+          this.$swal('Oh oo!', ' an error try later');
+          this.$router.push({ name: 'Login' });
         }
         this.loading = true;
       }
       return true;
     },
-    // loadresponsive() {
-    //   return this.$router.go(1)
-    // },
-    // loaddesktop() {
-    //   return document.location.href = '/login'
-    // },
     clear() {
       this.$refs.form.reset();
       this.loading = false;

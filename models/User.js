@@ -7,7 +7,9 @@ const UserSchema = new Schema({
 	pseudo: String,
 	fullname: String,
 	email:String,
-	password: String
+	password: String,
+	connected: { type: Boolean, default: false },
+	active: { type: Boolean, default: false }
 });
 
 const User = mongoose.model('User', UserSchema);
@@ -35,3 +37,14 @@ module.exports.comparePassword = (candidatePassword, hash, callback) => {
 		callback(null, isMatch);
 	});
 };
+
+module.exports.UpdateById = (email, connected, callback) => {
+	const query = { email };
+	// User.findByIdAndUpdate(query.id, { $set: { connected: query.connected } }, callback);
+	User.findOneAndUpdate(query, { $set: { connected: connected } }, callback);
+};
+
+// module.exports.findOne = (email, callback) => {
+// 	const query = { email };
+// 	User.findOne(query, callback);
+// };
