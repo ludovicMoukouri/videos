@@ -283,6 +283,9 @@ export default {
           break;
           case "USERS_LIST": 
             _this.$store.dispatch("users", data.userL);
+            if(closeStoreValue === 'closeStoreValue'){
+
+            }
             // _this.usersMo;
             // self.usersArr = data.userL
             // for (var i = 0; i <= data.userL.length; i++) {
@@ -373,7 +376,16 @@ export default {
     onLogin: function() {
       const self = this;
       this.nbool = !this.nbool;
-      var webrtcDetectedBrowser = "";
+
+          if (self.successGetter === false) {
+            alert("Login unsuccessful, please try a different name.");
+          } else {
+            self.startConnection;
+          }
+        },
+        setupPeerConnection: function() {
+          const self = this;
+          var webrtcDetectedBrowser = "";
       var configuration = {};
       var connection_peer = {
         optional: []
@@ -392,19 +404,11 @@ export default {
             { url: "stun:127.0.0.1:8081" }
             ]
           };
-          self.$store.dispatch("yourConnectionAction", configuration, connection_peer);
-
-          if (self.successGetter === false) {
-            alert("Login unsuccessful, please try a different name.");
-          } else {
-            self.startConnection;
-          }
-        },
-        setupPeerConnection: function() {
-          const self = this;
+          const yourConnection = new RTCPeerConnection(configuration, connection_peer)
+          self.$store.dispatch("yourConnectionAction", yourConnection);
 
       // Setup ice handling
-      self.yourConnection.onicecandidate = function(event) {
+      yourConnection.onicecandidate = function(event) {
         self.$store.dispatch("sendAction", { type: 'candidate', candidate: event.candidate });
       }
       // self.yourConnection.ondatachannel = function(ev){
@@ -413,7 +417,7 @@ export default {
       //     console.log('Data channel is open and ready to be used.')
       //   }
       // }
-      self.openDataChannel();
+      self.openDataChannel(yourConnection);
     },
     onOffer: function() {
       const _this = this;
@@ -582,7 +586,8 @@ export default {
         this.ready = !this.ready
       }
     },
-    openDataChannel() {
+    openDataChannel(yourConnection) {
+      console.log('yourConnection yourConnection', yourConnection)
       const self = this;
       var dataChannelOptions = {
         ordered: true,
@@ -590,7 +595,7 @@ export default {
         negotiated: true,
         id: 1
       };
-      const dataChannel = this.yourConnection.createDataChannel("myShare", dataChannelOptions);
+      const dataChannel = yourConnection.createDataChannel("myShare", dataChannelOptions);
       self.$store.dispatch("dataChannelAction", dataChannel);
 
       dataChannel.onerror = function(error) {

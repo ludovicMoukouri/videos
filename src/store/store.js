@@ -73,8 +73,8 @@ const mutations = {
   Add_Their_Stream: function (state, payload) {
     state.theirStream = payload;
   },
-  Your_Connection: function (state, configur, connection_peer) {
-    state.yourConnection = new RTCPeerConnection(configur, connection_peer)
+  Your_Connection: function (state, yourCon) {
+    state.yourConnection = yourCon
     console.log('yourConnectionnnnnnnnnnnnnnnnnn', state.yourConnection)
   },
   Connected_User: function (state, payload) {
@@ -180,8 +180,8 @@ const actions = {
   addTheirStream: ({ commit }, payload) => {
     commit('Add_Their_Stream', payload);
   },
-  yourConnectionAction: ({ commit }, configur, connection_peer) => {
-    commit('Your_Connection', configur, connection_peer);
+  yourConnectionAction: ({ commit }, yourCon) => {
+    commit('Your_Connection', yourCon);
   },
   connectedUser: (context, payload) => {
     context.commit('Connected_User', payload);

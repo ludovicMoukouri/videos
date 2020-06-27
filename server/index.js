@@ -273,6 +273,7 @@ function removeElement(array, connection) {
 		array.splice(index, 1);
 		broadcast({
 			type: 'USERS_LIST',
+			closeStoreValue: 'closeStoreValue',
 			userL: array
 		}, connection)
 		
