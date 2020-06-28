@@ -159,7 +159,7 @@ const mutations = {
         return user != state.currentU;
       })
     state.users = filtered;
-    console.log('filtered filtered', sendState.name)
+    console.log('filtered filtered')
   },
   SendUsers: function (state, sendUsers) {
     if (!state.ws || state.ws.readyState !== 1) return;

@@ -168,7 +168,6 @@ wss.on('connection', function(connection, req) {
    	sendTo(connection, {
    		type: "login",
    		success: false,
-   		name: data.name
    	});
    } else {
    	connection.name = data.name;
@@ -177,6 +176,7 @@ wss.on('connection', function(connection, req) {
    	sendTo(connection, {
    		type: "login",
    		success: true,
+   		name: data.name
    	});
    }
    break;
