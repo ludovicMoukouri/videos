@@ -393,15 +393,15 @@ export default {
       };
       configuration = webrtcDetectedBrowser === "firefox" ? {
         iceServers: [
-        { urls: "stun:23.21.150.121"},
-        { url: "stun:127.0.0.1:8081" }
+        { "urls": "stun:23.21.150.121"},
+        { "url": "stun:127.0.0.1:8081" }
         ]
       }
           : // IP address
           {
             iceServers: [
-            { urls: "stun:stun.1.google.com:19302" },
-            { url: "stun:127.0.0.1:8081" }
+            { "urls": "stun:stun.1.google.com:19302" },
+            { "url": "stun:127.0.0.1:8081" }
             ]
           };
           const yourConnection = new RTCPeerConnection(configuration, connection_peer)
@@ -608,6 +608,7 @@ export default {
           switch (message.mtype) {
             case "notification":
             self.$store.dispatch("notifsTab", data.msge);
+            self.ready = !self.ready
             bus.$emit("refreshnotif");
             break; 
            case "start":
