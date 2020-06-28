@@ -392,14 +392,14 @@ export default {
         // optional: [{ DtlsSrtpKeyAgreement: true }, { RtpDataChannels: true }]
       };
       configuration = webrtcDetectedBrowser === "firefox" ? {
-        iceServers: [
+        "iceServers": [
         { "urls": "stun:23.21.150.121"},
         { "url": "stun:127.0.0.1:8081" }
         ]
       }
           : // IP address
           {
-            iceServers: [
+            "iceServers": [
             { "urls": "stun:stun.1.google.com:19302" },
             { "url": "stun:127.0.0.1:8081" }
             ]
@@ -608,7 +608,7 @@ export default {
           switch (message.mtype) {
             case "notification":
             self.$store.dispatch("notifsTab", data.msge);
-            self.ready = !self.ready
+            // self.ready = !self.ready
             bus.$emit("refreshnotif");
             break; 
            case "start":
