@@ -167,7 +167,8 @@ wss.on('connection', function(connection, req) {
    if (users[data.name]) {
    	sendTo(connection, {
    		type: "login",
-   		success: false
+   		success: false,
+   		name: data.name
    	});
    } else {
    	connection.name = data.name;

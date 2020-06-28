@@ -251,7 +251,6 @@ export default {
   created() {
     this.$store.dispatch("wsAction", wsshare);
     const _this = this;
-    _this.fetchUser()
     wsshare.onopen = function() {
       console.log("Connected");
     };
@@ -264,6 +263,7 @@ export default {
           case "login":
           _this.$store.dispatch("successAction", data.success);
           _this.onLogin;
+          _this.getusersConnected(data.name)
           break;
           case "offer":
           _this.$store.dispatch("offerName", data.name);
@@ -297,7 +297,7 @@ export default {
           break;
         }
       } catch(e) {
-        console.log('websocket ws error')
+        console.log('websocket ws error', e)
       }
       
     };
@@ -314,7 +314,7 @@ export default {
     // this.bann();
     // this.getusersConnected();
     this.listenToEvents();
-    // this.fetchUser();
+    this.fetchUser();
   },
   computed: {
     ...mapGetters([
@@ -392,15 +392,15 @@ export default {
         // optional: [{ DtlsSrtpKeyAgreement: true }, { RtpDataChannels: true }]
       };
       configuration = webrtcDetectedBrowser === "firefox" ? {
-        "iceServers": [
-        { "urls": "stun:23.21.150.121"},
+        iceServers: [
+        { urls: "stun:23.21.150.121"},
         { "url": "stun:127.0.0.1:8081" }
         ]
       }
           : // IP address
           {
-            "iceServers": [
-            { "urls": "stun:stun.1.google.com:19302" },
+            iceServers: [
+            { urls: "stun:stun.1.google.com:19302" },
             { "url": "stun:127.0.0.1:8081" }
             ]
           };
@@ -976,14 +976,8 @@ uploadFiles() {
     },
     async getusersConnected(curUser) {
       const self = this
-      // var us = []
       const resp = await services.getusersConnected();
-      //  us = resp.users
-      // console.log('this.curUser this.curUser', curUser)
-      // var filtered  = resp.users.filter(function (user) {
-      //   return user != curUser;
-      // })
-      // this.$store.dispatch("sendAction", { type: "ADD_USER", userL: resp.users });
+      
       self.$store.dispatch("sendUsers", { type: "ADD_USER", userL: resp.users });
     },
     async fetchUsersConnect(dataval) {
